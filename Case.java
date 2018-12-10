@@ -42,4 +42,8 @@ public boolean isTrueObjective() {
 public void setTrueObjective(boolean isTrueObjective) {
 	this.isTrueObjective = isTrueObjective;
 }
+public void affiche() 
+	Systeme.out.println(noise,nbStudent,nbProfessor);
+	Systeme.out.println("is Possible Objectif (bool) = " + isPossibleObjective);
+	Systeme.out.println("is true ojectif(bool) = "+ isTrueObjective;)
 }
