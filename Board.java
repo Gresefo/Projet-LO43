@@ -2,9 +2,7 @@
 //import java.io.*;
 
 public class Board {
-	static final int SIZE = 32;
-	Case board[][];
-	//private int size;
+	private Case board[][] = new Case[5][7];
 	private Case start, end;
 
 	public Board() {
