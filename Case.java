@@ -3,22 +3,25 @@ private int x,y;
 private int noise;
 private int nbStudent;
 private int nbProfessor;
-private boolean isLinkedTo[];
+private boolean isLinkedTo[] = new boolean[4];
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
 
-public Case(int i, intj) {
+public Case(int i, int j) {
 	this.x=i;
 	this.y=j;
 }
+
 public Case() {
 	this.x = 0;
 	this.y = 0;
 	
 }
+
 public int getPosition() {
 	return x,y;
 }
+
 public void setPosition(int a, int b) {
 	this.x = a;
 	this.y = b;
