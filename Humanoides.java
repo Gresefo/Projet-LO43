@@ -7,7 +7,7 @@ protected int action;
 protected int health;
 
 	public Humanoides() { // constructor
-		this.name = NULL;
+		this.name = null;
 		this.position_x = 0;
 		this.position_y = 0;
 		this.action = 1;

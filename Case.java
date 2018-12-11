@@ -3,6 +3,7 @@ private int x,y;
 private int noise;
 private int nbStudent;
 private int nbProfessor;
+private boolean isLinkedTo[];
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
 
