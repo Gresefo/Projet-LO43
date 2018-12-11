@@ -32,6 +32,12 @@ public int getY() {
 	return y;
 	
 }
+public boolean getIsLinkedTo(int i) {
+	return isLinkedTo[i];
+}
+public Case getStart() {
+	return start;
+}
 public void setX(int x){
 	this.x = x;
 }

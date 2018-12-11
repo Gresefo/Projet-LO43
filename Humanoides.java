@@ -1,27 +1,55 @@
 public class Humanoides {
 
 protected String name;
-protected int position_x;
-protected int position_y;
+protected Case actual_case;
 protected int action;
 protected int health;
 
 	public Humanoides() { // constructor
 		this.name = null;
-		this.position_x = 0;
-		this.position_y = 0;
 		this.action = 1;
 		this.health = 2;
+		this.actual_case = this.actual_case.getStart();
 	}
 
 	public void attack() {
-
+		
+		
+		
 	}
 
-	public void walk() {
-
+	public void walkTop() {
+		if (actual_case.getIsLinkedTo(0))
+		{
+			this.actual_case.setY(this.actual_case.getY() + 1);
+			this.action--;
+		}
 	}
-
+	
+	public void walkBottom() {
+		if (actual_case.getIsLinkedTo(1))
+		{
+			this.actual_case.setY(this.actual_case.getY() - 1);
+			this.action--;
+		}
+	}
+	
+	public void walkRight() {
+		if (actual_case.getIsLinkedTo(2))
+		{
+			this.actual_case.setY(this.actual_case.getX() + 1);
+			this.action--;
+		}
+	}
+	
+	public void walkLeft() {
+		if (actual_case.getIsLinkedTo(3))
+		{
+			this.actual_case.setY(this.actual_case.getY() - 1);
+			this.action--;
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}
