@@ -1,49 +1,61 @@
-abstract class Humanoides {
+public class Humanoides {
 
 protected String name;
-protected int position_x;
-protected int position_y;
+protected Case current_case;
 protected int action;
 protected int health;
 
 	public Humanoides() { // constructor
 		this.name = null;
-		this.position_x = 0;
-		this.position_y = 0;
 		this.action = 1;
 		this.health = 2;
+		this.current_case = null;
 	}
 
-	public void attack(Humanoides H) {
-		int écart=
-	}
-
-	public void walk() {
+	public void attack() {
+		
+		
 		
 	}
 
+	public void walkTop() {
+		if (current_case.getIsLinkedTo(0))
+		{
+			this.current_case.setY(this.current_case.getY() + 1);
+			this.action--;
+		}
+	}
+	
+	public void walkBottom() {
+		if (current_case.getIsLinkedTo(1))
+		{
+			this.current_case.setY(this.current_case.getY() - 1);
+			this.action--;
+		}
+	}
+	
+	public void walkRight() {
+		if (current_case.getIsLinkedTo(2))
+		{
+			this.current_case.setY(this.current_case.getX() + 1);
+			this.action--;
+		}
+	}
+	
+	public void walkLeft() {
+		if (current_case.getIsLinkedTo(3))
+		{
+			this.current_case.setY(this.current_case.getY() - 1);
+			this.action--;
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getPosition_x() {
-		return position_x;
-	}
-
-	public void setPosition_x(int position_x) {
-		this.position_x = position_x;
-	}
-
-	public int getPosition_y() {
-		return position_y;
-	}
-
-	public void setPosition_y(int position_y) {
-		this.position_y = position_y;
 	}
 
 	public int getAction() {
