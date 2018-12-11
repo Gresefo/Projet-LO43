@@ -7,4 +7,10 @@ Weapon list:
 - chalk
 - general culture courses list
 - mouse wire
-- dictionnary(anglais -> francais) red + dictionnary(français -> anglais) blue = super dictionnary green
+- dictionnary(anglais -> francais) red + dictionnary(franï¿½ais -> anglais) blue = super dictionnary green
+
+adresse mail prof de tp: alexandre.lombard@utbm.fr
+adresse mail reponsable:franck.gechter@utbm.fr
+
+Rapport -> modÃ©lisation ->analyse du sujet
+						->Diagramme UML	

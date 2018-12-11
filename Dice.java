@@ -1,3 +1,4 @@
+
 public class Dice {
 	private String name;
 	
