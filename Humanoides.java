@@ -1,7 +1,7 @@
 public class Humanoides {
 
 protected String name;
-protected Case actual_case;
+protected Case current_case;
 protected int action;
 protected int health;
 
@@ -9,7 +9,7 @@ protected int health;
 		this.name = null;
 		this.action = 1;
 		this.health = 2;
-		this.actual_case = null;
+		this.current_case = null;
 	}
 
 	public void attack() {
@@ -19,33 +19,33 @@ protected int health;
 	}
 
 	public void walkTop() {
-		if (actual_case.getIsLinkedTo(0))
+		if (current_case.getIsLinkedTo(0))
 		{
-			this.actual_case.setY(this.actual_case.getY() + 1);
+			this.current_case.setY(this.current_case.getY() + 1);
 			this.action--;
 		}
 	}
 	
 	public void walkBottom() {
-		if (actual_case.getIsLinkedTo(1))
+		if (current_case.getIsLinkedTo(1))
 		{
-			this.actual_case.setY(this.actual_case.getY() - 1);
+			this.current_case.setY(this.current_case.getY() - 1);
 			this.action--;
 		}
 	}
 	
 	public void walkRight() {
-		if (actual_case.getIsLinkedTo(2))
+		if (current_case.getIsLinkedTo(2))
 		{
-			this.actual_case.setY(this.actual_case.getX() + 1);
+			this.current_case.setY(this.current_case.getX() + 1);
 			this.action--;
 		}
 	}
 	
 	public void walkLeft() {
-		if (actual_case.getIsLinkedTo(3))
+		if (current_case.getIsLinkedTo(3))
 		{
-			this.actual_case.setY(this.actual_case.getY() - 1);
+			this.current_case.setY(this.current_case.getY() - 1);
 			this.action--;
 		}
 	}
