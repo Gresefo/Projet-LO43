@@ -1,19 +1,13 @@
 public class Professor extends Humanoides {
 
 protected int level;
-protected Weapon listWeapon[]=new Weapon[2];
-//protected Consummable listConsummable[]=new Consummable[3];
+protected Object list;
 
 public Professor() {
 	super();
 	this.health = 2;
 	this.action = 4;
 	
-}
-
-public void attack(Humanoides S)
-{
-	int pos
 }
 
 public int getLevel() {
@@ -24,11 +18,11 @@ public void setLevel(int level) {
 	this.level = level;
 }
 
-public Item getList() {
+public Object getList() {
 	return list;
 }
 
-public void setList(Item list) {
+public void setList(Object list) {
 	this.list = list;
 }
 
@@ -42,11 +36,6 @@ public void setHealth(int health) {
 
 public int getAction() {
 	return action;
-}
-
-public void attack(Humanoides S)
-{
-	
 }
 
 public void setAction(int action) {
