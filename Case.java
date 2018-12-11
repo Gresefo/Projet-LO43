@@ -1,46 +1,42 @@
 public class Case {
-private int num;
+private int x,y;
 private int noise;
 private int nbStudent;
 private int nbProfessor;
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
-private Case nord, sud, est, ouest;
 
-public Case(int i) {
-	this.num=i;
+public Case(int i, intj) {
+	this.x=i;
+	this.y=j;
 }
 public Case() {
-	num = 0;
+	this.x = 0;
+	this.y = 0;
+	
 }
-public int getNoise() {
-	return noise;
+public int getPosition() {
+	return x,y;
 }
-public void setNord(Case n) {
-	this.nord = n;
+public void setPosition(int a, int b) {
+	this.x = a;
+	this.y = b;
+	
 }
-public Case getNord() {
-	return nord;
+public int getX() {
+	return x;
+	
 }
-public void setSud(Case s) {
-	this.sud = s;
+public int getY() {
+	return y;
+	
 }
-public Case getSud() {
-	return sud;
+public void setX(int x){
+	this.x = x;
 }
-public void setEst(Case e) {
-	this.est = e;
+public void setY(int y) {
+	this.y = y;
 }
-public Case getEst() {
-	return est;
-}
-public void setOuest(Case o) {
-	this.ouest = o;
-}
-public Case getOuest() {
-	return ouest;
-}
-
 public void setNoise(int noise) {
 	this.noise = noise;
 }
@@ -71,5 +67,6 @@ public void setTrueObjective(boolean isTrueObjective) {
 public void affiche() 
 	Systeme.out.println(noise,nbStudent,nbProfessor);
 	Systeme.out.println("is Possible Objectif (bool) = " + isPossibleObjective);
-	Systeme.out.println("is true ojectif(bool) = "+ isTrueObjective;)
+	Systeme.out.println("is true ojectif(bool) = "+ isTrueObjective);
+	Systeme.out.println("Position = "+x,y);
 }
