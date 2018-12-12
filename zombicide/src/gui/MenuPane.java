@@ -33,7 +33,6 @@ public class MenuPane extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		int i = menuControl.getSelectedButton();
-		System.out.println(i);
 		g.drawImage(BG_IMG, 0, 0, this);
 		if (i == 1) {
 			g.drawImage(BTN_PLAY, 510, 400, this);

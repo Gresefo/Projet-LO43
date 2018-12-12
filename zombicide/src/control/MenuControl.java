@@ -20,4 +20,8 @@ public class MenuControl {
 	public int getSelectedButton() {
 		return selected_button;
 	}
+	
+	public void setSelectedButton(int selected_button) {
+		this.selected_button = selected_button;
+	}
 }
