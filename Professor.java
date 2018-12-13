@@ -1,7 +1,8 @@
 public class Professor extends Humanoides {
 
 protected int level;
-protected Object list;
+protected protected Weapon listWeapon[]=new Weapon[2];
+//protected Consummable listConsummable[]=new Consummable[3];
 
 public Professor() {
 	super();
