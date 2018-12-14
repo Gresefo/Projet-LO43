@@ -1,18 +1,20 @@
 public abstract class Humanoides {
 
-protected String name;
+protected int id;
 protected Case current_case;
 protected int action;
 protected int health;
 
-	public Humanoides() { // constructor
-		this.name = null;
+	// Constructor
+	public Humanoides() {
+		this.id = 0;
 		this.action = 1;
 		this.health = 2;
 		this.current_case = null;
 	}
 
-	public abstract void attack();
+	// Operations
+	public abstract void attack(Humanoides huma);
 
 	public void walkTop() {
 		if (current_case.getIsLinkedTo(0))
@@ -46,14 +48,8 @@ protected int health;
 		}
 	}
 	
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	// Getters and Setters
 	public int getAction() {
 		return action;
 	}

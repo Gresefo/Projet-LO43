@@ -1,13 +1,14 @@
 
 public class Student extends Humanoides{
 
+	// Constructor
 	public Student() {
 		super();
 		action = 1; 
 	}
 	
-	//
-	public void attack() {
+	// Operations
+	public void attack(Humanoides huma) {
 		
 	}
 }

@@ -1,10 +1,10 @@
 public class Dice {
-	private String name;
-	
-	
-	public Dice(String name) {
-		this.name = name;
+
+	// Constructor
+	public Dice(){
+		
 	}
+	
 	public int rollDice() {
 		  int MAX = 6;
 	      int roll = (int) (Math.random() * MAX) + 1;

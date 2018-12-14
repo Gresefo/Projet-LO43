@@ -11,7 +11,8 @@ public class Weapon {
 	private int damage;
 	private boolean isAmbidextrous;
 	
-	public Weapon(boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg,int iD,String Name)
+	// Constructor
+	public Weapon(int iD,String Name,boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
 	{
 		id=iD;
 		name=Name;
@@ -25,5 +26,86 @@ public class Weapon {
 		damage=dmg;
 	}
 	
+	// Getters and Setters
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	public boolean getIsOpeningDoor() {
+		return isOpeningDoor;
+	}
+
+	public void setOpeningDoor(boolean isOpeningDoor) {
+		this.isOpeningDoor = isOpeningDoor;
+	}
+
+	public boolean getIsSilentDoor() {
+		return isSilentDoor;
+	}
+
+	public void setSilentDoor(boolean isSilentDoor) {
+		this.isSilentDoor = isSilentDoor;
+	}
+
+	public boolean getIsSilentAttack() {
+		return isSilentAttack;
+	}
+
+	public void setSilentAttack(boolean isSilentAttack) {
+		this.isSilentAttack = isSilentAttack;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+	public int getNb_Dice() {
+		return nb_Dice;
+	}
+
+	public void setNb_Dice(int nb_Dice) {
+		this.nb_Dice = nb_Dice;
+	}
+
+	public int getResult_Dice() {
+		return result_Dice;
+	}
+
+	public void setResult_Dice(int result_Dice) {
+		this.result_Dice = result_Dice;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public boolean getIsAmbidextrous() {
+		return isAmbidextrous;
+	}
+
+	public void setAmbidextrous(boolean isAmbidextrous) {
+		this.isAmbidextrous = isAmbidextrous;
+	}
+
 	
+
 }
