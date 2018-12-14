@@ -1,22 +1,41 @@
-//import java.util.*;
+///import java.util.*;
 //import java.io.*;
 
 public class Board {
-	static final int SIZE = 32;
-	Case board[][];
+	static final int SIZE = 35;
+	private Case board[][] = null;
 	//private int size;
 	private Case start, end;
-
+	
+	/*public Case[] neighbour(int x, int y) {
+		Case neigh[] = null;
+		Case n = new Case();
+		Case e = new Case();
+		Case s = new Case();
+		Case o = new Case();
+		  board[y+1][x]=n;
+		  board[y][x+1]=e;
+		  board[y-1][x]=s;
+		  board[y][x-1]=o;
+		  neigh[0] = n;
+		  neigh[1] = e;
+		  neigh[2] = s;
+		  neigh[3] = o;
+		  
+		  return neigh;
+		  } */
 	public Board() {
-		
-		for (int i=0; i<= 8; i++) {
-			for (int j=0; j<=4; j++) {
+		for (int i=0; i<=7; i++) {
+			for (int j=0; j<=5; j++) {
 				Case c = new Case();
-				board[i][j] = c;
-				
+				board [j][i] = c;
+				System.out.print("-");
 			}
-				
+				System.out.println(" ");
 		}
+	}
+	public Case getEnd() {
+		return this.end;
 	}
 	public Case getStart() {
 		return this.start;
@@ -24,11 +43,24 @@ public class Board {
 	
 	public void setStart(int x, int y) {
 		Case re = new Case();
-		for(int i=0; i<= 8 || i!=x; i++) {
-			for(int j=0; j<=4 || j !=y; j++) {
-				board[i][j] = re;
+		for(int i=0; i<= 7|| i!=y; i++) {
+			for(int j=0; j<=5 || j !=x; j++) {
+				board[j][i] = re;
 			}
 	}
 		this.start= re;
 	}
-}
+	public void setEnd(int x, int y) {
+		Case re = new Case();
+		for(int i=0; i<= 8 || i!=y; i++) {
+			for(int j=0; j<=4 || j !=x; j++) {
+				board[j][i] = re;
+			}
+	}
+		this.end= re;
+	}
+	
+	
+
+
+

@@ -5,6 +5,10 @@ private int nbStudent;
 private int nbProfessor;
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
+private boolean isClassroom;
+private boolean isCorridor;
+private boolean isstudentspown;
+
 
 public Case(int i, intj) {
 	this.x=i;
@@ -14,6 +18,24 @@ public Case() {
 	this.x = 0;
 	this.y = 0;
 	
+}
+public void setIsClassroom(boolean a) {
+	this.isClassroom(a);
+}
+public void setIsCorridor(boolean a) {
+	this.isCorridor(a);
+}
+public void setIsStudentSpown(boolean a) {
+	this.isstudentspown(a);
+}
+public boolean getIsClassroom() {
+	return isClassroom;
+}
+public boolean getIsCorridor() {
+	return isCorridor;
+}
+public boolean getIsStudentSpown() {
+	return isstudentspown;
 }
 public int getPosition() {
 	return x,y;
@@ -65,8 +87,8 @@ public void setTrueObjective(boolean isTrueObjective) {
 	this.isTrueObjective = isTrueObjective;
 }
 public void affiche() 
-	Systeme.out.println(noise,nbStudent,nbProfessor);
-	Systeme.out.println("is Possible Objectif (bool) = " + isPossibleObjective);
-	Systeme.out.println("is true ojectif(bool) = "+ isTrueObjective);
-	Systeme.out.println("Position = "+x,y);
+	System.out.println(noise,nbStudent,nbProfessor);
+	System.out.println("is Possible Objectif (bool) = " + isPossibleObjective);
+	System.out.println("is true ojectif(bool) = "+ isTrueObjective);
+	System.out.println("Position = "+x,y);
 }
