@@ -1,4 +1,4 @@
-public class Humanoides {
+public abstract class Humanoides {
 
 protected String name;
 protected Case current_case;
@@ -12,11 +12,7 @@ protected int health;
 		this.current_case = null;
 	}
 
-	public void attack() {
-		
-		
-		
-	}
+	public abstract void attack();
 
 	public void walkTop() {
 		if (current_case.getIsLinkedTo(0))

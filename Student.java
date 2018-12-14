@@ -6,6 +6,7 @@ public class Student extends Humanoides{
 		action = 1; 
 	}
 	
+	//
 	public void attack() {
 		
 	}
