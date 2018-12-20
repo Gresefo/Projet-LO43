@@ -1,12 +1,11 @@
+public class Dice {
 
-public class Die {
-	private String name;
-	
-	
-	public Die(String name) {
-		this.name = name;
+	// Constructor
+	public Dice(){
+		
 	}
-	public int rollDie() {
+	
+	public int rollDice() {
 		  int MAX = 6;
 	      int roll = (int) (Math.random() * MAX) + 1;
 	      //System.out.println(roll);
