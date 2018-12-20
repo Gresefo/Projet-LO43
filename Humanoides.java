@@ -65,5 +65,9 @@ protected int health;
 	public void setHealth(int health) {
 		this.health = health;
 	}
+	
+	public Case getCase() {
+		return current_case;
+	}
 
 }

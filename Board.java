@@ -2,7 +2,7 @@
 //import java.io.*;
 
 public class Board {
-	private Case board[][] = new Case[5][7];
+	private Case board[][] = new Case[5][7];//à mettre en static
 	private Case start, end;
 	Humanoides listHumanoides[];
 
