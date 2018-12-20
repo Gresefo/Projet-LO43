@@ -4,6 +4,8 @@ protected int level;
 protected Weapon listWeapon[] = new Weapon[2];
 protected Consumable listConsumable[] = new Consumable[3];
 protected Dice dice = new Dice();
+protected String name;
+protected boolean isPreviousFirst;
 
 
 	// Constructor
