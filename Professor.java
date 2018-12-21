@@ -1,3 +1,4 @@
+
 public class Professor extends Humanoides {
 
 protected int level;
@@ -260,4 +261,5 @@ protected Dice dice = new Dice();
 	public void setAction(int action) {
 		this.action = action;
 	}
+
 }
