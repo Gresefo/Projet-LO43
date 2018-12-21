@@ -12,6 +12,12 @@ protected int health;
 		this.health = 2;
 		this.current_case = null;
 	}
+	
+	//Destructor
+	public void finalize()
+	    {
+	         System.out.println("Objet nettoyé de la mémoire");   
+	    }
 
 	// Operations
 	public abstract void attack(Humanoides huma);

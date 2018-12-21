@@ -14,30 +14,59 @@ protected Dice dice = new Dice();
 		this.level = 1;
 	}
 	
+	
+	
 	// Operations
 	public void attack(Humanoides huma) { //trouver un moyen de differencier les attaques cac et distance, la il s'agit que des attaques cac
 		//sur student et non prof, et comment faire pour les armes ambidextres
+		boolean boucle=true;
 		if(action > 0)
 		{ // afficher quelque chose dans le cas contraire
 			double distance=Math.sqrt(Math.pow(current_case.getX()-huma.getCase().getX(),2)+Math.pow(current_case.getY()-huma.getCase().getY(),2));//pythagore et calcul distance
 			int dist=(int)distance;
 			if(listWeapon[0] != null) //same
 			{
+
+				
 				int range=listWeapon[0].getRange();
 				if(range==0 )
 				{
 					if(dist==0)
 					{
 						int res = 0;
-						for(int i = 0; i < listWeapon[0].getNb_Dice(); i++)
+						if(listWeapon[0].getIsAmbidextrous()==false || listWeapon[0]!=listWeapon[1] || listWeapon[1]==null)
+						{
+						for(int i = 0; boucle && i < listWeapon[0].getNb_Dice(); i++)
 						{
 							res = dice.rollDice();
 							if(res >= listWeapon[0].getResult_Dice())
 							{
 								if(huma.health <= listWeapon[0].getDamage())
 								{
-									// tuer le student, le faire disparaitre de la list dans board
+									huma=null;
+									huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+									boucle=false;
 								}
+							}
+							
+						}
+						}
+						else
+						{
+							System.out.println("Bonus ambidextre");
+							for(int i = 0; boucle && i < listWeapon[0].getNb_Dice()*2; i++)
+							{
+								res = dice.rollDice();
+								if(res >= listWeapon[0].getResult_Dice())
+								{
+									if(huma.health <= listWeapon[0].getDamage())
+									{
+										huma=null;
+										huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+										boucle=false;
+									}
+								}
+								
 							}
 						}
 					}
@@ -49,19 +78,44 @@ protected Dice dice = new Dice();
 				else
 				{
 					
-					boolean atteignable=reachTarget(huma);
-					if(atteignable)
+					boolean attackable=reachTarget(huma);
+					if(attackable && dist <= range)
 					{
+						
 						int res = 0;
-						for(int i = 0; i < listWeapon[0].getNb_Dice(); i++)
+						if(listWeapon[0].getIsAmbidextrous()==false || listWeapon[0]!=listWeapon[1] || listWeapon[1]==null)
+						{
+						for(int i = 0; boucle && i < listWeapon[0].getNb_Dice(); i++)
 						{
 							res = dice.rollDice();
 							if(res >= listWeapon[0].getResult_Dice())
 							{
 								if(huma.health <= listWeapon[0].getDamage())
 								{
-									// tuer le student, le faire disparaitre de la list dans board
+									huma=null;
+									huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+									boucle=false;
 								}
+							}
+							
+						}
+						}
+						else
+						{
+							System.out.println("Bonus ambidextre");
+							for(int i = 0; boucle && i < listWeapon[0].getNb_Dice()*2; i++)
+							{
+								res = dice.rollDice();
+								if(res >= listWeapon[0].getResult_Dice())
+								{
+									if(huma.health <= listWeapon[0].getDamage())
+									{
+										huma=null;
+										huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+										boucle=false;
+									}
+								}
+								
 							}
 						}
 					}
@@ -75,9 +129,13 @@ protected Dice dice = new Dice();
 			}
 			else
 			{
-				
+				System.out.println("Aucune arme disponible");
 			}
 			}
+		else
+		{
+			System.out.println("Aucun point d'action disponible.");
+		}
 		}
 	
 	protected boolean reachTarget(Humanoides cible) 
@@ -94,6 +152,10 @@ protected Dice dice = new Dice();
 	{
 		int ecart=current_case.getX()-cible.getCase().getX();
 		Case pointer=current_case;
+		if(ecart==0)
+		{
+			return true;
+		}
 		if(ecart<0)
 		{
 			while(pointer != cible.getCase())
@@ -119,13 +181,17 @@ protected Dice dice = new Dice();
 			}
 			return true;
 		}
-		return true;//cas ou ecart x=0
+		
 	}
 	
 	protected boolean walkPathY(Humanoides cible)
 	{
 		int ecart=current_case.getX()-cible.getCase().getX();
 		Case pointer=current_case;
+		if(ecart==0)
+		{
+			return true;
+		}
 		if(ecart<0)
 		{
 			while(pointer != cible.getCase())
@@ -151,7 +217,6 @@ protected Dice dice = new Dice();
 			}
 			return true;
 		}
-		return true;//cas ou ecart y=0
 	}
 	
 	public void switchingWeapon() {
