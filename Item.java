@@ -10,7 +10,7 @@ public class Item {
 	
 	public Item giveItem(int id)
 	{
-
+		// faire un moyen d''initialiser les objets
 	}
 
 }
