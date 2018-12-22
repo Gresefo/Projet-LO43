@@ -287,7 +287,8 @@ protected Dice dice = new Dice();
 		{
 			if (current_case.isTrueObjective)
 			{
-				// faire la methode qui modifie isLinkedTo des deux cases concernées, encore faut il savoir de quelle case il s'agit
+				
+				// faire la methode qui modifie isLinkedTo des deux cases concernées
 			}
 			level = level + 5;
 			action--;
