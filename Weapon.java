@@ -1,5 +1,5 @@
 
-public class Weapon {
+public class Weapon extends Item{
 	private String name;
 	private int id;
 	private boolean isOpeningDoor;
@@ -12,10 +12,9 @@ public class Weapon {
 	private boolean isAmbidextrous;
 	
 	// Constructor
-	public Weapon(int iD,String Name,boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
+	public Weapon(int id, String _name, boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
 	{
-		id=iD;
-		name=Name;
+		super(id, _name);
 		isOpeningDoor=isOD;
 		isSilentDoor=isSD;
 		isSilentAttack=isSA;

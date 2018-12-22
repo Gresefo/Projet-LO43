@@ -2,8 +2,7 @@
 public class Professor extends Humanoides {
 
 protected int level;
-protected Weapon listWeapon[] = new Weapon[2];
-protected Consumable listConsumable[] = new Consumable[3];
+protected Item listItem[] = new Item[5];
 protected Dice dice = new Dice();
 
 
@@ -220,12 +219,78 @@ protected Dice dice = new Dice();
 		}
 	}
 	
-	public void switchingWeapon() {
-		if(listWeapon[0] != null && listWeapon[1] != null)
+	public void switchingItem(int i, int j) {
+		if(i != j && i >= 0 && i <= 4 && j >= 0 && j <= 4)
 		{
-			Weapon tmp = listWeapon[0];
-			listWeapon[0] = listWeapon[1];
-			listWeapon[1] = tmp;
+			Item tmp = listItem[i];
+			listItem[i] = listItem[j];
+			listItem[j] = tmp;
+			action--;
+		}
+	}
+	
+	public void throwItem (int i)
+	{
+		if (i >= 0 && i <= 4)
+		{
+			listItem[i] = null;
+		}
+	}
+	
+	public void improveItem (int i)
+	{
+		if (i >= 0 && i <= 4)
+		{
+			int j = 0;
+			if (listItem[i].ID == 4) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
+			{
+				while (listItem[j].ID != 9 && j < 5) 
+				{
+					j++;
+				}
+				if (listItem[j].ID == 9) 
+				{
+					listItem[j] = null;
+					listItem[i] = giveItem(5);
+				}
+			}
+			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			{
+				while (listItem[j].ID != 11 && j < 5) 
+				{
+					j++;
+				}
+				if (listItem[j].ID == 11) 
+				{
+					listItem[j] = null;
+					listItem[i] = giveItem(8);
+				}
+			}	
+			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			{
+				while (listItem[j].ID != 10 && j < 5) 
+				{
+					j++;
+				}
+				if (listItem[j].ID == 10) 
+				{
+					listItem[j] = null;
+					listItem[i] = giveItem(8);
+				}
+			}
+		}
+	}
+	
+	public void checkObjecive ()
+	{
+		if (current_case.isPossibleObjecive)
+		{
+			if (current_case.isTrueObjective)
+			{
+				// faire la methode qui modifie isLinkedTo des deux cases concernées, encore faut il savoir de quelle case il s'agit
+			}
+			level = level + 5;
+			action--;
 		}
 	}
 	
@@ -236,14 +301,6 @@ protected Dice dice = new Dice();
 	
 	public void setLevel(int level) {
 		this.level = level;
-	}
-	
-	public Object getListWeapon() {
-		return listWeapon;
-	}
-	
-	public void setListWeapon(Weapon[] listWeapon) {
-		this.listWeapon = listWeapon;
 	}
 	
 	public int getHealth() {
