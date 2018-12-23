@@ -61,6 +61,9 @@ private boolean isStudentSpawn;
 	public void setY(int y) {
 		this.y = y;
 	}
+	public int getNoise() {
+		return noise;
+	}
 	public void setNoise(int noise) {
 		this.noise = noise;
 	}

@@ -11,7 +11,7 @@ public class Main
 		System.out.println(board.listAllItems[0].getName() + "    " + board.listAllItems[1].getName());
 
 		
-		System.out.println(board.listAllItems[0].getName() + "    " + board.listAllItems[1].getName());
+		System.out.println(board.listAllItems[0].getName() + "    " + board. listAllItems[1].getName());
 		
 		
 	}

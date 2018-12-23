@@ -83,4 +83,8 @@ public class Board {
 		this.end= re;
 	}
 	
+	public Case[][] getBoard(){
+		return board;
+	}
+	
 }
