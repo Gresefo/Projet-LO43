@@ -2,6 +2,7 @@
 public class Item {
 	int ID;
 	String name;
+	
 
 	public Item(int id, String _name) {
 		ID = id;
@@ -28,7 +29,9 @@ public class Item {
 	// From the ID of an Item, return the Item itself
 	public Item giveItem(int id)
 	{
-		// faire un moyen d''initialiser les objets
+		Item item;
+		
+		return item;
 	}
 
 }

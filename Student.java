@@ -8,7 +8,10 @@ public class Student extends Humanoides{
 	}
 	
 	// Operations
-	public void attack(Humanoides huma) {
-		
+	public void attack(Professor prof) {
+		prof.health--;
+		action--;	
 	}
+	
+	
 }
