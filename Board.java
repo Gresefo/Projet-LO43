@@ -2,7 +2,7 @@
 //import java.io.*;
 
 public class Board {
-	private Case board[][] = new Case[5][7];//à mettre en static
+	Case board[][] = new Case[5][7];//à mettre en static
 	private Case start, end;
 	// All class from the package can access those 2 attributs
 	Humanoides listHumanoides[]; 
@@ -81,10 +81,6 @@ public class Board {
 			}
 		}
 		this.end= re;
-	}
-	
-	public Case[][] getBoard(){
-		return board;
 	}
 	
 }
