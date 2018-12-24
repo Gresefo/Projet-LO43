@@ -21,6 +21,14 @@ private boolean isstudentspown;
 	}
 	
 	// Getters and Setters
+	public boolean getIsPossibleObjective()
+	{
+		return isPossibleObjective;
+	}
+	public boolean getIsTrueObjective()
+	{
+		return isTrueObjective;
+	}
 	public boolean getIsLinkedTo(int i) {
 		return isLinkedTo[i];
 	}

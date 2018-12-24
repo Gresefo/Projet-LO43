@@ -26,8 +26,8 @@ public class Board {
 	
 	// Constructors
 	public Board() {
-		for (int i=0; i<=7; i++) {
-			for (int j=0; j<=5; j++) {
+		for (int i=0; i<7; i++) {
+			for (int j=0; j<5; j++) {
 				Case c = new Case();
 				board [j][i] = c;
 				System.out.print("-");

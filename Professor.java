@@ -1,8 +1,9 @@
-
+import java.util.Scanner; 
 public class Professor extends Humanoides {
 
 protected int level;
 protected Item listItem[] = new Item[5];
+//protected Weapon listWeapon[] = new Weapon[2] ;
 protected Dice dice = new Dice();
 
 
@@ -24,24 +25,32 @@ protected Dice dice = new Dice();
 		{ // afficher quelque chose dans le cas contraire
 			double distance=Math.sqrt(Math.pow(current_case.getX()-huma.getCase().getX(),2)+Math.pow(current_case.getY()-huma.getCase().getY(),2));//pythagore et calcul distance
 			int dist=(int)distance;
-			if(listWeapon[0] != null) //same
+			String newLine = System.getProperty("line.separator");
+			//pour demain je dois m'occuper des cas d'erreur ou listitem[1 et 0] sont pas forcément des armes 
+			if(listItem[0] != null && listItem[0].getIsWeapon()==true ) //same
 			{
-
-				
-				int range=listWeapon[0].getRange();
+				if(listItem[0]!=listItem[1] && listItem[1]!=null)
+				{
+					Scanner sc = new Scanner(System.in);
+					System.out.println("Quelle arme utiliser? "+newLine+"1: "+listItem[0].getName()+ "|dégats :"+listItem[0].getDamage()+newLine+"2: "+listItem[1].getName()+"|dégats :"+listItem[1].getDamage());
+					int id = sc.nextInt();
+					System.out.println("Vous avez saisi le nombre : " + id);
+					sc.close();
+				}
+				int range=listItem[0].getRange();
 				if(range==0 )
 				{
 					if(dist==0)
 					{
 						int res = 0;
-						if(listWeapon[0].getIsAmbidextrous()==false || listWeapon[0]!=listWeapon[1] || listWeapon[1]==null)
+						if(listItem[0].getIsAmbidextrous()==false || listItem[0]!=listItem[1] || listItem[1]==null)
 						{
-						for(int i = 0; boucle && i < listWeapon[0].getNb_Dice(); i++)
+						for(int i = 0; boucle && i < listItem[0].getNb_Dice(); i++)
 						{
 							res = dice.rollDice();
-							if(res >= listWeapon[0].getResult_Dice())
+							if(res >= listItem[0].getResult_Dice())
 							{
-								if(huma.health <= listWeapon[0].getDamage())
+								if(huma.health <= listItem[0].getDamage())
 								{
 									huma=null;
 									huma.finalize();// tuer le student, le faire disparaitre de la list dans board
@@ -54,12 +63,12 @@ protected Dice dice = new Dice();
 						else
 						{
 							System.out.println("Bonus ambidextre");
-							for(int i = 0; boucle && i < listWeapon[0].getNb_Dice()*2; i++)
+							for(int i = 0; boucle && i < listItem[0].getNb_Dice()*2; i++)
 							{
 								res = dice.rollDice();
-								if(res >= listWeapon[0].getResult_Dice())
+								if(res >= listItem[0].getResult_Dice())
 								{
-									if(huma.health <= listWeapon[0].getDamage())
+									if(huma.health <= listItem[0].getDamage())
 									{
 										huma=null;
 										huma.finalize();// tuer le student, le faire disparaitre de la list dans board
@@ -83,14 +92,14 @@ protected Dice dice = new Dice();
 					{
 						
 						int res = 0;
-						if(listWeapon[0].getIsAmbidextrous()==false || listWeapon[0]!=listWeapon[1] || listWeapon[1]==null)
+						if(listItem[0].getIsAmbidextrous()==false || listItem[0]!=listItem[1] || listItem[1]==null)
 						{
-						for(int i = 0; boucle && i < listWeapon[0].getNb_Dice(); i++)
+						for(int i = 0; boucle && i < listItem[0].getNb_Dice(); i++)
 						{
 							res = dice.rollDice();
-							if(res >= listWeapon[0].getResult_Dice())
+							if(res >= listItem[0].getResult_Dice())
 							{
-								if(huma.health <= listWeapon[0].getDamage())
+								if(huma.health <= listItem[0].getDamage())
 								{
 									huma=null;
 									huma.finalize();// tuer le student, le faire disparaitre de la list dans board
@@ -103,12 +112,12 @@ protected Dice dice = new Dice();
 						else
 						{
 							System.out.println("Bonus ambidextre");
-							for(int i = 0; boucle && i < listWeapon[0].getNb_Dice()*2; i++)
+							for(int i = 0; boucle && i < listItem[0].getNb_Dice()*2; i++)
 							{
 								res = dice.rollDice();
-								if(res >= listWeapon[0].getResult_Dice())
+								if(res >= listItem[0].getResult_Dice())
 								{
-									if(huma.health <= listWeapon[0].getDamage())
+									if(huma.health <= listItem[0].getDamage())
 									{
 										huma=null;
 										huma.finalize();// tuer le student, le faire disparaitre de la list dans board
@@ -251,7 +260,8 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 9) 
 				{
 					listItem[j] = null;
-					listItem[i] = giveItem(5);
+					listItem[i] = Item.listAllItems[5]; //giveItem(5);
+					
 				}
 			}
 			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
@@ -263,7 +273,7 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 11) 
 				{
 					listItem[j] = null;
-					listItem[i] = giveItem(8);
+					listItem[i] = Item.listAllItems[8]; //giveItem(8);
 				}
 			}	
 			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
@@ -275,17 +285,17 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 10) 
 				{
 					listItem[j] = null;
-					listItem[i] = giveItem(8);
+					listItem[i] = Item.listAllItems[8]; //giveItem(8);
 				}
 			}
 		}
 	}
 	
-	public void checkObjecive ()
+	public void checkObjective ()
 	{
-		if (current_case.isPossibleObjecive)
+		if (current_case.getIsPossibleObjective())
 		{
-			if (current_case.isTrueObjective)
+			if (current_case.getIsTrueObjective())
 			{
 				
 				// faire la methode qui modifie isLinkedTo des deux cases concernées
