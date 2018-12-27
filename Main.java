@@ -23,10 +23,11 @@ public class Main
 		
 		
 		
+		
 		System.out.println(Item.listAllItems[0].getName() + "    " + Item.listAllItems[1].getName());
 
 		
-		System.out.println(Item.listAllItems[0].getName() + "    " + Item.listAllItems[1].getName());
+		System.out.println(Item.listAllItems[2].getName() + "    " + Item.listAllItems[3].getName());
 		
 		
 	}
