@@ -16,12 +16,11 @@ protected int health;
 	
 	//Destructor
 	public void finalize()
-	    {
-	         System.out.println("Objet nettoyé de la mémoire");   
-	    }
+	{
+	    System.out.println("Objet nettoyé de la mémoire");   
+	}
 
-	// Operations
-	public abstract void attack(Humanoides huma);
+	/*******************  Operations  ********************/
 
 	public void walkTop() {
 		if (current_case.getIsLinkedTo(0))

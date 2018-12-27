@@ -8,7 +8,7 @@ private boolean isPossibleObjective;
 private boolean isTrueObjective;
 private boolean isClassroom;
 private boolean isCorridor;
-private boolean isstudentspown;
+private boolean isStudentSpawn;
 
 	// Constructors
 	public Case(int i, int j) {
@@ -42,7 +42,7 @@ private boolean isstudentspown;
 		this.isCorridor = a;
 	}
 	public void setIsStudentSpown(boolean a) {
-		this.isstudentspown = a;
+		this.isStudentSpawn = a;
 	}
 	public boolean getIsClassroom() {
 		return isClassroom;
@@ -50,8 +50,8 @@ private boolean isstudentspown;
 	public boolean getIsCorridor() {
 		return isCorridor;
 	}
-	public boolean getIsStudentSpown() {
-		return isstudentspown;
+	public boolean isStudentSpawn() {
+		return isStudentSpawn;
 	}
 	public void setPosition(int a, int b) {
 		this.x = a;
@@ -68,6 +68,9 @@ private boolean isstudentspown;
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	public int getNoise() {
+		return noise;
 	}
 	public void setNoise(int noise) {
 		this.noise = noise;

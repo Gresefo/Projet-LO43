@@ -18,8 +18,7 @@ protected Dice dice = new Dice();
 	
 	
 	// Operations
-	public void attack(Humanoides huma) { //trouver un moyen de differencier les attaques cac et distance, la il s'agit que des attaques cac
-		//sur student et non prof, et comment faire pour les armes ambidextres
+	public void attack(Humanoides huma) { //et comment faire pour les armes ambidextres
 		boolean boucle=true;
 		if(action > 0)
 		{ // afficher quelque chose dans le cas contraire
@@ -92,7 +91,7 @@ protected Dice dice = new Dice();
 					{
 						
 						int res = 0;
-						if(listItem[0].getIsAmbidextrous()==false || listItem[0]!=listItem[1] || listItem[1]==null)
+						if(listWeapon[0].getIsAmbidextrous()==false || listItem[0]!=listItem[1] || listItem[1]==null)
 						{
 						for(int i = 0; boucle && i < listItem[0].getNb_Dice(); i++)
 						{
@@ -260,8 +259,7 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 9) 
 				{
 					listItem[j] = null;
-					listItem[i] = Item.listAllItems[5]; //giveItem(5);
-					
+					listItem[i].giveItem(5);
 				}
 			}
 			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
@@ -273,7 +271,7 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 11) 
 				{
 					listItem[j] = null;
-					listItem[i] = Item.listAllItems[8]; //giveItem(8);
+					listItem[i].giveItem(8);
 				}
 			}	
 			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
@@ -285,7 +283,7 @@ protected Dice dice = new Dice();
 				if (listItem[j].ID == 10) 
 				{
 					listItem[j] = null;
-					listItem[i] = Item.listAllItems[8]; //giveItem(8);
+					listItem[i].giveItem(8);
 				}
 			}
 		}
@@ -296,6 +294,7 @@ protected Dice dice = new Dice();
 		if (current_case.getIsPossibleObjective())
 		{
 			if (current_case.getIsTrueObjective())
+
 			{
 				
 				// faire la methode qui modifie isLinkedTo des deux cases concernées

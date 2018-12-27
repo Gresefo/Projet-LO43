@@ -3,7 +3,6 @@ abstract class Item {
 	boolean isWeapon;
 	int ID;
 	String name;
-	public static Item listAllItems[]=new Item[11] ;
 	public Item(int id, String _name) {
 		ID = id;
 		name = _name;
@@ -45,13 +44,11 @@ abstract class Item {
 	// From the ID of an Item, return the Item itself
 	public Item giveItem(int id)
 	{
-		int i=0;
-		//le if ne marche pas car sinon y'aurais des cas où la méthode ne renvoie pas d'item, mieux vaus mettre la verif au moment ou on appelle la méthode
-		//if(id<=Item.listAllItems.length && id<=0)
-		//{
-		return Item.listAllItems[i-1];
-		//}
-		// faire un moyen d''initialiser les objets
+
+		Item item;
+		
+		return item;
+
 	}
 	
 }
