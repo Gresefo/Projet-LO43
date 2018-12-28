@@ -30,80 +30,71 @@ public abstract class Student extends Humanoides{
 		
 		// See in the Top direction
 		Case tmp = current_case;
-		int distance = 0;
 		while (tmp.getIsLinkedTo(0))
 		{
 			tmp = board.board[tmp.getX()][tmp.getY() + 1];
-			distance++;
 			for (int i = 0; i < 4; i++)
 			{
 				if (board.listHumanoides[i].current_case == tmp)
 				{
-					isProfVisible[i] = distance;
+					isProfVisible[i] = tmp.getNoise();
 				}
 			}	
 		}
 		
 		// See in the Bottom direction
 		tmp = current_case;
-		distance = 0;
 		while (tmp.getIsLinkedTo(1))
 		{
 			tmp = board.board[tmp.getX()][tmp.getY() - 1];
-			distance++;
 			for (int i = 0; i < 4; i++)
 			{
 				if (board.listHumanoides[i].current_case == tmp)
 				{
-					isProfVisible[i] = distance;		
+					isProfVisible[i] = tmp.getNoise();		
 				}
 			}
 		}
 		
 		// See in the Right direction
 		tmp = current_case;
-		distance = 0;
 		while (tmp.getIsLinkedTo(2))
 		{
 			tmp = board.board[tmp.getX() + 1][tmp.getY()];
-			distance++;
 			for (int i = 0; i < 4; i++)
 			{
 				if (board.listHumanoides[i].current_case == tmp)
 				{
-					isProfVisible[i] = distance;		
+					isProfVisible[i] = tmp.getNoise();
 				}
 			}
 		}
 		
 		// See in the Left direction
 		tmp = current_case;
-		distance = 0;
 		while (tmp.getIsLinkedTo(3))
 		{
 			tmp = board.board[tmp.getX() - 1][tmp.getY()];
-			distance++;
 			for (int i = 0; i < 4; i++)
 			{
 				if (board.listHumanoides[i].current_case == tmp)
 				{
-					isProfVisible[i] = distance;		
+					isProfVisible[i] = tmp.getNoise();		
 				}
 			}
 		}
-		
 		return isProfVisible;
 	}
 	
 	
 	
 	// Search for the noisiest case in the board
-	public Case noticeNoise(Board board)
+	public Case getBoardNoisiestCase(Board board)
 	{
 		Case maxNoise = board.board[0][0];
 		int nbMaxNoise = 1;
 		
-		// We search the noisiest case in the board
+		// We search the noisiest cases in the board
 		for (int j = 1; j < 7; j++)
 		{
 			if (board.board[0][j].getNoise() > maxNoise.getNoise())
@@ -132,6 +123,12 @@ public abstract class Student extends Humanoides{
 			}
 		}
 		
+		// If there is no noise on the board, return null
+		if (maxNoise.getNoise() == 0)
+		{
+			return null;
+		}
+		
 		// If we have several cases with the same number of noise and it is the maximum noise in the board,
 		// then we do a list of all those cases in caseNoise[nbMaxNoise]
 		if (nbMaxNoise > 1)
@@ -155,18 +152,29 @@ public abstract class Student extends Humanoides{
 		// Now we check the shortest path between all those cases
 		for (int i = 0; i < nbMaxNoise; i++)
 		{
-			caseNoise[i]
+			caseNoise[i];
 		}
 	}
 
 	
 	
+	// Return the distance from the case in parameter
+	public int getDistance(Case c, Board board)
+	{
+		int distance = 0;
+		
+		
+		return distance;
+	}
+	
+	
 	
 	// Priority order :
-	// - if some prof are in the same case, attack
-	// - check vision, if 2 groups same distance, go to noisiest, if same, go random
-	// - check noise, go to noisiest, if 2 groups same distance, go random
-	// - if no vision nor noise, stay in waiting mode
+	// - if some prof are in the same case, attack them
+	// - then check vision
+	// - then check noise
+	// - then check distance
+	// - if there are no  prof visible, no noise at all on the board, then wait
 	public void beginningRound (Board board)
 	{
 		// Give back the action points
@@ -183,7 +191,7 @@ public abstract class Student extends Humanoides{
 				nbProfSharingCase++;
 			}
 		}
-		// There is more than one professor on this case, attack this prof. Chose it randomly
+		// Attack this prof. If here is more than one professor on this case, choose it randomly
 		if (nbProfSharingCase >= 1)
 		{
 			int rand = (int)(Math.random() * nbProfSharingCase) + 1;
@@ -206,13 +214,59 @@ public abstract class Student extends Humanoides{
 		// There is no prof on the same case as the student
 		else
 		{
-			int isProfVisible[] = {10, 10, 10, 10};
+			// Check if their is/are some prof visible
+			// isProfVisible[] store the noise on the case of every prof visible
+			// nbMaxNoise the nb of prof doing the same noise
+			int isProfVisible[] = {0, 0, 0, 0};
 			isProfVisible = this.checkVision(board);
-			int min = 10, ;
+			int maxNoise = 0, nbMaxNoise = 0;
 			for (int i = 0; i < 4; i++)
 			{
-				if (isProfVisible[i] < )
+				if (isProfVisible[i] == maxNoise)
+				{
+					nbMaxNoise++;
+				}
+				if (isProfVisible[i] > maxNoise)
+				{
+					maxNoise = isProfVisible[i];
+					nbMaxNoise = 1;
+				}
 			}
+			// if there is at least one prof visible
+			int distance[] = new int[4];
+			for (int i = 0; i < 4; i++)
+			{
+				if (isProfVisible[i] == maxNoise)
+					distance[i] = computeDistance(board, board.listHumanoides[i])
+				else
+					distance[i] = 50;
+			}
+			if (nbMaxNoise >= 1) 
+			{
+				int rand = (int)(Math.random() * nbMaxNoise) + 1;
+				int tmp = 0;
+				for (int i = 0; i < 4; i++)
+				{
+					if (isProfVisible[i] == maxNoise)
+					{
+						tmp++;
+					}
+					if (tmp == rand)
+					{
+						this.goTo(board.listHumanoides[i].getCase());
+					}
+				}
+			}
+			
+			
+			
+			
+			// there is no prof visible, search for noise
+			else
+			{		
+				Case noisiestCase = this.getBoardNoisiestCase(board);
+			}
+			
 		}
 		
 		

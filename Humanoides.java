@@ -21,7 +21,15 @@ protected int health;
 	}
 
 	/*******************  Operations  ********************/
+	
+	
+	
+	// Set back the number of action points at each beginning of round
+	public abstract void setBackActionPoint();
 
+	
+	
+	// Walk function depending of the direction
 	public void walkTop() {
 		if (current_case.getIsLinkedTo(0))
 		{
