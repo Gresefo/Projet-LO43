@@ -1,5 +1,5 @@
 
-abstract class Item {
+public class Item {
 	boolean isWeapon;
 	int ID;
 	String name;
@@ -42,13 +42,13 @@ abstract class Item {
 	}
 	
 	// From the ID of an Item, return the Item itself
-	public Item giveItem(int id)
+	/*public Item giveItem(int id)
 	{
 
 		Item item;
 		
 		return item;
 
-	}
+	}*/
 	
 }

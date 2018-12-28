@@ -155,7 +155,7 @@ public abstract class Student extends Humanoides{
 		// Now we check the shortest path between all those cases
 		for (int i = 0; i < nbMaxNoise; i++)
 		{
-			caseNoise[i]
+			//caseNoise[i]
 		}
 	}
 
@@ -208,10 +208,10 @@ public abstract class Student extends Humanoides{
 		{
 			int isProfVisible[] = {10, 10, 10, 10};
 			isProfVisible = this.checkVision(board);
-			int min = 10, ;
+			int min = 10 ;
 			for (int i = 0; i < 4; i++)
 			{
-				if (isProfVisible[i] < )
+				//if (isProfVisible[i] < )
 			}
 		}
 		
