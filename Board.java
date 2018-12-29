@@ -117,7 +117,7 @@ public class Board {
 							 if(reachable(current, xp, yp))
 							 {
 								 int Nextstepcost=current.getCost()+1;
-								 Case neighbour=board[xp][yp];
+								 Case neighbour=board[yp][xp];
 								 if(Nextstepcost < neighbour.getCost())
 								 {
 									 if(openList.contains(neighbour)) {openList.remove(neighbour);}

@@ -8,7 +8,7 @@ public class Main
 		
 		// Creation of the Board
 		Board board = new Board();
-		ArrayList<Case> Path=board.pathFinder(board.board[0][0],board.board[3][0]);
+		ArrayList<Case> Path=board.pathFinder(board.board[0][1],board.board[1][4]);
 		
 		if(Path==null)
 		{
@@ -18,7 +18,7 @@ public class Main
 		{
 			for(int i=0;i<Path.size();i++)
 			{
-				System.out.println(Path.get(i).getX()+" "+Path.get(i).getY());
+				System.out.println(Path.get(i).getY()+" "+Path.get(i).getX());
 			}
 		}
 
