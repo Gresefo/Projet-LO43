@@ -89,7 +89,7 @@ public abstract class Student extends Humanoides{
 	
 	
 	// Search for the noisiest case in the board
-	public Case getBoardNoisiestCase(Board board)
+	public Case[] getBoardNoisiestCase(Board board)
 	{
 		Case maxNoise = board.board[0][0];
 		int nbMaxNoise = 1;
@@ -128,12 +128,12 @@ public abstract class Student extends Humanoides{
 		{
 			return null;
 		}
-		
+		Case caseNoise[] = new Case[nbMaxNoise];
 		// If we have several cases with the same number of noise and it is the maximum noise in the board,
 		// then we do a list of all those cases in caseNoise[nbMaxNoise]
 		if (nbMaxNoise > 1)
 		{
-			Case caseNoise[] = new Case[nbMaxNoise];
+			
 			int nb = 0;
 			
 			for (int i = 0; i < 5; i++)
@@ -152,8 +152,13 @@ public abstract class Student extends Humanoides{
 		// Now we check the shortest path between all those cases
 		for (int i = 0; i < nbMaxNoise; i++)
 		{
-			caseNoise[i];
+			//caseNoise[i];
 		}
+		
+		return caseNoise;
+		
+		
+		
 	}
 
 	
@@ -236,10 +241,10 @@ public abstract class Student extends Humanoides{
 			int distance[] = new int[4];
 			for (int i = 0; i < 4; i++)
 			{
-				if (isProfVisible[i] == maxNoise)
-					distance[i] = computeDistance(board, board.listHumanoides[i])
+				/*if (isProfVisible[i] == maxNoise)
+					distance[i] = computeDistance(board, board.listHumanoides[i]);
 				else
-					distance[i] = 50;
+					distance[i] = 50;*/
 			}
 			if (nbMaxNoise >= 1) 
 			{
@@ -253,7 +258,7 @@ public abstract class Student extends Humanoides{
 					}
 					if (tmp == rand)
 					{
-						this.goTo(board.listHumanoides[i].getCase());
+						//this.goTo(board.listHumanoides[i].getCase());
 					}
 				}
 			}
@@ -262,10 +267,10 @@ public abstract class Student extends Humanoides{
 			
 			
 			// there is no prof visible, search for noise
-			else
+			/*else
 			{		
 				Case noisiestCase = this.getBoardNoisiestCase(board);
-			}
+			}*/
 			
 		}
 		

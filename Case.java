@@ -5,7 +5,7 @@ private double heuristic;
 private int noise;
 private int nbStudent;
 private int hasDoor;
-private boolean isLinkedTo[] = new boolean[4];
+private boolean isLinkedTo[] = new boolean[4];//Top bottom right left 
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
 private boolean isSearchable;
@@ -17,6 +17,26 @@ private Case pred;
 		this.x=i;
 		this.y=j;
 		cost=0;
+		for(int k=0;k<4;k++)
+		{
+			isLinkedTo[k]=true;
+		}
+		if(i==0)
+		{
+			isLinkedTo[3]=false;
+		}
+		if(j==0)
+		{
+			isLinkedTo[0]=false;
+		}
+		if(i==4)
+		{
+			isLinkedTo[2]=false;
+		}
+		if(j==6)
+		{
+			isLinkedTo[1]=false;
+		}
 	}
 	public Case() {
 		this.x = 0;
