@@ -2,12 +2,11 @@ public class Case {
 private int x,y;
 private int noise;
 private int nbStudent;
-private int nbProfessor;
+private int hasDoor;
 private boolean isLinkedTo[] = new boolean[4];
 private boolean isPossibleObjective;
 private boolean isTrueObjective;
-private boolean isClassroom;
-private boolean isCorridor;
+private boolean isSearchable;
 private boolean isStudentSpawn;
 
 	// Constructors
@@ -35,20 +34,8 @@ private boolean isStudentSpawn;
 	public void setIsLinkedTo(boolean bool, int i) {
 		this.isLinkedTo[i] = bool;
 	}
-	public void setIsClassroom(boolean a) {
-		this.isClassroom = a;
-	}
-	public void setIsCorridor(boolean a) {
-		this.isCorridor = a;
-	}
 	public void setIsStudentSpown(boolean a) {
 		this.isStudentSpawn = a;
-	}
-	public boolean getIsClassroom() {
-		return isClassroom;
-	}
-	public boolean getIsCorridor() {
-		return isCorridor;
 	}
 	public boolean isStudentSpawn() {
 		return isStudentSpawn;
@@ -81,12 +68,6 @@ private boolean isStudentSpawn;
 	public void setNbStudent(int nbStudent) {
 		this.nbStudent = nbStudent;
 	}
-	public int getNbProfessor() {
-		return nbProfessor;
-	}
-	public void setNbProfessor(int nbProfessor) {
-		this.nbProfessor = nbProfessor;
-	}
 	public boolean isPossibleObjective() {
 		return isPossibleObjective;
 	}
@@ -99,10 +80,17 @@ private boolean isStudentSpawn;
 	public void setTrueObjective(boolean isTrueObjective) {
 		this.isTrueObjective = isTrueObjective;
 	}
+	public int getHasDoor() {
+		return hasDoor;
+	}
+	public void setHasDoor(int hasDoor) {
+		this.hasDoor = hasDoor;
+	}
+
 	
 	// Operations
 	public void affiche() { 
-		System.out.println(noise+nbStudent+nbProfessor);
+		System.out.println(noise+nbStudent);
 		System.out.println("is Possible Objectif (bool) = " + isPossibleObjective);
 		System.out.println("is true ojectif(bool) = "+ isTrueObjective);
 		System.out.println("Position = "+x+y);
