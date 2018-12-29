@@ -8,6 +8,9 @@ public class Main
 		Board board = new Board();
 		
 		
+		// Initialization of the profs
+		
+		
 
 		System.out.println(board.listAllItems[0].getName() + "    " + board.listAllItems[1].getName());
 

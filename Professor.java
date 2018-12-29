@@ -334,17 +334,49 @@ protected Dice dice = new Dice();
 		}
 	}
 	
-	public void checkObjective ()
+	public void checkObjective (Board board)
 	{
 		if (current_case.getIsPossibleObjective())
 		{
 			if (current_case.getIsTrueObjective())
 			{
-				
-				// faire la methode qui modifie isLinkedTo des deux cases concernées
+				openDoor2(board, 1, 6); // Open the door to the exit
 			}
 			level = level + 5;
 			action--;
+		}
+	}
+	
+	// Function call by a professor to open a door
+	public void openDoor (Board board)
+	{
+		openDoor2 (board, current_case.getX(), current_case.getY());
+	}
+	
+	// Open the door of the case[x][y] if there is a door to open
+	public void openDoor2 (Board board, int x, int y)
+	{
+		if (board.board[x][y].getHasDoor() != 0)
+		{
+			switch(board.board[x][y].getHasDoor())
+			{
+			case 1 : // Top
+				board.board[x][y].setIsLinkedTo(true, 0);
+				board.board[x+1][y].setIsLinkedTo(true, 1);
+				break;
+			case 2 : // Bottom
+				board.board[x][y].setIsLinkedTo(true, 1);
+				board.board[x-1][y].setIsLinkedTo(true, 0);
+				break;
+			case 3 : // Right
+				board.board[x][y].setIsLinkedTo(true, 2);
+				board.board[x][y+1].setIsLinkedTo(true, 3);
+				break;
+			case 4 : // Left
+				board.board[x][y].setIsLinkedTo(true, 3);
+				board.board[x][y-1].setIsLinkedTo(true, 2);
+				break;
+			}
 		}
 	}
 	
