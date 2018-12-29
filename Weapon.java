@@ -16,7 +16,7 @@ public class Weapon extends Item{
 	{
 		
 		super(id, _name);
-		isWeapon=true;
+		//isWeapon=true;
 		isOpeningDoor=isOD;
 		isSilentDoor=isSD;
 		isSilentAttack=isSA;

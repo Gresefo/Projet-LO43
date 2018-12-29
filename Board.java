@@ -1,6 +1,6 @@
 //import java.util.*;
 //import java.io.*;
-
+import java.util.ArrayList;
 public class Board {
 	Case board[][] = new Case[5][7];//à mettre en static
 	private Case start, end;
@@ -85,4 +85,120 @@ public class Board {
 		this.end= re;
 	}
 	
+	//pathfinder
+	 //ArrayList al = new ArrayList();
+	 public ArrayList pathFinder(Case cs,Case ct)
+	 {
+		 Case current;
+		 cs.setCost(0);
+		 cs.setHeuristic(0);
+		 ct.setPred(null);
+		 ArrayList<Case> path=new ArrayList();
+		 ArrayList<Case> closedList = new ArrayList();
+		 ArrayList<Case> openList = new ArrayList();
+		 openList.add(cs);
+		 while(openList.size()!=0)
+		 {
+			 current=openList.get(0);
+			 if(current==ct) {break;}
+			 closedList.add(current);
+			 openList.remove(0);
+			 for(int x=-1;x<2;x++)
+			 {
+				 for(int y=-1;y<2;y++)
+				 {
+					 if ((x == 0) || (y == 0) && (x!=0 && y!=0)) 
+					 {
+						 int xp = x + current.getX();
+						 int yp = y + current.getY();
+						 if(reachable(current,board[xp][yp]))
+						 {
+							 int Nextstepcost=current.getCost()+1;
+							 Case neighbour=board[xp][yp];
+							 if(Nextstepcost < neighbour.getCost())
+							 {
+								 if(openList.contains(neighbour)) {openList.remove(neighbour);}
+								 if(closedList.contains(neighbour)){closedList.remove(neighbour);}
+							 }
+							 if(!openList.contains(neighbour) && !closedList.contains(neighbour))
+							 {
+								 neighbour.setCost(Nextstepcost);
+								 int kx=ct.getX()-xp,ky=ct.getY()-yp;
+								 neighbour.setHeuristic(neighbour.getCost()+Math.sqrt((kx*kx)+(ky*ky)));
+								 neighbour.setPred(current);
+								 openList.add(neighbour);
+							 }
+						 }
+					 }
+				 }
+			 }
+		 }
+		 if (ct.getPred() == null) {
+				return null;
+			}
+		 Case walker=ct;
+		 path.add(walker);
+		 while(walker != cs)
+		 {
+			 path.add(walker.getPred());
+			 walker=walker.getPred();
+		 }
+		 return path;
+		
+		 
+	 }
+	 
+	 public boolean reachable(Case s, Case t)
+	 {
+		 int ecartX=s.getX()-t.getX(),ecartY=s.getY()-t.getY();
+		 if(ecartX==0)
+		 {
+			 if(ecartY<0)
+			 {
+				 if(s.getIsLinkedTo(1))
+				 {return true;}
+			 }
+			 else
+			 {
+				 if(s.getIsLinkedTo(0))
+				 {
+					 return true;
+				 }
+			 }
+		 }
+		 else
+		 {
+			 if(ecartX<0)
+			 {
+				 if(s.getIsLinkedTo(3))
+				 {return true;}
+			 }
+			 else
+			 {
+				 if(s.getIsLinkedTo(2))
+				 {
+					 return true;
+				 }
+			 }
+		 }
+		 return false;
+	 }
+	 
+	 
+	 public int compareCase(Case c1,Case c2)
+	 {
+		 if(c1.getHeuristic()<c2.getHeuristic())
+		 {
+			 return 1;
+		 }
+		 else if(c1.getHeuristic()==c2.getHeuristic())
+		 {
+			 return 0 ;
+		 }
+		 else
+		 {
+			 return -1;
+		 }
+	 }
+	 
 }

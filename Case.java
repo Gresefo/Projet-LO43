@@ -1,5 +1,7 @@
 public class Case {
 private int x,y;
+private int cost;
+private double heuristic;
 private int noise;
 private int nbStudent;
 private int nbProfessor;
@@ -9,18 +11,29 @@ private boolean isTrueObjective;
 private boolean isClassroom;
 private boolean isCorridor;
 private boolean isStudentSpawn;
+private Case pred;
 
 	// Constructors
 	public Case(int i, int j) {
 		this.x=i;
 		this.y=j;
+		cost=0;
 	}
 	public Case() {
 		this.x = 0;
 		this.y = 0;
+		cost=0;
 	}
 	
 	// Getters and Setters
+	public Case getPred()
+	{
+		return pred;
+	}
+	public void setPred(Case p)
+	{
+		pred=p;
+	}
 	public boolean getIsPossibleObjective()
 	{
 		return isPossibleObjective;
@@ -31,6 +44,22 @@ private boolean isStudentSpawn;
 	}
 	public boolean getIsLinkedTo(int i) {
 		return isLinkedTo[i];
+	}
+	public int getCost()
+	{
+		return cost;
+	}
+	public void setCost(int i)
+	{
+		cost=i;
+	}
+	public double getHeuristic()
+	{
+		return heuristic;
+	}
+	public void setHeuristic(double h)
+	{
+		heuristic=h;
 	}
 	public void setIsLinkedTo(boolean bool, int i) {
 		this.isLinkedTo[i] = bool;

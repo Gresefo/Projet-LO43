@@ -1,8 +1,8 @@
 
 public class Item {
-	boolean isWeapon;
-	int ID;
-	String name;
+	private boolean isWeapon;
+	private int ID;
+	private String name;
 	public Item(int id, String _name) {
 		ID = id;
 		name = _name;
@@ -20,6 +20,10 @@ public class Item {
 	
 	
 	// Getters and Setters
+	public int getID()
+	{
+		return ID;
+	}
 	public boolean getIsWeapon()
 	{
 		return isWeapon;
@@ -31,7 +35,7 @@ public class Item {
 
 	public void setName(String name) {
 		this.name = name;
-	}
+	}	
 
 	public int getId() {
 		return ID;
