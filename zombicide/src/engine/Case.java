@@ -2,19 +2,43 @@ package engine;
 
 public class Case {
 	private int x,y;
+	private int cost;
+	private double heuristic;
 	private int noise;
 	private int nbStudent;
 	private int hasDoor;
-	private boolean isLinkedTo[] = new boolean[4];
+	private boolean isLinkedTo[] = new boolean[4];//Top bottom right left 
 	private boolean isPossibleObjective;
 	private boolean isTrueObjective;
 	private boolean isSearchable;
 	private boolean isStudentSpawn;
+	private Case pred;
 
 	// Constructors
 	public Case(int i, int j) {
 		this.x=i;
 		this.y=j;
+		cost=0;
+		for(int k=0;k<4;k++)
+		{
+			isLinkedTo[k]=true;
+		}
+		if(i==0)
+		{
+			isLinkedTo[3]=false;
+		}
+		if(j==0)
+		{
+			isLinkedTo[0]=false;
+		}
+		if(i==4)
+		{
+			isLinkedTo[2]=false;
+		}
+		if(j==6)
+		{
+			isLinkedTo[1]=false;
+		}
 	}
 	public Case() {
 		this.x = 0;
@@ -22,6 +46,30 @@ public class Case {
 	}
 	
 	// Getters and Setters
+	public double getHeuristic()
+	{
+		return heuristic;
+	}
+	public void setHeuristic(double h)
+	{
+		heuristic=h;
+	}
+	public int getCost()
+	{
+		return cost;
+	}
+	public void setCost(int i)
+	{
+		cost=i;
+	}
+	public Case getPred()
+	{
+		return pred;
+	}
+	public void setPred(Case p)
+	{
+		pred=p;
+	}
 	public boolean getIsPossibleObjective()
 	{
 		return isPossibleObjective;

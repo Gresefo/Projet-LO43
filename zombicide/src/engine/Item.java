@@ -21,6 +21,10 @@ public class Item {
 	
 	
 	// Getters and Setters
+	public int getID()
+	{
+		return ID;
+	}
 	public boolean getIsWeapon()
 	{
 		return isWeapon;
