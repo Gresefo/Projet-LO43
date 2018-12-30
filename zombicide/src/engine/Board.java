@@ -34,17 +34,6 @@ public class Board {
 
 	public Board() 
 	{
-		for (int j=0; j<7; j++) 
-		{
-			for (int i=0; i<5; i++) 
-			{
-
-				Case c = new Case(i,j);
-				board [j][i] = c;
-				System.out.print("-");
-			}
-			System.out.println(" ");
-		}
 		// Initialize a list of all Items
 		listAllItems[0] = new Weapon(1, "Stylo", true, true, false, true, 2, 1, 4, 2);
 		listAllItems[1] = new Weapon(2, "Clé", true, true, false, true, 0, 3, 5, 2);

@@ -2,7 +2,8 @@ package engine;
 
 import java.util.Scanner; 
 import java.util.InputMismatchException;
-public class Professor extends Humanoides {
+
+public abstract class Professor extends Humanoides {
 protected int level;
 protected Item listItem[] = new Item[5];
 
@@ -21,9 +22,11 @@ protected Dice dice = new Dice();
 
 	
 	// Operations
+	public abstract void effect(Humanoides student /*Only needed for zullo*/);
+	
 	public void setBackActionPoint() 
 	{
-		return;
+		action = 4;
 	}
 	
 	public boolean attack(Humanoides huma, Board board) throws AttaqueException //renvoie true si l'attaque c'est bien déroulée, false sinon

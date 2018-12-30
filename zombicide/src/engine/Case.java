@@ -7,8 +7,7 @@ public class Case {
 	private int noise;
 	private int nbStudent;
 	private int hasDoor;
-	private boolean isLinkedTo[] = {false, false, false, false};//Top bottom right left 
-
+	private boolean isLinkedTo[] = {false, false, false, false}; //Top bottom right left 
 	private boolean isPossibleObjective;
 	private boolean isTrueObjective;
 	private boolean isSearchable;
@@ -31,6 +30,7 @@ public class Case {
 		isStudentSpawn = _isStudentSpawn;
 
 	}
+	
 	public Case() {
 		this.x = 0;
 		this.y = 0;
