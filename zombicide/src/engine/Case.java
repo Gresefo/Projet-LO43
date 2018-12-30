@@ -7,7 +7,8 @@ public class Case {
 	private int noise;
 	private int nbStudent;
 	private int hasDoor;
-	private boolean isLinkedTo[] = new boolean[4];//Top bottom right left 
+	private boolean isLinkedTo[] = {false, false, false, false};//Top bottom right left 
+
 	private boolean isPossibleObjective;
 	private boolean isTrueObjective;
 	private boolean isSearchable;
@@ -15,34 +16,31 @@ public class Case {
 	private Case pred;
 
 	// Constructors
-	public Case(int i, int j) {
-		this.x=i;
-		this.y=j;
-		cost=0;
-		for(int k=0;k<4;k++)
-		{
-			isLinkedTo[k]=true;
-		}
-		if(i==0)
-		{
-			isLinkedTo[3]=false;
-		}
-		if(j==0)
-		{
-			isLinkedTo[0]=false;
-		}
-		if(i==4)
-		{
-			isLinkedTo[2]=false;
-		}
-		if(j==6)
-		{
-			isLinkedTo[1]=false;
-		}
+
+	public Case(int i, int j, int _noise, int _nbStudent, int _hasDoor, boolean _isPossibleObjective, boolean _isTrueObjective, 
+			boolean _isSearchable, boolean _isStudentSpawn) 
+	{
+		x = i;
+		y = j;
+		noise = _noise;
+		nbStudent = _nbStudent;
+		hasDoor = _hasDoor;
+		isPossibleObjective = _isPossibleObjective;
+		isTrueObjective = _isTrueObjective;
+		isSearchable = _isSearchable;
+		isStudentSpawn = _isStudentSpawn;
+
 	}
 	public Case() {
 		this.x = 0;
 		this.y = 0;
+		noise = 0;
+		nbStudent = 0;
+		hasDoor = 0;
+		isPossibleObjective = false;
+		isTrueObjective =false;
+		isSearchable = false;
+		isStudentSpawn = false;
 	}
 	
 	// Getters and Setters
