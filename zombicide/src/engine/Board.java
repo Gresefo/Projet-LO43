@@ -4,7 +4,7 @@ package engine;
 //import java.io.*;
 
 public class Board {
-	Case board[][] = new Case[5][7];//à mettre en static
+	private Case board[][] = new Case[5][7];
 	private Case start, end;
 	// All class from the package can access those 2 attributs
 	Humanoides listHumanoides[]; 
@@ -67,6 +67,14 @@ public class Board {
 		return this.start;
 	}
 	
+	public Case[][] getBoard() {
+		return board;
+	}
+
+	public void setBoard(Case[][] board) {
+		this.board = board;
+	}
+
 	public void setStart(int x, int y) {
 		Case re = new Case();
 		for(int i=0; i<= 7|| i!=y; i++) {
