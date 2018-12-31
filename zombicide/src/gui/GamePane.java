@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +17,7 @@ public class GamePane extends JPanel {
 
 	public GamePane() {
 		super();
+		this.setPreferredSize(new Dimension(1120, 800));
 		try {
 			//GECHTER_IMG = ImageIO.read(new File("img/gechter.png"));
 			GRILLE = ImageIO.read(new File("img/grille_couloirs.png"));
@@ -35,6 +37,7 @@ public class GamePane extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.drawImage(GRILLE, 0, 0, this);
 		g.drawImage(GRILLE_FERME, 0, 0, this);
 		if (salle1) {
