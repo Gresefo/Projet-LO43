@@ -85,4 +85,21 @@ protected int health;
 		return current_case;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Case getCurrent_case() {
+		return current_case;
+	}
+
+	public void setCurrent_case(Case current_case) {
+		this.current_case = current_case;
+	}
+	
+
 }
