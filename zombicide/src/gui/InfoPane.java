@@ -39,15 +39,6 @@ public class InfoPane extends JPanel {
 	
 	public void decrementerAction() {
 		this.actionRestantes --;
-		if (this.actionRestantes == 0) {
-			this.buttonPane.getOuvrirSalle().setEnabled(false);
-			this.buttonPane.getAvancerHaut().setEnabled(false);
-			this.buttonPane.getAvancerBas().setEnabled(false);
-			this.buttonPane.getAvancerGauche().setEnabled(false);
-			this.buttonPane.getAvancerDroite().setEnabled(false);
-			this.buttonPane.getAttaquer().setEnabled(false);
-			this.buttonPane.getFaireBruit().setEnabled(false);
-		}
 		if (this.persoActuel == ProfessorName.GECHTER) {
 			if (this.gamePane.getCaseGechterX() == 1) {
 				this.buttonPane.getAvancerGauche().setEnabled(false);
@@ -151,6 +142,15 @@ public class InfoPane extends JPanel {
 			else {
 				this.buttonPane.getAvancerHaut().setEnabled(true);
 			}
+		}
+		if (this.actionRestantes == 0) {
+			this.buttonPane.getOuvrirSalle().setEnabled(false);
+			this.buttonPane.getAvancerHaut().setEnabled(false);
+			this.buttonPane.getAvancerBas().setEnabled(false);
+			this.buttonPane.getAvancerGauche().setEnabled(false);
+			this.buttonPane.getAvancerDroite().setEnabled(false);
+			this.buttonPane.getAttaquer().setEnabled(false);
+			this.buttonPane.getFaireBruit().setEnabled(false);
 		}
 	}
 	
