@@ -13,8 +13,11 @@ public class GamePane extends JPanel {
 	private static final long serialVersionUID = -5201433530107117026L;
 	
 	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8;
+	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
 	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false; 
 
+	private int caseGechterX, caseGechterY, caseFleschX, caseFleschY, caseLacailleX, caseLacailleY, caseZulloX, caseZulloY;
+	
 	public GamePane() {
 		super();
 		this.setPreferredSize(new Dimension(1120, 800));
@@ -30,6 +33,20 @@ public class GamePane extends JPanel {
 			S6 = ImageIO.read(new File("img/salle6.png"));
 			S7 = ImageIO.read(new File("img/salle7.png"));
 			S8 = ImageIO.read(new File("img/salle8.png"));
+			
+			GECHTER = ImageIO.read(new File("img/tete_gechter_t.png"));
+			FLESCH = ImageIO.read(new File("img/tete_flesch_t.png"));
+			LACAILLE = ImageIO.read(new File("img/tete_lacaille_t.png"));
+			ZULLO = ImageIO.read(new File("img/tete_zullo_t.png"));
+			
+			this.caseGechterX = 7;
+			this.caseGechterY = 5;
+			this.caseFleschX = 7;
+			this.caseFleschY = 5;
+			this.caseLacailleX = 7;
+			this.caseLacailleY = 5;
+			this.caseZulloX = 7;
+			this.caseZulloY = 5;
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -64,8 +81,76 @@ public class GamePane extends JPanel {
 		if (salle8) {
 			g.drawImage(S8, 0, 0, this);
 		}
+		g.drawImage(GECHTER, 160 * (this.caseGechterX - 1) + 5, 800 - 160 * (this.caseGechterY) + 5, this);
+		g.drawImage(FLESCH, 160 * (this.caseFleschX - 1) + 40, 800 - 160 * (this.caseFleschY) + 5, this);
+		g.drawImage(LACAILLE, 160 * (this.caseLacailleX - 1) + 75, 800 - 160 * (this.caseLacailleY) + 5, this);
+		g.drawImage(ZULLO, 160 * (this.caseZulloX - 1) + 100, 800 - 160 * (this.caseZulloY) + 5, this);
 	}
 	
+	public int getCaseGechterX() {
+		return caseGechterX;
+	}
+
+	public int getCaseGechterY() {
+		return caseGechterY;
+	}
+
+	public int getCaseFleschX() {
+		return caseFleschX;
+	}
+
+	public int getCaseFleschY() {
+		return caseFleschY;
+	}
+
+	public int getCaseLacailleX() {
+		return caseLacailleX;
+	}
+
+	public int getCaseLacailleY() {
+		return caseLacailleY;
+	}
+
+	public int getCaseZulloX() {
+		return caseZulloX;
+	}
+
+	public int getCaseZulloY() {
+		return caseZulloY;
+	}
+
+	public void setCaseGechterX(int caseGechterX) {
+		this.caseGechterX = caseGechterX;
+	}
+
+	public void setCaseGechterY(int caseGechterY) {
+		this.caseGechterY = caseGechterY;
+	}
+
+	public void setCaseFleschX(int caseFleschX) {
+		this.caseFleschX = caseFleschX;
+	}
+
+	public void setCaseFleschY(int caseFleschY) {
+		this.caseFleschY = caseFleschY;
+	}
+
+	public void setCaseLacailleX(int caseLacailleX) {
+		this.caseLacailleX = caseLacailleX;
+	}
+
+	public void setCaseLacailleY(int caseLacailleY) {
+		this.caseLacailleY = caseLacailleY;
+	}
+
+	public void setCaseZulloX(int caseZulloX) {
+		this.caseZulloX = caseZulloX;
+	}
+
+	public void setCaseZulloY(int caseZulloY) {
+		this.caseZulloY = caseZulloY;
+	}
+
 	public boolean getSalle1() {
 		return salle1;
 	}

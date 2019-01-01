@@ -18,6 +18,7 @@ public class GameGUI extends JFrame {
 		infoPane = new InfoPane();
 		buttonPane = new ButtonPane(gamePane, infoPane);
 		infoPane.setButtonPane(buttonPane);
+		infoPane.setGamePane(gamePane);
 	}
 	
 	public void createWindows() {

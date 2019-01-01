@@ -15,6 +15,7 @@ public class InfoPane extends JPanel {
 	private static final long serialVersionUID = 2789573699771064929L;
 	
 	private ButtonPane buttonPane;
+	private GamePane gamePane;
 	
 	private BufferedImage CARTE_GECHTER, CARTE_FLESCH, CARTE_LACAILLE, CARTE_ZULLO;
 	private ProfessorName persoActuel;
@@ -47,6 +48,110 @@ public class InfoPane extends JPanel {
 			this.buttonPane.getAttaquer().setEnabled(false);
 			this.buttonPane.getFaireBruit().setEnabled(false);
 		}
+		if (this.persoActuel == ProfessorName.GECHTER) {
+			if (this.gamePane.getCaseGechterX() == 1) {
+				this.buttonPane.getAvancerGauche().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerGauche().setEnabled(true);
+			}
+			if (this.gamePane.getCaseGechterX() == 7) {
+				this.buttonPane.getAvancerDroite().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerDroite().setEnabled(true);
+			}
+			if (this.gamePane.getCaseGechterY() == 1) {
+				this.buttonPane.getAvancerBas().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerBas().setEnabled(true);
+			}
+			if (this.gamePane.getCaseGechterY() == 5) {
+				this.buttonPane.getAvancerHaut().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerHaut().setEnabled(true);
+			}
+		}
+		else if (this.persoActuel == ProfessorName.FLESCH) {
+			if (this.gamePane.getCaseFleschX() == 1) {
+				this.buttonPane.getAvancerGauche().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerGauche().setEnabled(true);
+			}
+			if (this.gamePane.getCaseFleschX() == 7) {
+				this.buttonPane.getAvancerDroite().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerDroite().setEnabled(true);
+			}
+			if (this.gamePane.getCaseFleschY() == 1) {
+				this.buttonPane.getAvancerBas().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerBas().setEnabled(true);
+			}
+			if (this.gamePane.getCaseFleschY() == 5) {
+				this.buttonPane.getAvancerHaut().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerHaut().setEnabled(true);
+			}
+		}
+		else if (this.persoActuel == ProfessorName.LACAILLE) {
+			if (this.gamePane.getCaseLacailleX() == 1) {
+				this.buttonPane.getAvancerGauche().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerGauche().setEnabled(true);
+			}
+			if (this.gamePane.getCaseLacailleX() == 7) {
+				this.buttonPane.getAvancerDroite().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerDroite().setEnabled(true);
+			}
+			if (this.gamePane.getCaseLacailleY() == 1) {
+				this.buttonPane.getAvancerBas().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerBas().setEnabled(true);
+			}
+			if (this.gamePane.getCaseLacailleY() == 5) {
+				this.buttonPane.getAvancerHaut().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerHaut().setEnabled(true);
+			}
+		}
+		else if (this.persoActuel == ProfessorName.ZULLO) {
+			if (this.gamePane.getCaseZulloX() == 1) {
+				this.buttonPane.getAvancerGauche().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerGauche().setEnabled(true);
+			}
+			if (this.gamePane.getCaseZulloX() == 7) {
+				this.buttonPane.getAvancerDroite().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerDroite().setEnabled(true);
+			}
+			if (this.gamePane.getCaseZulloY() == 1) {
+				this.buttonPane.getAvancerBas().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerBas().setEnabled(true);
+			}
+			if (this.gamePane.getCaseZulloY() == 5) {
+				this.buttonPane.getAvancerHaut().setEnabled(false);
+			}
+			else {
+				this.buttonPane.getAvancerHaut().setEnabled(true);
+			}
+		}
 	}
 	
 	public void setPersoActuel(ProfessorName pr) {
@@ -61,7 +166,6 @@ public class InfoPane extends JPanel {
 		this.buttonPane.getAvancerDroite().setEnabled(true);
 		this.buttonPane.getAttaquer().setEnabled(true);
 		this.buttonPane.getFaireBruit().setEnabled(true);
-		this.setAction(3);
 		if (this.persoActuel == ProfessorName.GECHTER) {
 			this.persoActuel = ProfessorName.FLESCH;
 		}
@@ -70,6 +174,10 @@ public class InfoPane extends JPanel {
 		}
 		else if (this.persoActuel == ProfessorName.LACAILLE) {
 			this.persoActuel = ProfessorName.ZULLO;
+		}
+		else if (this.persoActuel == ProfessorName.ZULLO) {
+			//LANCER FONCTION ZOMBIE
+			this.persoActuel = ProfessorName.GECHTER;
 		}
 		this.repaint();
 	}
@@ -98,5 +206,11 @@ public class InfoPane extends JPanel {
 	public void setButtonPane(ButtonPane bp) {
 		this.buttonPane = bp;
 	}
+	public void setGamePane(GamePane gp) {
+		this.gamePane = gp;
+	}
 	
+	public ProfessorName getPersoActuel() {
+		return this.persoActuel;
+	}
 }

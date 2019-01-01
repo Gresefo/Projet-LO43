@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import control.GameController;
+import engine.ProfessorName;
 
 public class ButtonPane extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -5352856784205692008L;
@@ -48,6 +49,9 @@ public class ButtonPane extends JPanel implements ActionListener {
 		this.add(avancerDroite);
 		this.add(attaquer);
 		
+		avancerHaut.setEnabled(false);
+		avancerDroite.setEnabled(false);
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -63,19 +67,71 @@ public class ButtonPane extends JPanel implements ActionListener {
 			gc.ouvrirSalle8();
 		}
 		else if (source == this.avancerHaut) {
+			if (infoPane.getPersoActuel() == ProfessorName.GECHTER && gc.getGamePane().getCaseGechterY() != 5) {
+				gc.getGamePane().setCaseGechterY(gc.getGamePane().getCaseGechterY() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.FLESCH && gc.getGamePane().getCaseFleschY() != 5) {
+				gc.getGamePane().setCaseFleschY(gc.getGamePane().getCaseFleschY() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.LACAILLE && gc.getGamePane().getCaseLacailleY() != 5) {
+				gc.getGamePane().setCaseLacailleY(gc.getGamePane().getCaseLacailleY() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.ZULLO && gc.getGamePane().getCaseZulloY() != 5) {
+				gc.getGamePane().setCaseZulloY(gc.getGamePane().getCaseZulloY() + 1);
+			}
 			infoPane.decrementerAction();
+			gc.getGamePane().repaint();
 			infoPane.repaint();
 		}
 		else if (source == this.avancerBas) {
+			if (infoPane.getPersoActuel() == ProfessorName.GECHTER && gc.getGamePane().getCaseGechterY() != 1) {
+				gc.getGamePane().setCaseGechterY(gc.getGamePane().getCaseGechterY() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.FLESCH && gc.getGamePane().getCaseFleschY() != 1) {
+				gc.getGamePane().setCaseFleschY(gc.getGamePane().getCaseFleschY() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.LACAILLE && gc.getGamePane().getCaseLacailleY() != 1) {
+				gc.getGamePane().setCaseLacailleY(gc.getGamePane().getCaseLacailleY() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.ZULLO && gc.getGamePane().getCaseZulloY() != 1) {
+				gc.getGamePane().setCaseZulloY(gc.getGamePane().getCaseZulloY() - 1);
+			}
 			infoPane.decrementerAction();
+			gc.getGamePane().repaint();
 			infoPane.repaint();
 		}
 		else if (source == this.avancerGauche) {
+			if (infoPane.getPersoActuel() == ProfessorName.GECHTER && gc.getGamePane().getCaseGechterX() != 1) {
+				gc.getGamePane().setCaseGechterX(gc.getGamePane().getCaseGechterX() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.FLESCH && gc.getGamePane().getCaseFleschX() != 1) {
+				gc.getGamePane().setCaseFleschX(gc.getGamePane().getCaseFleschX() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.LACAILLE && gc.getGamePane().getCaseLacailleX() != 1) {
+				gc.getGamePane().setCaseLacailleX(gc.getGamePane().getCaseLacailleX() - 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.ZULLO && gc.getGamePane().getCaseZulloX() != 1) {
+				gc.getGamePane().setCaseZulloX(gc.getGamePane().getCaseZulloX() - 1);
+			}
 			infoPane.decrementerAction();
+			gc.getGamePane().repaint();
 			infoPane.repaint();
 		}
 		else if (source == this.avancerDroite) {
+			if (infoPane.getPersoActuel() == ProfessorName.GECHTER && gc.getGamePane().getCaseGechterX() != 7) {
+				gc.getGamePane().setCaseGechterX(gc.getGamePane().getCaseGechterX() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.FLESCH && gc.getGamePane().getCaseFleschX() != 7) {
+				gc.getGamePane().setCaseFleschX(gc.getGamePane().getCaseFleschX() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.LACAILLE && gc.getGamePane().getCaseLacailleX() != 7) {
+				gc.getGamePane().setCaseLacailleX(gc.getGamePane().getCaseLacailleX() + 1);
+			}
+			else if (infoPane.getPersoActuel() == ProfessorName.ZULLO && gc.getGamePane().getCaseZulloX() != 7) {
+				gc.getGamePane().setCaseZulloX(gc.getGamePane().getCaseZulloX() + 1);
+			}
 			infoPane.decrementerAction();
+			gc.getGamePane().repaint();
 			infoPane.repaint();
 		}
 		else if (source == this.attaquer) {
@@ -84,6 +140,8 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else if (source == this.persoSuivant) {
 			infoPane.persoSuivant();
+			infoPane.setAction(4);
+			infoPane.decrementerAction();
 		}
 		else if (source == this.faireBruit) {
 			infoPane.decrementerAction();
