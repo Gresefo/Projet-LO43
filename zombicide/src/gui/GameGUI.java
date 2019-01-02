@@ -22,7 +22,7 @@ public class GameGUI extends JFrame {
 	}
 	
 	public void createWindows() {
-		this.setTitle("LE JEU SANS NOM");
+		this.setTitle("La course aux UVs");
 		this.setSize(1600, 900);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);

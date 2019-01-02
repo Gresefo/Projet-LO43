@@ -18,6 +18,8 @@ public class InfoPane extends JPanel {
 	private GamePane gamePane;
 	
 	private BufferedImage CARTE_GECHTER, CARTE_FLESCH, CARTE_LACAILLE, CARTE_ZULLO;
+	@SuppressWarnings("unused") //A ENLEVER
+	private BufferedImage STYLO, CLE, GUITARE, CRAIE, CRAIE_AM, FIL, LISTE, DICTIO_ANG, DICTIO_FRA, DICTIONNAIRE, LOUPE;
 	private ProfessorName persoActuel;
 	private int actionRestantes;
 
@@ -31,6 +33,18 @@ public class InfoPane extends JPanel {
 			CARTE_FLESCH = ImageIO.read(new File("img/carte_flesch.png"));
 			CARTE_LACAILLE = ImageIO.read(new File("img/carte_lacaille.png"));
 			CARTE_ZULLO = ImageIO.read(new File("img/carte_zullo.png"));
+			
+			STYLO = ImageIO.read(new File("img/stylo.png"));
+			CLE = ImageIO.read(new File("img/cle.png"));
+			GUITARE = ImageIO.read(new File("img/guitare.png"));
+			CRAIE = ImageIO.read(new File("img/craie.png"));
+			CRAIE_AM = ImageIO.read(new File("img/craie_am.png"));
+			FIL = ImageIO.read(new File("img/fil.png"));
+			LISTE = ImageIO.read(new File("img/liste.png"));
+			DICTIO_ANG = ImageIO.read(new File("img/dictionnaire1.png"));
+			DICTIO_FRA = ImageIO.read(new File("img/dictionnaire2.png"));
+			DICTIONNAIRE = ImageIO.read(new File("img/dictionnaire.png"));
+			LOUPE = ImageIO.read(new File("img/loupe.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -201,6 +215,8 @@ public class InfoPane extends JPanel {
 			g.drawImage(CARTE_ZULLO, 0, 0, this);
 		}
 		g.drawString("Action(s) disponible(s) : " + this.actionRestantes, 10, 750);
+		g.drawImage(STYLO, 100, 520, this);
+		g.drawImage(GUITARE, 260, 520, this);
 	}
 	
 	public void setButtonPane(ButtonPane bp) {

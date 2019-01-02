@@ -3,11 +3,11 @@ package engine;
 import java.util.Scanner; 
 import java.util.InputMismatchException;
 public class Professor extends Humanoides {
-protected int level;
-protected Item listItem[] = new Item[5];
+	protected int level;
+	protected Item listItem[] = new Item[5];
 
-//protected Weapon listWeapon[] = new Weapon[2] ;
-protected Dice dice = new Dice();
+	//protected Weapon listWeapon[] = new Weapon[2] ;
+	protected Dice dice = new Dice();
 
 
 	// Constructor
@@ -400,6 +400,14 @@ protected Dice dice = new Dice();
 	
 	public void setAction(int action) {
 		this.action = action;
+	}
+
+
+
+	@Override
+	public void setBackActionPoint() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
