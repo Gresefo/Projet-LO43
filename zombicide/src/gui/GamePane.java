@@ -111,7 +111,7 @@ public class GamePane extends JPanel {
 		board.getBoard()[5][1].setIsLinkedTo(true, 1);
 		board.getBoard()[5][1].setIsLinkedTo(true, 2);
 	
-		board.getBoard()[6][1] = new Case(6, 1, 0, 0, 2, false, false, false, false);
+		board.getBoard()[6][1] = new Case(6, 1, 0, 0, 0, false, false, false, false);
 		board.getBoard()[6][1].setIsLinkedTo(true, 3);
 		
 		board.getBoard()[0][2] = new Case(0, 2, 0, 0, 2, false, false, false, true);

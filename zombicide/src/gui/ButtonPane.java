@@ -77,20 +77,13 @@ public class ButtonPane extends JPanel implements ActionListener {
 		if (source == this.ouvrirSalle) {
 			gc.getGamePane().getCurrentProf().openDoor(gc.getGamePane().getBoard());
 			// Repaint the right room
-			if(gc.getGamePane().getBoard().getBoard()[2][3].getHasDoor() == 0)
-				gc.ouvrirSalle1();
-			else if(gc.getGamePane().getBoard().getBoard()[1][3].getHasDoor() == 0)
-				gc.ouvrirSalle2();
-			else if(gc.getGamePane().getBoard().getBoard()[3][3].getHasDoor() == 0)
-				gc.ouvrirSalle3();
-			else if(gc.getGamePane().getBoard().getBoard()[3][0].getHasDoor() == 0)
-				gc.ouvrirSalle4();
-			else if(gc.getGamePane().getBoard().getBoard()[0][2].getHasDoor() == 0)
-				gc.ouvrirSalle5();
-			else if(gc.getGamePane().getBoard().getBoard()[1][1].getHasDoor() == 0)
-				gc.ouvrirSalle6();
-			else if(gc.getGamePane().getBoard().getBoard()[5][4].getHasDoor() == 0)
-				gc.ouvrirSalle7();
+			if(gc.getGamePane().getBoard().getBoard()[2][3].getHasDoor() == 0) {gc.ouvrirSalle1();}
+			if(gc.getGamePane().getBoard().getBoard()[1][3].getHasDoor() == 0) {gc.ouvrirSalle2();}
+			if(gc.getGamePane().getBoard().getBoard()[3][3].getHasDoor() == 0) {gc.ouvrirSalle3();}
+			if(gc.getGamePane().getBoard().getBoard()[3][0].getHasDoor() == 0) {gc.ouvrirSalle4();}
+			if(gc.getGamePane().getBoard().getBoard()[0][2].getHasDoor() == 0) {gc.ouvrirSalle5();}
+			if(gc.getGamePane().getBoard().getBoard()[1][1].getHasDoor() == 0) {gc.ouvrirSalle6();}
+			if(gc.getGamePane().getBoard().getBoard()[5][4].getHasDoor() == 0) {gc.ouvrirSalle7();}
 		}
 		else if (source == this.avancerHaut) 
 		{

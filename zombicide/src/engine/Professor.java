@@ -356,7 +356,8 @@ public class Professor extends Humanoides {
 		{
 			if (current_case.getIsTrueObjective())
 			{
-				openDoor2(board, 1, 6); // Open the door to the exit
+				board.board[6][1].setIsLinkedTo(true, 1);
+				board.board[6][0].setIsLinkedTo(true, 0);
 			}
 			level = level + 5;
 			action--;
