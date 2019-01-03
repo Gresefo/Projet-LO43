@@ -9,19 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import engine.Professor;
-import engine.AttackException;
 import engine.Board;
 import engine.Case;
-import engine.Consumable;
-import engine.Dice;
 import engine.Flesch;
 import engine.Gechter;
 import engine.Lacaille;
-import engine.Student_foreigners;
-import engine.Student_IUT;
-import engine.Student_TC;
-import engine.Student_BDS;
-import engine.Weapon;
 import engine.Zullo;
 
 
@@ -31,6 +23,7 @@ public class GamePane extends JPanel {
 	
 	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8;
 	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
+	private BufferedImage BRUIT1, BRUIT2, BRUIT3, BRUIT4;
 	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false;
 	private Board board;
 	private Professor currentProf;
@@ -57,6 +50,12 @@ public class GamePane extends JPanel {
 			FLESCH = ImageIO.read(new File("img/tete_flesch_t.png"));
 			LACAILLE = ImageIO.read(new File("img/tete_lacaille_t.png"));
 			ZULLO = ImageIO.read(new File("img/tete_zullo_t.png"));
+			
+			BRUIT1 = ImageIO.read(new File("img/bruit1.png"));
+			BRUIT2 = ImageIO.read(new File("img/bruit2.png"));
+			BRUIT3 = ImageIO.read(new File("img/bruit3.png"));
+			BRUIT4 = ImageIO.read(new File("img/bruit4.png"));
+			
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -252,6 +251,23 @@ public class GamePane extends JPanel {
 		g.drawImage(LACAILLE, 160 * (board.getListProf()[1].getCurrent_case().getX()) + 75, 800 - 160 * (board.getListProf()[1].getCurrent_case().getY() + 1) + 5, this);
 		g.drawImage(FLESCH, 160 * (board.getListProf()[2].getCurrent_case().getX()) + 40, 800 - 160 * (board.getListProf()[2].getCurrent_case().getY() + 1) + 5, this);
 		g.drawImage(ZULLO, 160 * (board.getListProf()[3].getCurrent_case().getX()) + 100, 800 - 160 * (board.getListProf()[3].getCurrent_case().getY() + 1) + 5, this);
+	
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (board.getBoard()[i][j].getNoise() == 1) {
+					g.drawImage(BRUIT1, 160 * board.getBoard()[i][j].getX() + 115, 800 - 160 * (board.getBoard()[i][j].getY() + 1) + 115, this);
+				}
+				else if (board.getBoard()[i][j].getNoise() == 2) {
+					g.drawImage(BRUIT2, 160 * board.getBoard()[i][j].getX() + 115, 800 - 160 * (board.getBoard()[i][j].getY() + 1) + 115, this);
+				}
+				else if (board.getBoard()[i][j].getNoise() == 3) {
+					g.drawImage(BRUIT3, 160 * board.getBoard()[i][j].getX() + 115, 800 - 160 * (board.getBoard()[i][j].getY() + 1) + 115, this);
+				}
+				else if (board.getBoard()[i][j].getNoise() >= 4) {
+					g.drawImage(BRUIT4, 160 * board.getBoard()[i][j].getX() + 115, 800 - 160 * (board.getBoard()[i][j].getY() + 1) + 115, this);
+				}
+			}
+		}
 	}
 
 	/*******************  Getters and Setters  ********************/

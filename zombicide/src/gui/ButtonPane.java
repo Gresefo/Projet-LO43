@@ -3,33 +3,20 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import control.GameController;
-import engine.Professor;
-import engine.AttackException;
-import engine.Board;
 import engine.Case;
-import engine.Consumable;
-import engine.Dice;
-import engine.Flesch;
-import engine.Gechter;
-import engine.Lacaille;
-import engine.Humanoides;
-import engine.Student_foreigners;
-import engine.Student_IUT;
-import engine.Student_TC;
-import engine.Student_BDS;
-import engine.Weapon;
-import engine.Zullo;
 
 
 public class ButtonPane extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -5352856784205692008L;
 	
 	private GameController gc;
+	private ArrayList<Case> allCase;
 	private InfoPane infoPane;
 	private JButton ouvrirSalle = new JButton("Ouvrir salle");
 	private JButton avancerHaut = new JButton("Avancer haut");
@@ -124,6 +111,8 @@ public class ButtonPane extends JPanel implements ActionListener {
 			persoSuivant();
 		}
 		else if (source == this.faireBruit) {
+			gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - 1);
+			gc.getGamePane().getCurrentProf().getCurrent_case().setNoise(gc.getGamePane().getCurrentProf().getCurrent_case().getNoise() + 1);
 		}
 		
 		if(gc.getGamePane().getCurrentProf().stillHasAction() == false)
@@ -136,6 +125,13 @@ public class ButtonPane extends JPanel implements ActionListener {
 	public void persoSuivant()
 	{
 		gc.getGamePane().getCurrentProf().setAction(4);
+		if (gc.getGamePane().getCurrentProf().getId() == 3) {
+			for (int i = 0; i < 7; i++) {
+				for (int j = 0; j < 5; j++) {
+					gc.getGamePane().getBoard().getBoard()[i][j].setNoise(0);
+				}
+			}
+		}
 		int i = 1;
 		while(gc.getGamePane().getBoard().getListProf()[(gc.getGamePane().getCurrentProf().getId() + i) % 4] == null)
 		{

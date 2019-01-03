@@ -1,22 +1,6 @@
 package main;
 
 import gui.MenuGUI;
-import engine.Professor;
-import engine.AttackException;
-import engine.Board;
-import engine.Case;
-import engine.Consumable;
-import engine.Dice;
-import engine.Flesch;
-import engine.Gechter;
-import engine.Lacaille;
-import engine.Student_foreigners;
-import engine.Student_IUT;
-import engine.Student_TC;
-import engine.Student_BDS;
-import engine.Weapon;
-import engine.Zullo;
-import engine.ProfessorName;
 
 public class Main {
 
