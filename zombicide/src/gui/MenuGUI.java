@@ -22,7 +22,7 @@ public class MenuGUI extends JFrame implements KeyListener, MouseListener, Mouse
 	}
 	
 	public void createWindow() {
-		this.setTitle("LE JEU SANS NOM");
+		this.setTitle("La course aux UVs");
 		this.setSize(1200, 811);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);

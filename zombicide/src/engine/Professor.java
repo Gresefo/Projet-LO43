@@ -3,11 +3,11 @@ package engine;
 import java.util.Scanner; 
 import java.util.InputMismatchException;
 public class Professor extends Humanoides {
-protected int level;
-protected Item listItem[] = new Item[5];
+	protected int level;
+	protected Item listItem[] = new Item[5];
 
-//protected Weapon listWeapon[] = new Weapon[2] ;
-protected Dice dice = new Dice();
+	//protected Weapon listWeapon[] = new Weapon[2] ;
+	protected Dice dice = new Dice();
 
 
 	// Constructor
@@ -21,12 +21,7 @@ protected Dice dice = new Dice();
 
 	
 	// Operations
-	public void setBackActionPoint() 
-	{
-		return;
-	}
-	
-	public boolean attack(Humanoides huma, Board board) throws AttaqueException //renvoie true si l'attaque c'est bien déroulée, false sinon
+	public boolean attack(Humanoides huma, Board board) throws AttaqueException
 	{
 		if(action>0)
 		{
@@ -191,7 +186,7 @@ protected Dice dice = new Dice();
 	
 	protected boolean reachTarget(Humanoides cible, Board board) 
 	{
-		int ecartX=current_case.getX()-cible.getCase().getX(),ecartY=current_case.getY()-cible.getCase().getY();
+		int ecartX=current_case.getX()-cible.getCase().getX(),ecartY=current_case.getX()-cible.getCase().getX();
 		if(walkPathX(cible,board) && walkPathY(cible,board) && ecartX==0 || ecartY==0)
 		{
 			return true;
@@ -296,38 +291,38 @@ protected Dice dice = new Dice();
 		if (i >= 0 && i <= 4)
 		{
 			int j = 0;
-			if (listItem[i].getID() == 4) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
+			if (listItem[i].ID == 4) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
 			{
-				while (listItem[j].getID() != 9 && j < 5) 
+				while (listItem[j].ID != 9 && j < 5) 
 				{
 					j++;
 				}
-				if (listItem[j].getID() == 9) 
+				if (listItem[j].ID == 9) 
 				{
 					listItem[j] = null;
 					listItem[i] = board.listAllItems[5]; //giveItem(5);
 					
 				}
 			}
-			if (listItem[i].getID() == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
 			{
-				while (listItem[j].getID() != 11 && j < 5) 
+				while (listItem[j].ID != 11 && j < 5) 
 				{
 					j++;
 				}
-				if (listItem[j].getID() == 11) 
+				if (listItem[j].ID == 11) 
 				{
 					listItem[j] = null;
 					listItem[i] = board.listAllItems[8]; //giveItem(8);
 				}
 			}	
-			if (listItem[i].getID() == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
 			{
-				while (listItem[j].getID() != 10 && j < 5) 
+				while (listItem[j].ID != 10 && j < 5) 
 				{
 					j++;
 				}
-				if (listItem[j].getID() == 10) 
+				if (listItem[j].ID == 10) 
 				{
 					listItem[j] = null;
 					listItem[i] = board.listAllItems[8]; //giveItem(8);
@@ -405,6 +400,14 @@ protected Dice dice = new Dice();
 	
 	public void setAction(int action) {
 		this.action = action;
+	}
+
+
+
+	@Override
+	public void setBackActionPoint() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

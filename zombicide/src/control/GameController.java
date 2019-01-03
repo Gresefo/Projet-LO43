@@ -4,6 +4,7 @@ import gui.GamePane;
 
 public class GameController {
 	private GamePane gamePane;
+	
 	public GameController(GamePane gp) {
 		this.gamePane = gp;
 	}
@@ -38,5 +39,9 @@ public class GameController {
 	public void ouvrirSalle8() {
 		gamePane.setSalle8(true);
 		gamePane.repaint();
+	}
+	
+	public GamePane getGamePane() {
+		return this.gamePane;
 	}
 }

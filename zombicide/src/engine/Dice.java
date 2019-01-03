@@ -1,17 +1,14 @@
 package engine;
 
-public class Dice {
+import java.util.Random;
 
-	// Constructor
-	public Dice(){
-		
+public class Dice {
+	private Random rd;
+	public Dice() {
+		this.rd = new Random();
 	}
 	
 	public int rollDice() {
-		  int MAX = 6;
-	      int roll = (int) (Math.random() * MAX) + 1;
-	      //System.out.println(roll);
-	      return roll;
+		return rd.nextInt(6) + 1;
 	}
-	
 }
