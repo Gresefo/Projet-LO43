@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 
 import control.GameController;
 import engine.Case;
+import engine.Item;
 
 
 public class ButtonPane extends JPanel implements ActionListener {
@@ -25,7 +27,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	private JButton avancerGauche = new JButton("Avancer gauche");
 	private JButton persoSuivant = new JButton("Personnage suivant");
 	private JButton attaquer = new JButton("Attaquer");
-	private JButton faireBruit = new JButton("Faire du bruit");
+	private JButton utiliserEffet = new JButton("Utiliser l'effet");
+	private JButton ouvrirCoffre = new JButton("Ouvrir le coffre");
+	private JButton fouillerPiece = new JButton("Fouiller la pièce");
+	private JButton jeterItem = new JButton("Jeter un item");
+	private JButton echangerPlaceItem = new JButton("Echanger place item");
 	
 	/*******************  Constructor  ********************/
 	
@@ -39,21 +45,29 @@ public class ButtonPane extends JPanel implements ActionListener {
 		avancerGauche.addActionListener(this);
 		persoSuivant.addActionListener(this);
 		attaquer.addActionListener(this);
-		faireBruit.addActionListener(this);
+		utiliserEffet.addActionListener(this);
+		ouvrirCoffre.addActionListener(this);
+		fouillerPiece.addActionListener(this);
+		jeterItem.addActionListener(this);
+		echangerPlaceItem.addActionListener(this);
 		
 		this.infoPane = infoPane;
 		this.gc = new GameController(gamePane);
 		
-		this.setLayout(new GridLayout(2, 5));
+		this.setLayout(new GridLayout(2, 7));
 		
 		this.add(ouvrirSalle);
 		this.add(avancerHaut);
 		this.add(persoSuivant);
-		this.add(faireBruit);
+		this.add(utiliserEffet);
+		this.add(ouvrirCoffre);
+		this.add(fouillerPiece);
 		this.add(avancerGauche);
 		this.add(avancerBas);
 		this.add(avancerDroite);
 		this.add(attaquer);	
+		this.add(jeterItem);
+		this.add(echangerPlaceItem);
 	}
 	
 	/*******************  Operations  ********************/
@@ -110,9 +124,67 @@ public class ButtonPane extends JPanel implements ActionListener {
 		else if (source == this.persoSuivant) {
 			persoSuivant();
 		}
-		else if (source == this.faireBruit) {
+		else if (source == this.utiliserEffet) {
 			gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - 1);
 			gc.getGamePane().getCurrentProf().getCurrent_case().setNoise(gc.getGamePane().getCurrentProf().getCurrent_case().getNoise() + 1);
+		}
+		else if (source == this.ouvrirCoffre) {
+			
+		}
+		else if (source == this.fouillerPiece) {
+			
+		}
+		else if (source == this.jeterItem) {
+			String it1 = "Vide";
+			String it2 = "Vide";
+			String it3 = "Vide";
+			String it4 = "Vide";
+			String it5 = "Vide";
+			int nbitem = 0;
+			String itemAJeter = "";
+			if (gc.getGamePane().getCurrentProf().getListItem()[0] != null) {
+				it1 = gc.getGamePane().getCurrentProf().getListItem()[0].getName();
+				nbitem++;
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[1] != null) {
+				it2 = gc.getGamePane().getCurrentProf().getListItem()[1].getName();
+				nbitem++;
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[2] != null) {
+				it3 = gc.getGamePane().getCurrentProf().getListItem()[2].getName();
+				nbitem++;
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[3] != null) {
+				it4 = gc.getGamePane().getCurrentProf().getListItem()[3].getName();
+				nbitem++;
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[4] != null) {
+				it5 = gc.getGamePane().getCurrentProf().getListItem()[4].getName();
+				nbitem++;
+			}
+			
+			String[] reponse = {it1, it2, it3, it4, it5};
+        	int rang = JOptionPane.showOptionDialog(null,"Choisir quel item jeter","Jeter quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        	if (rang == 0)
+        		itemAJeter = it1;
+        	else if (rang == 1)
+        		itemAJeter = it2;
+        	else if (rang == 2)
+        		itemAJeter = it3;
+        	else if (rang == 3)
+        		itemAJeter = it4;
+        	else if (rang == 4)
+        		itemAJeter = it5;
+        	for (int i = 0; i < nbitem; i++) {
+        		if (itemAJeter == gc.getGamePane().getCurrentProf().getListItem()[i].getName()) {
+        			System.out.println("Jeter " + itemAJeter);
+        			//FAIRE FONCTION JETER ITEM EN FONCTION DU STRING CI DESSUS
+        			
+        		}
+        	}
+		}
+		else if (source == this.echangerPlaceItem) {
+			
 		}
 		
 		if(gc.getGamePane().getCurrentProf().stillHasAction() == false)
@@ -167,11 +239,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	public void setAttaquer(JButton attaquer) {
 		this.attaquer = attaquer;
 	}
-	public JButton getFaireBruit() {
-		return faireBruit;
+	public JButton getutiliserEffet() {
+		return utiliserEffet;
 	}
-	public void setFaireBruit(JButton faireBruit) {
-		this.faireBruit = faireBruit;
+	public void setutiliserEffet(JButton utiliserEffet) {
+		this.utiliserEffet = utiliserEffet;
 	}
 	public JButton getOuvrirSalle() {
 		return ouvrirSalle;
