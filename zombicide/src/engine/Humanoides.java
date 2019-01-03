@@ -15,56 +15,59 @@ protected int health;
 		this.current_case = null;
 	}
 	
-	//Destructor
+	// Destructor
 	public void finalize()
 	{
 	    System.out.println("Objet nettoyé de la mémoire");   
 	}
 
 	/*******************  Operations  ********************/
-	
-	
-	
-	// Set back the number of action points at each beginning of round
-	public abstract void setBackActionPoint();
 
-	
-	
 	// Walk function depending of the direction
-	public void walkTop() {
+	public void walkTop(Board board) {
 		if (current_case.getIsLinkedTo(0))
 		{
-			this.current_case.setY(this.current_case.getY() + 1);
-			this.action--;
+			current_case = board.getBoard()[current_case.getX()][current_case.getY() + 1];
+			action--;
 		}
 	}
 	
-	public void walkBottom() {
+	public void walkBottom(Board board) {
 		if (current_case.getIsLinkedTo(1))
 		{
-			this.current_case.setY(this.current_case.getY() - 1);
-			this.action--;
+			current_case = board.getBoard()[current_case.getX()][current_case.getY() - 1];
+			action--;
 		}
 	}
 	
-	public void walkRight() {
+	public void walkRight(Board board) {
 		if (current_case.getIsLinkedTo(2))
 		{
-			this.current_case.setX(this.current_case.getX() + 1);
-			this.action--;
+			current_case = board.getBoard()[current_case.getX() + 1][current_case.getY()];
+			action--;
 		}
 	}
 	
-	public void walkLeft() {
+	public void walkLeft(Board board) {
 		if (current_case.getIsLinkedTo(3))
 		{
-			this.current_case.setX(this.current_case.getX() - 1);
-			this.action--;
+			current_case = board.getBoard()[current_case.getX() - 1][current_case.getY()];
+			action--;
 		}
 	}
 	
+	// Verify if the number of action point is equal to 0
+	public boolean stillHasAction()
+	{
+		if (action == 0)
+			return false;
+		else
+			return true;
+	}
 
-	// Getters and Setters
+	/*******************  Getters and Setters  ********************/
+	
+	
 	public int getAction() {
 		return action;
 	}
@@ -85,4 +88,22 @@ protected int health;
 		return current_case;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Case getCurrent_case() {
+		return current_case;
+	}
+
+	public void setCurrent_case(Case current_case) {
+		this.current_case = current_case;
+	}
+	
+
 }
+

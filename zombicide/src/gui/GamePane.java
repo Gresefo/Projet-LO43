@@ -8,15 +8,34 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import engine.Professor;
+import engine.AttackException;
+import engine.Board;
+import engine.Case;
+import engine.Consumable;
+import engine.Dice;
+import engine.Flesch;
+import engine.Gechter;
+import engine.Lacaille;
+import engine.Student_foreigners;
+import engine.Student_IUT;
+import engine.Student_TC;
+import engine.Student_BDS;
+import engine.Weapon;
+import engine.Zullo;
+
+
 
 public class GamePane extends JPanel {
 	private static final long serialVersionUID = -5201433530107117026L;
 	
 	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8;
 	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
-	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false; 
-
-	private int caseGechterX, caseGechterY, caseFleschX, caseFleschY, caseLacailleX, caseLacailleY, caseZulloX, caseZulloY;
+	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false;
+	private Board board;
+	private Professor currentProf;
+	
+	/*******************  Constructor  ********************/
 	
 	public GamePane() {
 		super();
@@ -38,20 +57,168 @@ public class GamePane extends JPanel {
 			FLESCH = ImageIO.read(new File("img/tete_flesch_t.png"));
 			LACAILLE = ImageIO.read(new File("img/tete_lacaille_t.png"));
 			ZULLO = ImageIO.read(new File("img/tete_zullo_t.png"));
-			
-			this.caseGechterX = 7;
-			this.caseGechterY = 5;
-			this.caseFleschX = 7;
-			this.caseFleschY = 5;
-			this.caseLacailleX = 7;
-			this.caseLacailleY = 5;
-			this.caseZulloX = 7;
-			this.caseZulloY = 5;
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+
+		// Initialization of the board
+		this.board = new Board();
+		
+		board.getBoard()[0][0] = new Case(0, 0, 0, 0, 0, true, false, true, false);
+		board.getBoard()[0][0].setIsLinkedTo(true, 0);
+		
+		board.getBoard()[1][0] = new Case(1, 0, 0, 0, 0, false, false, true, false);
+		
+		board.getBoard()[2][0] = new Case(2, 0, 0, 0, 0, false, false, false, false);
+		board.getBoard()[2][0].setIsLinkedTo(true, 0);
+		board.getBoard()[2][0].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[3][0] = new Case(3, 0, 0, 0, 1, false, false, false, true);
+		board.getBoard()[3][0].setIsLinkedTo(true, 2);
+		board.getBoard()[3][0].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[4][0] = new Case(4, 0, 0, 0, 0, false, false, false, false);
+		board.getBoard()[4][0].setIsLinkedTo(true, 2);
+		board.getBoard()[4][0].setIsLinkedTo(true, 3);
+
+		board.getBoard()[5][0] = new Case(5, 0, 0, 0, 0, false, false, false, false);
+		board.getBoard()[5][0].setIsLinkedTo(true, 0);
+		board.getBoard()[5][0].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[6][0] = new Case(6, 0, 0, 0, 0, false, false, true, false);
+
+		board.getBoard()[0][1] = new Case(0, 1, 0, 0, 0, false, false, true, false);
+		board.getBoard()[0][1].setIsLinkedTo(true, 1);
+		
+		board.getBoard()[1][1] = new Case(1, 1, 0, 0, 2, false, false, false, false);
+		board.getBoard()[1][1].setIsLinkedTo(true, 0);
+		board.getBoard()[1][1].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[2][1] = new Case(2, 1, 0, 0, 0, false, false, false, false);
+		board.getBoard()[2][1].setIsLinkedTo(true, 1);
+		board.getBoard()[2][1].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[3][1] = new Case(3, 1, 0, 0, 0, false, false, true, false);
+		board.getBoard()[3][1].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[4][1] = new Case(4, 1, 0, 0, 0, true, true, true, false);
+		board.getBoard()[4][1].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[5][1] = new Case(5, 1, 0, 0, 0, false, false, false, false);
+		board.getBoard()[5][1].setIsLinkedTo(true, 0);
+		board.getBoard()[5][1].setIsLinkedTo(true, 1);
+		board.getBoard()[5][1].setIsLinkedTo(true, 2);
+	
+		board.getBoard()[6][1] = new Case(6, 1, 0, 0, 2, false, false, false, false);
+		board.getBoard()[6][1].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[0][2] = new Case(0, 2, 0, 0, 2, false, false, false, true);
+		board.getBoard()[0][2].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[1][2] = new Case(1, 2, 0, 0, 0, false, false, false, false);
+		board.getBoard()[1][2].setIsLinkedTo(true, 0);
+		board.getBoard()[1][2].setIsLinkedTo(true, 1);
+		board.getBoard()[1][2].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[2][2] = new Case(2, 2, 0, 0, 0, false, false, true, false);
+		board.getBoard()[2][2].setIsLinkedTo(true, 2);
+	
+		board.getBoard()[3][2] = new Case(3, 2, 0, 0, 0, false, false, true, false);
+		board.getBoard()[3][2].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[4][2] = new Case(4, 2, 0, 0, 0, false, false, false, true);
+		board.getBoard()[4][2].setIsLinkedTo(true, 0);
+		board.getBoard()[4][2].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[5][2] = new Case(5, 2, 0, 0, 0, false, false, false, false);
+		board.getBoard()[5][2].setIsLinkedTo(true, 1);
+		board.getBoard()[5][2].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[6][2] = new Case(6, 2, 0, 0, 0, false, false, true, false);
+		board.getBoard()[6][2].setIsLinkedTo(true, 0);
+		
+		board.getBoard()[0][3] = new Case(0, 3, 0, 0, 0, true, false, true, false);
+		
+		board.getBoard()[1][3] = new Case(1, 3, 0, 0, 4, false, false, false, false);
+		board.getBoard()[1][3].setIsLinkedTo(true, 0);
+		board.getBoard()[1][3].setIsLinkedTo(true, 1);
+		board.getBoard()[1][3].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[2][3] = new Case(2, 3, 0, 0, 1, false, false, false, false);
+		board.getBoard()[2][3].setIsLinkedTo(true, 2);
+		board.getBoard()[2][3].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[3][3] = new Case(3, 3, 0, 0, 2, false, false, false, false);
+		board.getBoard()[3][3].setIsLinkedTo(true, 2);
+		board.getBoard()[3][3].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[4][3] = new Case(4, 3, 0, 0, 0, false, false, false, false);
+		board.getBoard()[4][3].setIsLinkedTo(true, 0);
+		board.getBoard()[4][3].setIsLinkedTo(true, 1);
+		board.getBoard()[4][3].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[5][3] = new Case(5, 3, 0, 0, 0, false, false, true, false);
+		board.getBoard()[5][3].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[6][3] = new Case(6, 3, 0, 0, 0, false, false, true, false);
+		board.getBoard()[6][3].setIsLinkedTo(true, 1);
+		board.getBoard()[6][3].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[0][4] = new Case(0, 4, 0, 0, 0, false, false, false, false);
+		board.getBoard()[0][4].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[1][4] = new Case(1, 4, 0, 0, 0, false, false, false, false);
+		board.getBoard()[1][4].setIsLinkedTo(true, 1);
+		board.getBoard()[1][4].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[2][4] = new Case(2, 4, 0, 0, 0, false, false, true, false);
+		board.getBoard()[2][4].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[3][4] = new Case(3, 4, 0, 0, 0, true, false, true, false);
+		board.getBoard()[3][4].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[4][4] = new Case(4, 4, 0, 0, 0, false, false, false, false);
+		board.getBoard()[4][4].setIsLinkedTo(true, 1);
+		board.getBoard()[4][4].setIsLinkedTo(true, 2);
+		
+		board.getBoard()[5][4] = new Case(5, 4, 0, 0, 2, false, false, false, false);
+		board.getBoard()[5][4].setIsLinkedTo(true, 2);
+		board.getBoard()[5][4].setIsLinkedTo(true, 3);
+		
+		board.getBoard()[6][4] = new Case(6, 4, 0, 0, 0, false, false, false, true);
+		board.getBoard()[6][4].setIsLinkedTo(true, 3);
+		
+		
+		// Apparition of the professors
+		Gechter gechter = new Gechter();
+		Lacaille lacaille = new Lacaille();
+		Flesch flesch = new Flesch();
+		Zullo zullo = new Zullo();
+		gechter.setId(0);
+		lacaille.setId(1);
+		flesch.setId(2);
+		zullo.setId(3);
+		board.setListProf(gechter, 0);
+		board.setListProf(lacaille, 1);
+		board.setListProf(flesch, 2);
+		board.setListProf(zullo, 3);
+		for (int i = 0; i < 4; i++)
+		{
+			board.getListProf()[i].setCurrent_case(board.getBoard()[0][4]);
+		}
+		
+		// First weapon for every professor
+		board.getListProf()[0].setListItem(board.getListAllItems()[2], 0);
+		board.getListProf()[1].setListItem(board.getListAllItems()[3], 0);
+		board.getListProf()[2].setListItem(board.getListAllItems()[5], 0);
+		board.getListProf()[3].setListItem(board.getListAllItems()[1], 0);
+		
+		currentProf = board.getListProf()[0];
 	}
+	
+	/*******************  Operations  ********************/
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -81,74 +248,28 @@ public class GamePane extends JPanel {
 		if (salle8) {
 			g.drawImage(S8, 0, 0, this);
 		}
-		g.drawImage(GECHTER, 160 * (this.caseGechterX - 1) + 5, 800 - 160 * (this.caseGechterY) + 5, this);
-		g.drawImage(FLESCH, 160 * (this.caseFleschX - 1) + 40, 800 - 160 * (this.caseFleschY) + 5, this);
-		g.drawImage(LACAILLE, 160 * (this.caseLacailleX - 1) + 75, 800 - 160 * (this.caseLacailleY) + 5, this);
-		g.drawImage(ZULLO, 160 * (this.caseZulloX - 1) + 100, 800 - 160 * (this.caseZulloY) + 5, this);
+		g.drawImage(GECHTER, 160 * (board.getListProf()[0].getCurrent_case().getX()) + 5, 800 - 160 * (board.getListProf()[0].getCurrent_case().getY() + 1) + 5, this);
+		g.drawImage(LACAILLE, 160 * (board.getListProf()[1].getCurrent_case().getX()) + 75, 800 - 160 * (board.getListProf()[1].getCurrent_case().getY() + 1) + 5, this);
+		g.drawImage(FLESCH, 160 * (board.getListProf()[2].getCurrent_case().getX()) + 40, 800 - 160 * (board.getListProf()[2].getCurrent_case().getY() + 1) + 5, this);
+		g.drawImage(ZULLO, 160 * (board.getListProf()[3].getCurrent_case().getX()) + 100, 800 - 160 * (board.getListProf()[3].getCurrent_case().getY() + 1) + 5, this);
 	}
+
+	/*******************  Getters and Setters  ********************/
 	
-	public int getCaseGechterX() {
-		return caseGechterX;
+	public Board getBoard() {
+		return board;
 	}
 
-	public int getCaseGechterY() {
-		return caseGechterY;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
-	public int getCaseFleschX() {
-		return caseFleschX;
+	public Professor getCurrentProf() {
+		return currentProf;
 	}
 
-	public int getCaseFleschY() {
-		return caseFleschY;
-	}
-
-	public int getCaseLacailleX() {
-		return caseLacailleX;
-	}
-
-	public int getCaseLacailleY() {
-		return caseLacailleY;
-	}
-
-	public int getCaseZulloX() {
-		return caseZulloX;
-	}
-
-	public int getCaseZulloY() {
-		return caseZulloY;
-	}
-
-	public void setCaseGechterX(int caseGechterX) {
-		this.caseGechterX = caseGechterX;
-	}
-
-	public void setCaseGechterY(int caseGechterY) {
-		this.caseGechterY = caseGechterY;
-	}
-
-	public void setCaseFleschX(int caseFleschX) {
-		this.caseFleschX = caseFleschX;
-	}
-
-	public void setCaseFleschY(int caseFleschY) {
-		this.caseFleschY = caseFleschY;
-	}
-
-	public void setCaseLacailleX(int caseLacailleX) {
-		this.caseLacailleX = caseLacailleX;
-	}
-
-	public void setCaseLacailleY(int caseLacailleY) {
-		this.caseLacailleY = caseLacailleY;
-	}
-
-	public void setCaseZulloX(int caseZulloX) {
-		this.caseZulloX = caseZulloX;
-	}
-
-	public void setCaseZulloY(int caseZulloY) {
-		this.caseZulloY = caseZulloY;
+	public void setCurrentProf(Professor currentProf) {
+		this.currentProf = currentProf;
 	}
 
 	public boolean getSalle1() {

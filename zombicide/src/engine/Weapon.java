@@ -15,9 +15,8 @@ public class Weapon extends Item{
 	// Constructor
 	public Weapon(int id, String _name, boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
 	{
-		
 		super(id, _name);
-		isWeapon=true;
+		isWeapon = true;
 		isOpeningDoor=isOD;
 		isSilentDoor=isSD;
 		isSilentAttack=isSA;

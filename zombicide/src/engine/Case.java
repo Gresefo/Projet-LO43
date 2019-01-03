@@ -2,26 +2,76 @@ package engine;
 
 public class Case {
 	private int x,y;
+	private int cost;
+	private double heuristic;
 	private int noise;
 	private int nbStudent;
 	private int hasDoor;
-	private boolean isLinkedTo[] = new boolean[4];
+	private boolean isLinkedTo[] = new boolean[4]; //Top bottom right left 
 	private boolean isPossibleObjective;
 	private boolean isTrueObjective;
 	private boolean isSearchable;
 	private boolean isStudentSpawn;
+	private Case pred;
 
 	// Constructors
-	public Case(int i, int j) {
-		this.x=i;
-		this.y=j;
+
+	public Case(int i, int j, int _noise, int _nbStudent, int _hasDoor, boolean _isPossibleObjective, boolean _isTrueObjective, 
+			boolean _isSearchable, boolean _isStudentSpawn) 
+	{
+		x = i;
+		y = j;
+		noise = _noise;
+		nbStudent = _nbStudent;
+		hasDoor = _hasDoor;
+		isPossibleObjective = _isPossibleObjective;
+		isTrueObjective = _isTrueObjective;
+		isSearchable = _isSearchable;
+		isStudentSpawn = _isStudentSpawn;
+		for (int a = 0; a < 4; a++)
+		{
+			isLinkedTo[a] = false;
+		}
+
 	}
+	
 	public Case() {
 		this.x = 0;
 		this.y = 0;
+		noise = 0;
+		nbStudent = 0;
+		hasDoor = 0;
+		isPossibleObjective = false;
+		isTrueObjective =false;
+		isSearchable = false;
+		isStudentSpawn = false;
 	}
 	
 	// Getters and Setters
+	public double getHeuristic()
+	{
+		return heuristic;
+	}
+	public void setHeuristic(double h)
+	{
+		heuristic=h;
+	}
+	public int getCost()
+	{
+		return cost;
+	}
+	public void setCost(int i)
+	{
+		cost=i;
+	}
+	public Case getPred()
+	{
+		return pred;
+	}
+	public void setPred(Case p)
+	{
+		pred=p;
+	}
 	public boolean getIsPossibleObjective()
 	{
 		return isPossibleObjective;
@@ -88,8 +138,13 @@ public class Case {
 	public void setHasDoor(int hasDoor) {
 		this.hasDoor = hasDoor;
 	}
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+	public void setSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
 
-	
 	// Operations
 	public void affiche() { 
 		System.out.println(noise+nbStudent);
