@@ -55,6 +55,7 @@ public class InfoPane extends JPanel {
 		}
 		g.drawString("Action(s) disponible(s) : " + gamePane.getCurrentProf().getAction(), 10, 720);
 		g.drawString("Plainte(s) auprès du directeur avant mutation : " + gamePane.getCurrentProf().getHealth(), 10, 735);
+		g.drawString("Année(s) passée(s) dans l'enseignement : " + gamePane.getCurrentProf().getLevel(), 10, 750);
 		if (gamePane.getCurrentProf().getListItem()[0] != null) {
 			g.drawImage(gamePane.getCurrentProf().getListItem()[0].getImg(), 100, 520, this);
 		}
@@ -70,9 +71,9 @@ public class InfoPane extends JPanel {
 		if (gamePane.getCurrentProf().getListItem()[4] != null) {
 			it5 = gamePane.getCurrentProf().getListItem()[4].getName();
 		}
-		g.drawString("Emplacement sac 1 : " + it3, 10, 750);
-		g.drawString("Emplacement sac 2 : " + it4, 10, 765);
-		g.drawString("Emplacement sac 3 : " + it5, 10, 780);
+		g.drawString("Emplacement sac 1 : " + it3, 10, 765);
+		g.drawString("Emplacement sac 2 : " + it4, 10, 780);
+		g.drawString("Emplacement sac 3 : " + it5, 10, 795);
 	}
 	
 	/*******************  Getters and Setters  ********************/

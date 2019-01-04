@@ -121,18 +121,21 @@ public class ButtonPane extends JPanel implements ActionListener {
 		else if (source == this.persoSuivant) {
 			persoSuivant();
 		}
-		else if (source == this.utiliserEffet) {
+		else if (source == this.utiliserEffet) 
+		{
 			gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - 1);
 			gc.getGamePane().getCurrentProf().getCurrent_case().setNoise(gc.getGamePane().getCurrentProf().getCurrent_case().getNoise() + 1);
 		}
-		else if (source == this.ouvrirCoffre) {
-			gc.getGamePane().getBoard().addHumanoide(2, 1);
-			gc.getGamePane().getBoard().addHumanoide(2, 2);
-			gc.getGamePane().getBoard().addHumanoide(2, 3);
-			gc.getGamePane().getBoard().addHumanoide(2, 4);
+		else if (source == this.ouvrirCoffre) 
+		{
+			gc.getGamePane().getCurrentProf().checkObjective(gc.getGamePane().getBoard());
+			if(gc.getGamePane().getBoard().getBoard()[6][1].getIsLinkedTo(1))
+				gc.ouvrirSalle8();
+			//effacer l'image du coffre
 		}
-		else if (source == this.fouillerPiece) {
-						
+		else if (source == this.fouillerPiece) 
+		{
+			gc.getGamePane().getCurrentProf().searchRoom(gc.getGamePane().getBoard());
 		}
 		else if (source == this.jeterItem) {
 			String it1 = "Vide";
@@ -140,51 +143,58 @@ public class ButtonPane extends JPanel implements ActionListener {
 			String it3 = "Vide";
 			String it4 = "Vide";
 			String it5 = "Vide";
-			int nbitem = 0;
-			String itemAJeter = "";
 			if (gc.getGamePane().getCurrentProf().getListItem()[0] != null) {
 				it1 = gc.getGamePane().getCurrentProf().getListItem()[0].getName();
-				nbitem++;
 			}
 			if (gc.getGamePane().getCurrentProf().getListItem()[1] != null) {
 				it2 = gc.getGamePane().getCurrentProf().getListItem()[1].getName();
-				nbitem++;
 			}
 			if (gc.getGamePane().getCurrentProf().getListItem()[2] != null) {
 				it3 = gc.getGamePane().getCurrentProf().getListItem()[2].getName();
-				nbitem++;
 			}
 			if (gc.getGamePane().getCurrentProf().getListItem()[3] != null) {
 				it4 = gc.getGamePane().getCurrentProf().getListItem()[3].getName();
-				nbitem++;
 			}
 			if (gc.getGamePane().getCurrentProf().getListItem()[4] != null) {
 				it5 = gc.getGamePane().getCurrentProf().getListItem()[4].getName();
-				nbitem++;
 			}
 			
 			String[] reponse = {it1, it2, it3, it4, it5};
         	int rang = JOptionPane.showOptionDialog(null,"Choisir quel item jeter","Jeter quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
-        	if (rang == 0)
-        		itemAJeter = it1;
-        	else if (rang == 1)
-        		itemAJeter = it2;
-        	else if (rang == 2)
-        		itemAJeter = it3;
-        	else if (rang == 3)
-        		itemAJeter = it4;
-        	else if (rang == 4)
-        		itemAJeter = it5;
-        	for (int i = 0; i < nbitem; i++) {
-        		if (itemAJeter == gc.getGamePane().getCurrentProf().getListItem()[i].getName()) {
-        			System.out.println("Jeter " + itemAJeter);
-        			//FAIRE FONCTION JETER ITEM EN FONCTION DU STRING CI DESSUS
-        			
-        		}
-        	}
+        	gc.getGamePane().getCurrentProf().throwItem(rang);
 		}
 		else if (source == this.echangerPlaceItem) {
+			String it1 = "Vide";
+			String it2 = "Vide";
+			String it3 = "Vide";
+			String it4 = "Vide";
+			String it5 = "Vide";
+			if (gc.getGamePane().getCurrentProf().getListItem()[0] != null) {
+				it1 = gc.getGamePane().getCurrentProf().getListItem()[0].getName();
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[1] != null) {
+				it2 = gc.getGamePane().getCurrentProf().getListItem()[1].getName();
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[2] != null) {
+				it3 = gc.getGamePane().getCurrentProf().getListItem()[2].getName();
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[3] != null) {
+				it4 = gc.getGamePane().getCurrentProf().getListItem()[3].getName();
+			}
+			if (gc.getGamePane().getCurrentProf().getListItem()[4] != null) {
+				it5 = gc.getGamePane().getCurrentProf().getListItem()[4].getName();
+			}
 			
+			String[] reponse = {it1, it2, it3, it4, it5};
+        	int rang = JOptionPane.showOptionDialog(null,"Choisir le premier item à changer de place","Changer la place de quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        	if (gc.getGamePane().getCurrentProf().getListItem()[rang] != null)
+        	{
+        		int rang2 = JOptionPane.showOptionDialog(null,"Choisir le deuxième item à changer de place","Changer avec quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        		if (gc.getGamePane().getCurrentProf().getListItem()[rang2] != null && rang != rang2)
+        		{
+        			gc.getGamePane().getCurrentProf().switchingItem(rang, rang2);
+        		}
+        	}
 		}
 		
 		if(gc.getGamePane().getCurrentProf().stillHasAction() == false)

@@ -45,17 +45,17 @@ public class Board {
 		}
 		
 		// Initialize a list of all Items
-		listAllItems[0] = new Weapon(1, "Stylo", STYLO, true, true, false, true, 2, 1, 4, 2);
-		listAllItems[1] = new Weapon(2, "Clé", CLE, true, true, false, true, 0, 3, 5, 2);
-		listAllItems[2] = new Weapon(3, "Guitare", GUITARE, true, false, false, false, 0, 3, 4, 2);
-		listAllItems[3] = new Weapon(4, "Craies", CRAIE, false, false, false, true, 2, 3, 5, 1);
-		listAllItems[4] = new Weapon(5, "Craies améliorées", CRAIE_AM, false, false, false, true, 2, 4, 3, 1);
-		listAllItems[5] = new Weapon(6, "Fil de souris", FIL, false, false, true, false, 1, 2, 4, 1);
-		listAllItems[6] = new Weapon(7, "Liste des UV de culture générale", LISTE, false, false, true, false, 0, 3, 3, 1);
-		listAllItems[7] = new Weapon(8, "Dictionnaire français-anglais", DICTIONNAIRE, false, false, false, false, 2, 1, 1, 3);
-		listAllItems[8] = new Consumable(9, "Loupe", LOUPE);
-		listAllItems[9] = new Consumable(10, "Dictionnaire partie 1", DICTIO_ANG);
-		listAllItems[10] = new Consumable(11, "Dictionnaire partie 2", DICTIO_FRA);
+		listAllItems[0] = new Weapon(0, "Stylo", STYLO, true, true, false, true, 2, 1, 4, 2);
+		listAllItems[1] = new Weapon(1, "Clé", CLE, true, true, false, true, 0, 3, 5, 2);
+		listAllItems[2] = new Weapon(2, "Guitare", GUITARE, true, false, false, false, 0, 3, 4, 2);
+		listAllItems[3] = new Weapon(3, "Craies", CRAIE, false, false, false, true, 2, 3, 5, 1);
+		listAllItems[4] = new Weapon(4, "Craies améliorées", CRAIE_AM, false, false, false, true, 2, 4, 3, 1);
+		listAllItems[5] = new Weapon(5, "Fil de souris", FIL, false, false, true, false, 1, 2, 4, 1);
+		listAllItems[6] = new Weapon(6, "Liste des UV de culture générale", LISTE, false, false, true, false, 0, 3, 3, 1);
+		listAllItems[7] = new Weapon(7, "Dictionnaire français-anglais", DICTIONNAIRE, false, false, false, false, 2, 1, 1, 3);
+		listAllItems[8] = new Consumable(8, "Loupe", LOUPE);
+		listAllItems[9] = new Consumable(9, "Dictionnaire partie 1", DICTIO_ANG);
+		listAllItems[10] = new Consumable(10, "Dictionnaire partie 2", DICTIO_FRA);
 	}
 	
 	

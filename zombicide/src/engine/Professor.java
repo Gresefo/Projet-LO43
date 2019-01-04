@@ -273,12 +273,18 @@ public class Professor extends Humanoides {
 		{
 			action--;
 			int rand = (int)(Math.random() * 11);
+			while (rand == 4 || rand == 7)
+			{
+				rand = (int)(Math.random() * 11);
+			}
 			int i = 0;
 			while(listItem[i] != null)
 			{
 				i++;
 			}
 			listItem[i] = board.getListAllItems()[rand];
+			this.improveItem(board);
+			current_case.setSearchable(false);
 		}
 	}
 	
@@ -296,56 +302,62 @@ public class Professor extends Humanoides {
 	// Remove an Item from the inventory without creating a void between two items in the inventory
 	public void throwItem (int i)
 	{
-		for (int j = i; j < 4; j++)
+		if(listItem[i] != null)
 		{
-			listItem[j] = listItem[j+1];
+			for (int j = i; j < 4; j++)
+			{
+				listItem[j] = listItem[j+1];
+			}
+			listItem[4] = null;
 		}
-		listItem[4] = null;
 	}
 	
 	// Transform an Item into a better one after a successful search
-	public void improveItem (int i,Board board)
+	public void improveItem (Board board)
 	{
-		if (i >= 0 && i <= 4)
+		int i = 0;
+		while(i < 5 && listItem[i] != null)
 		{
 			int j = 0;
-			if (listItem[i].ID == 4) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
+			if (listItem[i].ID == 3) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
 			{
-				while (listItem[j].ID != 9 && j < 5) 
-				{
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 8) 
+				{ 
 					j++;
 				}
-				if (listItem[j].ID == 9) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 8) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[5]; //giveItem(5);
-					
+					throwItem(j);
+					listItem[i] = board.listAllItems[4]; //giveItem(4);
 				}
+				j = 0;
 			}
-			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 9) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
 			{
-				while (listItem[j].ID != 11 && j < 5) 
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 10) 
 				{
 					j++;
 				}
-				if (listItem[j].ID == 11) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 10) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[8]; //giveItem(8);
+					throwItem(j);
+					listItem[i] = board.listAllItems[7]; //giveItem(7);
 				}
+				j = 0;
 			}	
-			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 1
 			{
-				while (listItem[j].ID != 10 && j < 5) 
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 9) 
 				{
 					j++;
 				}
-				if (listItem[j].ID == 10) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 9) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[8]; //giveItem(8);
+					throwItem(j);
+					listItem[i] = board.listAllItems[7]; //giveItem(7);
 				}
 			}
+			i++;
 		}
 	}
 	
@@ -358,9 +370,11 @@ public class Professor extends Humanoides {
 			{
 				board.board[6][1].setIsLinkedTo(true, 1);
 				board.board[6][0].setIsLinkedTo(true, 0);
+				current_case.setTrueObjective(false);
 			}
 			level = level + 5;
 			action--;
+			current_case.setPossibleObjective(false);
 		}
 	}
 	
@@ -397,9 +411,15 @@ public class Professor extends Humanoides {
 			board.board[x][y].setHasDoor(0);
 			action--;
 			// If it makes noise
-			if ((listItem[0] != null && listItem[0].getIsSilentDoor() == false) || (listItem[1] != null && listItem[1].getIsSilentDoor() ==  false))
+			if (listItem[1] != null)
 			{
-				board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
+				if (listItem[0].getIsSilentDoor() == false && listItem[1].getIsSilentDoor() == false)
+					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
+			}
+			else
+			{
+				if (listItem[0].getIsSilentDoor() == false)
+					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
 			}
 		}
 	}
