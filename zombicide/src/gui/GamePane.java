@@ -27,11 +27,12 @@ import engine.Zullo;
 public class GamePane extends JPanel {
 	private static final long serialVersionUID = -5201433530107117026L;
 	
-	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8;
+	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8, COFFRE_OP;
 	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
 	private BufferedImage BRUIT1, BRUIT2, BRUIT3, BRUIT4;
 	private BufferedImage TC, BDS, IUT, FOREIGN;
 	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false;
+	private boolean coffre1 = false, coffre2 = false, coffre3 = false, coffre4 = false;
 	private Board board;
 	private Professor currentProf;
 	
@@ -52,6 +53,7 @@ public class GamePane extends JPanel {
 			S6 = ImageIO.read(new File("img/salle6.png"));
 			S7 = ImageIO.read(new File("img/salle7.png"));
 			S8 = ImageIO.read(new File("img/salle8.png"));
+			COFFRE_OP = ImageIO.read(new File("img/coffre_ouvert.png"));
 			
 			GECHTER = ImageIO.read(new File("img/tete_gechter_t.png"));
 			FLESCH = ImageIO.read(new File("img/tete_flesch_t.png"));
@@ -232,37 +234,38 @@ public class GamePane extends JPanel {
 		
 		currentProf = board.getListProf()[0];
 	}
-	
+
 	/*******************  Operations  ********************/
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(GRILLE, 0, 0, this);
 		g.drawImage(GRILLE_FERME, 0, 0, this);
-		if (salle1) {
+		if (salle1)
 			g.drawImage(S1, 0, 0, this);
-		}
-		if (salle2) {
+		if (salle2)
 			g.drawImage(S2, 0, 0, this);
-		}
-		if (salle3) {
+		if (salle3)
 			g.drawImage(S3, 0, 0, this);
-		}
-		if (salle4) {
+		if (salle4)
 			g.drawImage(S4, 0, 0, this);
-		}
-		if (salle5) {
+		if (salle5)
 			g.drawImage(S5, 0, 0, this);
-		}
-		if (salle6) {
+		if (salle6)
 			g.drawImage(S6, 0, 0, this);
-		}
-		if (salle7) {
+		if (salle7)
 			g.drawImage(S7, 0, 0, this);
-		}
-		if (salle8) {
+		if (salle8)
 			g.drawImage(S8, 0, 0, this);
-		}
+		if (coffre1)
+			g.drawImage(COFFRE_OP, 105, 265, this);
+		if (coffre2)
+			g.drawImage(COFFRE_OP, 16, 680, this);
+		if (coffre3)
+			g.drawImage(COFFRE_OP, 522, 103, this);
+		if (coffre4)
+			g.drawImage(COFFRE_OP, 666, 574, this);
+		
 		g.drawImage(GECHTER, 160 * (board.getListProf()[0].getCurrent_case().getX()) + 5, 800 - 160 * (board.getListProf()[0].getCurrent_case().getY() + 1) + 5, this);
 		g.drawImage(LACAILLE, 160 * (board.getListProf()[1].getCurrent_case().getX()) + 75, 800 - 160 * (board.getListProf()[1].getCurrent_case().getY() + 1) + 5, this);
 		g.drawImage(FLESCH, 160 * (board.getListProf()[2].getCurrent_case().getX()) + 40, 800 - 160 * (board.getListProf()[2].getCurrent_case().getY() + 1) + 5, this);
@@ -304,6 +307,10 @@ public class GamePane extends JPanel {
 								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							else if (u == 5)
 								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 6)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 7)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							u++;
 							
 						}
@@ -320,6 +327,10 @@ public class GamePane extends JPanel {
 								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							else if (u == 5)
 								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 6)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 7)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							u++;
 						}
 						else if (stud instanceof Student_IUT) {
@@ -335,6 +346,10 @@ public class GamePane extends JPanel {
 								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							else if (u == 5)
 								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 6)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 7)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							u++;
 						}
 						else if (stud instanceof Student_foreigners) {
@@ -350,6 +365,10 @@ public class GamePane extends JPanel {
 								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							else if (u == 5)
 								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 6)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 7)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
 							u++;
 						}
 					}
@@ -438,5 +457,36 @@ public class GamePane extends JPanel {
 
 	public void setSalle8(boolean salle8) {
 		this.salle8 = salle8;
+	}
+	public boolean getCoffre1() {
+		return coffre1;
+	}
+
+	public void setCoffre1(boolean coffre1) {
+		this.coffre1 = coffre1;
+	}
+
+	public boolean getCoffre2() {
+		return coffre2;
+	}
+
+	public void setCoffre2(boolean coffre2) {
+		this.coffre2 = coffre2;
+	}
+
+	public boolean getCoffre3() {
+		return coffre3;
+	}
+
+	public void setCoffre3(boolean coffre3) {
+		this.coffre3 = coffre3;
+	}
+
+	public boolean getCoffre4() {
+		return coffre4;
+	}
+
+	public void setCoffre4(boolean coffre4) {
+		this.coffre4 = coffre4;
 	}
 }

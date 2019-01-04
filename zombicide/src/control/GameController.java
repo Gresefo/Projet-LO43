@@ -40,6 +40,18 @@ public class GameController {
 		gamePane.setSalle8(true);
 		gamePane.repaint();
 	}
+	public void ouvrirCoffre1() {
+		gamePane.setCoffre1(true);
+	}
+	public void ouvrirCoffre2() {
+		gamePane.setCoffre2(true);
+	}
+	public void ouvrirCoffre3() {
+		gamePane.setCoffre3(true);
+	}
+	public void ouvrirCoffre4() {
+		gamePane.setCoffre4(true);
+	}
 	
 	public GamePane getGamePane() {
 		return this.gamePane;
