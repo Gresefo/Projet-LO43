@@ -1,18 +1,30 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Item {
 	int ID;
 	String name;
 	boolean isWeapon;
+	private BufferedImage img;
 	
 	
-	public Item(int id, String _name) {
+	public Item(int id, String _name, BufferedImage img) {
+		this.img = img;
 		ID = id;
 		name = _name;
 	}
 	
 	// Getters and Setters
 	
+	public BufferedImage getImg() {
+		return img;
+	}
+
+	public void setImg(BufferedImage img) {
+		this.img = img;
+	}
+
 	public String getName() {
 		return name;
 	}

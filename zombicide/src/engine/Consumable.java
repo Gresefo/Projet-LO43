@@ -1,11 +1,13 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+
 public class Consumable extends Item{
 	boolean isWeapon;
 	
-	public Consumable(int id, String _name)
+	public Consumable(int id, String _name, BufferedImage img)
 	{
-		super(id, _name);
+		super(id, _name, img);
 		isWeapon = false;
 	}
 	

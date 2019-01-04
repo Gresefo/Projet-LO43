@@ -4,21 +4,18 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import control.GameController;
-import engine.Case;
-import engine.Item;
 
 
 public class ButtonPane extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -5352856784205692008L;
 	
 	private GameController gc;
-	private ArrayList<Case> allCase;
+	//private ArrayList<Case> allCase;
 	private InfoPane infoPane;
 	private JButton ouvrirSalle = new JButton("Ouvrir salle");
 	private JButton avancerHaut = new JButton("Avancer haut");

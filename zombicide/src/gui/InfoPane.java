@@ -12,13 +12,12 @@ import javax.swing.JPanel;
 public class InfoPane extends JPanel {
 	private static final long serialVersionUID = 2789573699771064929L;
 	
+	@SuppressWarnings("unused")
 	private ButtonPane buttonPane;
 	private GamePane gamePane;
 	
 	
 	private BufferedImage CARTE_GECHTER, CARTE_FLESCH, CARTE_LACAILLE, CARTE_ZULLO;
-	@SuppressWarnings("unused") //A ENLEVER
-	private BufferedImage STYLO, CLE, GUITARE, CRAIE, CRAIE_AM, FIL, LISTE, DICTIO_ANG, DICTIO_FRA, DICTIONNAIRE, LOUPE;
 
 	/*******************  Constructor  ********************/
 	
@@ -31,17 +30,6 @@ public class InfoPane extends JPanel {
 			CARTE_LACAILLE = ImageIO.read(new File("img/carte_lacaille.png"));
 			CARTE_ZULLO = ImageIO.read(new File("img/carte_zullo.png"));
 			
-			STYLO = ImageIO.read(new File("img/stylo.png"));
-			CLE = ImageIO.read(new File("img/cle.png"));
-			GUITARE = ImageIO.read(new File("img/guitare.png"));
-			CRAIE = ImageIO.read(new File("img/craie.png"));
-			CRAIE_AM = ImageIO.read(new File("img/craie_am.png"));
-			FIL = ImageIO.read(new File("img/fil.png"));
-			LISTE = ImageIO.read(new File("img/liste.png"));
-			DICTIO_ANG = ImageIO.read(new File("img/dictionnaire1.png"));
-			DICTIO_FRA = ImageIO.read(new File("img/dictionnaire2.png"));
-			DICTIONNAIRE = ImageIO.read(new File("img/dictionnaire.png"));
-			LOUPE = ImageIO.read(new File("img/loupe.png"));
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -52,6 +40,7 @@ public class InfoPane extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		String it3 = "Vide", it4 = "Vide", it5 = "Vide";
 		if (gamePane.getCurrentProf().getId() == 0) {
 			g.drawImage(CARTE_GECHTER, 0, 0, this);
 		}
@@ -64,9 +53,26 @@ public class InfoPane extends JPanel {
 		else if (gamePane.getCurrentProf().getId() == 3) {
 			g.drawImage(CARTE_ZULLO, 0, 0, this);
 		}
-		g.drawString("Action(s) disponible(s) : " + gamePane.getCurrentProf().getAction(), 10, 750);
-		g.drawImage(STYLO, 100, 520, this);
-		g.drawImage(GUITARE, 260, 520, this);
+		g.drawString("Action(s) disponible(s) : " + gamePane.getCurrentProf().getAction(), 10, 720);
+		g.drawString("Plainte(s) auprès du directeur avant mutation : " + gamePane.getCurrentProf().getHealth(), 10, 735);
+		if (gamePane.getCurrentProf().getListItem()[0] != null) {
+			g.drawImage(gamePane.getCurrentProf().getListItem()[0].getImg(), 100, 520, this);
+		}
+		if (gamePane.getCurrentProf().getListItem()[1] != null) {
+			g.drawImage(gamePane.getCurrentProf().getListItem()[1].getImg(), 260, 520, this);
+		}
+		if (gamePane.getCurrentProf().getListItem()[2] != null) {
+			it3 = gamePane.getCurrentProf().getListItem()[2].getName();
+		}
+		if (gamePane.getCurrentProf().getListItem()[3] != null) {
+			it4 = gamePane.getCurrentProf().getListItem()[3].getName();
+		}
+		if (gamePane.getCurrentProf().getListItem()[4] != null) {
+			it5 = gamePane.getCurrentProf().getListItem()[4].getName();
+		}
+		g.drawString("Emplacement sac 1 : " + it3, 10, 750);
+		g.drawString("Emplacement sac 2 : " + it4, 10, 765);
+		g.drawString("Emplacement sac 3 : " + it5, 10, 780);
 	}
 	
 	/*******************  Getters and Setters  ********************/

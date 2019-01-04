@@ -1,6 +1,11 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 //import java.util.*;
 //import java.io.*;
@@ -10,6 +15,7 @@ public class Board {
 	Professor listProf[] = new Professor[4]; 
 	Student listStudent[] = new Student[200];
 	Item listAllItems[] = new Item[11];
+	private BufferedImage STYLO, CLE, GUITARE, CRAIE, CRAIE_AM, FIL, LISTE, DICTIO_ANG, DICTIO_FRA, DICTIONNAIRE, LOUPE;
 	
 	
 	// Constructors
@@ -26,18 +32,35 @@ public class Board {
 			listProf[i] = null;
 		}
 		
+		try {
+			STYLO = ImageIO.read(new File("img/stylo.png"));
+			CLE = ImageIO.read(new File("img/cle.png"));
+			GUITARE = ImageIO.read(new File("img/guitare.png"));
+			CRAIE = ImageIO.read(new File("img/craie.png"));
+			CRAIE_AM = ImageIO.read(new File("img/craie_am.png"));
+			FIL = ImageIO.read(new File("img/fil.png"));
+			LISTE = ImageIO.read(new File("img/liste.png"));
+			DICTIO_ANG = ImageIO.read(new File("img/dictionnaire1.png"));
+			DICTIO_FRA = ImageIO.read(new File("img/dictionnaire2.png"));
+			DICTIONNAIRE = ImageIO.read(new File("img/dictionnaire.png"));
+			LOUPE = ImageIO.read(new File("img/loupe.png"));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		// Initialize a list of all Items
-		listAllItems[0] = new Weapon(1, "Stylo", true, true, false, true, 2, 1, 4, 2);
-		listAllItems[1] = new Weapon(2, "Clé", true, true, false, true, 0, 3, 5, 2);
-		listAllItems[2] = new Weapon(3, "Guitare", true, false, false, false, 0, 3, 4, 2);
-		listAllItems[3] = new Weapon(4, "Craies", false, false, false, true, 2, 3, 5, 1);
-		listAllItems[4] = new Weapon(5, "Craies améliorées", false, false, false, true, 2, 4, 3, 1);
-		listAllItems[5] = new Weapon(6, "Fil de souris", false, false, true, false, 1, 2, 4, 1);
-		listAllItems[6] = new Weapon(7, "Liste des UV de culture générale", false, false, true, false, 0, 3, 3, 1);
-		listAllItems[7] = new Weapon(8, "Dictionnaire français-anglais", false, false, false, false, 2, 1, 1, 3);
-		listAllItems[8] = new Consumable(9, "Loupe");
-		listAllItems[9] = new Consumable(10, "Dictionnaire partie 1");
-		listAllItems[10] = new Consumable(11, "Dictionnaire partie 2");
+		listAllItems[0] = new Weapon(1, "Stylo", STYLO, true, true, false, true, 2, 1, 4, 2);
+		listAllItems[1] = new Weapon(2, "Clé", CLE, true, true, false, true, 0, 3, 5, 2);
+		listAllItems[2] = new Weapon(3, "Guitare", GUITARE, true, false, false, false, 0, 3, 4, 2);
+		listAllItems[3] = new Weapon(4, "Craies", CRAIE, false, false, false, true, 2, 3, 5, 1);
+		listAllItems[4] = new Weapon(5, "Craies améliorées", CRAIE_AM, false, false, false, true, 2, 4, 3, 1);
+		listAllItems[5] = new Weapon(6, "Fil de souris", FIL, false, false, true, false, 1, 2, 4, 1);
+		listAllItems[6] = new Weapon(7, "Liste des UV de culture générale", LISTE, false, false, true, false, 0, 3, 3, 1);
+		listAllItems[7] = new Weapon(8, "Dictionnaire français-anglais", DICTIONNAIRE, false, false, false, false, 2, 1, 1, 3);
+		listAllItems[8] = new Consumable(9, "Loupe", LOUPE);
+		listAllItems[9] = new Consumable(10, "Dictionnaire partie 1", DICTIO_ANG);
+		listAllItems[10] = new Consumable(11, "Dictionnaire partie 2", DICTIO_FRA);
 	}
 	
 	
