@@ -72,7 +72,8 @@ public class ButtonPane extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source == this.ouvrirSalle) {
+		if (source == this.ouvrirSalle) 
+		{
 			gc.getGamePane().getCurrentProf().openDoor(gc.getGamePane().getBoard());
 			// Repaint the right room
 			if(gc.getGamePane().getBoard().getBoard()[2][3].getHasDoor() == 0) {gc.ouvrirSalle1();}
@@ -116,28 +117,33 @@ public class ButtonPane extends JPanel implements ActionListener {
 				gc.getGamePane().getCurrentProf().walkRight(gc.getGamePane().getBoard());
 			}
 		}
-		else if (source == this.attaquer) {
+		else if (source == this.attaquer) 
+		{
+			
 		}
-		else if (source == this.persoSuivant) {
+		else if (source == this.persoSuivant) 
+		{
 			persoSuivant();
 		}
 		else if (source == this.utiliserEffet) 
 		{
-			gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - 1);
-			gc.getGamePane().getCurrentProf().getCurrent_case().setNoise(gc.getGamePane().getCurrentProf().getCurrent_case().getNoise() + 1);
+			gc.getGamePane().getCurrentProf().effect(gc.getGamePane().getBoard());
 		}
 		else if (source == this.ouvrirCoffre) 
 		{
 			gc.getGamePane().getCurrentProf().checkObjective(gc.getGamePane().getBoard());
-			if(gc.getGamePane().getBoard().getBoard()[6][1].getIsLinkedTo(1))
-				gc.ouvrirSalle8();
-			//effacer l'image du coffre
+			if(gc.getGamePane().getBoard().getBoard()[6][1].getIsLinkedTo(1)) {gc.ouvrirSalle8();}
+			if(gc.getGamePane().getBoard().getBoard()[0][3].getIsPossibleObjective() == false) {gc.ouvrirCoffre1();}
+			if(gc.getGamePane().getBoard().getBoard()[0][0].getIsPossibleObjective() == false) {gc.ouvrirCoffre2();}
+			if(gc.getGamePane().getBoard().getBoard()[3][4].getIsPossibleObjective() == false) {gc.ouvrirCoffre3();}
+			if(gc.getGamePane().getBoard().getBoard()[4][1].getIsPossibleObjective() == false) {gc.ouvrirCoffre4();}
 		}
 		else if (source == this.fouillerPiece) 
 		{
 			gc.getGamePane().getCurrentProf().searchRoom(gc.getGamePane().getBoard());
 		}
-		else if (source == this.jeterItem) {
+		else if (source == this.jeterItem) 
+		{
 			String it1 = "Vide";
 			String it2 = "Vide";
 			String it3 = "Vide";
@@ -163,7 +169,8 @@ public class ButtonPane extends JPanel implements ActionListener {
         	int rang = JOptionPane.showOptionDialog(null,"Choisir quel item jeter","Jeter quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
         	gc.getGamePane().getCurrentProf().throwItem(rang);
 		}
-		else if (source == this.echangerPlaceItem) {
+		else if (source == this.echangerPlaceItem) 
+		{
 			String it1 = "Vide";
 			String it2 = "Vide";
 			String it3 = "Vide";
@@ -197,7 +204,7 @@ public class ButtonPane extends JPanel implements ActionListener {
         	}
 		}
 		
-		if(gc.getGamePane().getCurrentProf().stillHasAction() == false)
+		if(gc.getGamePane().getCurrentProf() == null || gc.getGamePane().getCurrentProf().stillHasAction() == false)
 			persoSuivant();
 		gc.getGamePane().repaint();
 		infoPane.repaint();
@@ -206,21 +213,67 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Take the next professor in the list and check if the professor is alive. Put back the action points
 	public void persoSuivant()
 	{
+		// Reset action points and stillHasEffect
 		gc.getGamePane().getCurrentProf().setAction(4);
-		if (gc.getGamePane().getCurrentProf().getId() == 3) {
-			for (int i = 0; i < 7; i++) {
-				for (int j = 0; j < 5; j++) {
-					gc.getGamePane().getBoard().getBoard()[i][j].setNoise(0);
-				}
-			}
-		}
+		gc.getGamePane().getCurrentProf().setStillHasEffect(true);
+		
 		int i = 1;
-		while(gc.getGamePane().getBoard().getListProf()[(gc.getGamePane().getCurrentProf().getId() + i) % 4] == null)
+		while(gc.getGamePane().getCurrentProf().getId() + i < 4 && gc.getGamePane().getBoard().getListProf()[gc.getGamePane().getCurrentProf().getId() + i] == null)
 		{
 			i++;
 		}
-		gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[(gc.getGamePane().getCurrentProf().getId() + i) % 4]);
+		if (gc.getGamePane().getCurrentProf().getId() + i < 4)
+		{
+			gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[gc.getGamePane().getCurrentProf().getId() + i]);
+		}
+		else
+		{
+			testWin();
+			gc.getGamePane().getBoard().startRoundStudent();
+			int j = 0;
+			while (j < 4 && gc.getGamePane().getBoard().getListProf()[j] == null) 
+			{
+				j++;
+			}
+			if(j < 4)
+				gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[j]);
+			else
+				gameover();
+		}
 		infoPane.repaint();
+	}
+	
+	// Function that test if the game is won
+	public void testWin()
+	{
+		int counter = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if(gc.getGamePane().getBoard().getListProf()[i] == null || gc.getGamePane().getBoard().getListProf()[i].getCurrent_case().getX() == 6 
+					&& gc.getGamePane().getBoard().getListProf()[i].getCurrent_case().getY() == 0)
+			{
+				counter++;
+			}
+		}
+		if (counter == 4)
+			gameWon();
+	}
+	
+	// Function that end the game in case of loose
+	public void gameover()
+	{
+		//afficher un message
+		//retourner au menu
+		//liberer la memoire ???
+	}
+	
+	// Function that end the game in case of win
+	public void gameWon()
+	{
+		System.out.println("yes");
+		//afficher un message
+		//retourner au menu
+		//liberer la memoire ???
 	}
 	
 	/*******************  Getters and Setters  ********************/

@@ -262,10 +262,22 @@ public class GamePane extends JPanel {
 		if (coffre4)
 			g.drawImage(COFFRE_OP, 666, 574, this);
 		
-		g.drawImage(GECHTER, 160 * (board.getListProf()[0].getCurrent_case().getX()) + 5, 800 - 160 * (board.getListProf()[0].getCurrent_case().getY() + 1) + 5, this);
-		g.drawImage(LACAILLE, 160 * (board.getListProf()[1].getCurrent_case().getX()) + 75, 800 - 160 * (board.getListProf()[1].getCurrent_case().getY() + 1) + 5, this);
-		g.drawImage(FLESCH, 160 * (board.getListProf()[2].getCurrent_case().getX()) + 40, 800 - 160 * (board.getListProf()[2].getCurrent_case().getY() + 1) + 5, this);
-		g.drawImage(ZULLO, 160 * (board.getListProf()[3].getCurrent_case().getX()) + 100, 800 - 160 * (board.getListProf()[3].getCurrent_case().getY() + 1) + 5, this);
+		if(board.getListProf()[0] != null)
+		{
+			g.drawImage(GECHTER, 160 * (board.getListProf()[0].getCurrent_case().getX()) + 5, 800 - 160 * (board.getListProf()[0].getCurrent_case().getY() + 1) + 5, this);
+		}
+		if(board.getListProf()[1] != null)	
+		{
+			g.drawImage(LACAILLE, 160 * (board.getListProf()[1].getCurrent_case().getX()) + 75, 800 - 160 * (board.getListProf()[1].getCurrent_case().getY() + 1) + 5, this);
+		}
+		if(board.getListProf()[2] != null)
+		{
+			g.drawImage(FLESCH, 160 * (board.getListProf()[2].getCurrent_case().getX()) + 40, 800 - 160 * (board.getListProf()[2].getCurrent_case().getY() + 1) + 5, this);
+		}
+		if(board.getListProf()[3] != null)	
+		{
+			g.drawImage(ZULLO, 160 * (board.getListProf()[3].getCurrent_case().getX()) + 100, 800 - 160 * (board.getListProf()[3].getCurrent_case().getY() + 1) + 5, this);
+		}
 	
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 5; j++) {

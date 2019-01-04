@@ -3,10 +3,11 @@ package engine;
 import java.util.Scanner; 
 import java.util.InputMismatchException;
 
-public class Professor extends Humanoides {
-	int level;
+public abstract class Professor extends Humanoides {
+	protected int level;
 	protected Item listItem[] = new Item[5];
 	protected Dice dice = new Dice();
+	protected boolean stillHasEffect;
 
 	/*******************  Constructor  ********************/
 
@@ -15,6 +16,7 @@ public class Professor extends Humanoides {
 		this.health = 2;
 		this.action = 4;
 		this.level = 1;
+		stillHasEffect = true;
 	}
 	
 	/*******************  Operations  ********************/
@@ -266,6 +268,9 @@ public class Professor extends Humanoides {
 		}
 	}
 	
+	//The super power of each professor
+	public abstract void effect(Board board);
+	
 	// Search the room to find an Item
 	public void searchRoom(Board board)
 	{
@@ -430,6 +435,14 @@ public class Professor extends Humanoides {
 		return level;
 	}
 	
+	public boolean isStillHasEffect() {
+		return stillHasEffect;
+	}
+
+	public void setStillHasEffect(boolean stillHasEffect) {
+		this.stillHasEffect = stillHasEffect;
+	}
+
 	public void setLevel(int level) {
 		this.level = level;
 	}

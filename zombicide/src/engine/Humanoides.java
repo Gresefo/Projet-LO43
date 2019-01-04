@@ -9,7 +9,7 @@ protected int health;
 
 	// Constructor
 	public Humanoides() {
-		this.id = 0;
+		this.id = 4;
 		this.action = 1;
 		this.health = 2;
 		this.current_case = null;

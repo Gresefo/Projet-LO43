@@ -92,9 +92,41 @@ public class Board {
 
 	/*******************  Operations  ********************/
 	
+	// Launch the round of every student
+	public void startRoundStudent()
+	{
+		// Spawn new student
+		int nbNewStudent = nbNewStudent();
+		for (int i = 1; i < 5; i++)
+		{
+			addHumanoide(nbNewStudent, i);
+		}
+		
+		// Do the round of every student
+		int size = getListStudent().size();
+		for(int i = 0; i < size; i++)
+		{
+			getListStudent().get(i).begingRound(this);
+		}
+		
+		// Put null for every professor dead
+		for (int i = 0; i < 4; i++)
+		{
+			if (listProf[i].health <= 0)
+				listProf[i] = null;
+		}
+		
+		// Reset the noise
+		for (int i = 0; i < 7; i++) 
+		{
+			for (int j = 0; j < 5; j++) 
+			{
+				board[i][j].setNoise(0);
+			}
+		}
+	}
 	
-	// non finis
-	// Create a new random type Student in listStudent[i]
+	// Create a new random type Student in listStudent in one of the 4th spawns
 	public void addHumanoide(int nombre, int spawn)
 	{
 		int x = 0, y = 0;

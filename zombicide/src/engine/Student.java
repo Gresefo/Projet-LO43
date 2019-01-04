@@ -11,13 +11,13 @@ public abstract class Student extends Humanoides{
 	
 	/*******************  Operations  ********************/
 	
-	// Puts bakc the action point of every student
+	// Puts back the action point of every student
 	public abstract void setBackActionPoint();
 	
 	// Deal damage to a professor in the same case
 	public void attack(Humanoides prof) {
 		prof.health--;
-		action = action - 2;	
+		action = action - 2;
 	}
 	
 	// Look around the student and return the distance with each professor in vision site, 10 if not visible
@@ -174,7 +174,7 @@ public abstract class Student extends Humanoides{
 	// - then check noise
 	// - then check distance
 	// - if there are no  prof visible, no noise at all on the board, then wait
-	public void beginningRound (Board board)
+	public void begingRound (Board board)
 	{
 		// Give back the action points
 		this.setBackActionPoint();
