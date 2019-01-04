@@ -3,9 +3,10 @@ package engine;
 public class Student_IUT extends Student {
 
 	// Constructor
-	public Student_IUT() {
+	public Student_IUT(Case c) {
 		super();
 		health = 2;
+		this.setCurrent_case(c);
 	}
 	
 	/*******************  Operations  ********************/

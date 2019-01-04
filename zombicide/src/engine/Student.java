@@ -118,8 +118,7 @@ public abstract class Student extends Humanoides{
 					nbMaxNoise++;
 				}
 			}
-		}
-		
+		}		
 		// If there is no noise on the board, return null
 		if (maxNoise.getNoise() == 0)
 		{
@@ -144,6 +143,7 @@ public abstract class Student extends Humanoides{
 					}
 				}
 			}
+			return new Case(); //A enlever une fois la fonction terminer je peux pas avancer si je emts pas ça
 		}
 		
 		// Now we check the shortest path between all those cases
@@ -151,6 +151,7 @@ public abstract class Student extends Humanoides{
 		{
 			//caseNoise[i];
 		}
+		return maxNoise;
 	
 	}
 
@@ -231,6 +232,7 @@ public abstract class Student extends Humanoides{
 				}
 			}
 			// if there is at least one prof visible
+			@SuppressWarnings("unused")
 			int distance[] = new int[4];
 			for (int i = 0; i < 4; i++)
 			{
@@ -262,6 +264,7 @@ public abstract class Student extends Humanoides{
 			// there is no prof visible, search for noise
 			else
 			{		
+				@SuppressWarnings("unused")
 				Case noisiestCase = this.getBoardNoisiestCase(board);
 			}
 			

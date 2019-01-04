@@ -5,10 +5,16 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import engine.Professor;
+import engine.Student;
+import engine.Student_BDS;
+import engine.Student_IUT;
+import engine.Student_TC;
+import engine.Student_foreigners;
 import engine.Board;
 import engine.Case;
 import engine.Flesch;
@@ -24,6 +30,7 @@ public class GamePane extends JPanel {
 	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8;
 	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
 	private BufferedImage BRUIT1, BRUIT2, BRUIT3, BRUIT4;
+	private BufferedImage TC, BDS, IUT, FOREIGN;
 	private boolean salle1 = false, salle2 = false, salle3 = false, salle4 = false, salle5 = false, salle6 = false, salle7 = false, salle8 = false;
 	private Board board;
 	private Professor currentProf;
@@ -55,6 +62,11 @@ public class GamePane extends JPanel {
 			BRUIT2 = ImageIO.read(new File("img/bruit2.png"));
 			BRUIT3 = ImageIO.read(new File("img/bruit3.png"));
 			BRUIT4 = ImageIO.read(new File("img/bruit4.png"));
+			
+			TC = ImageIO.read(new File("img/student_TC.png"));
+			BDS = ImageIO.read(new File("img/student_BDS.png"));
+			IUT = ImageIO.read(new File("img/student_IUT.png"));
+			FOREIGN = ImageIO.read(new File("img/student_for.png"));
 			
 		}
 		catch (IOException e) {
@@ -269,6 +281,78 @@ public class GamePane extends JPanel {
 				}
 				else if (board.getBoard()[i][j].getNoise() >= 4) {
 					g.drawImage(BRUIT4, 160 * board.getBoard()[i][j].getX() + 115, 800 - 160 * (board.getBoard()[i][j].getY() + 1) + 115, this);
+				}
+			}
+		}
+		ArrayList<Student> list = board.getListStudent();
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 5; j++) {
+				int u = 0;
+				for (Student stud : list) {
+					if (stud.getCurrent_case().getX() == i && stud.getCurrent_case().getY() == j) {
+						if (stud instanceof Student_TC)
+						{
+							if (u == 0)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 1)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 2)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 3)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 4)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 5)
+								g.drawImage(TC, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							u++;
+							
+						}
+						else if (stud instanceof Student_BDS) {
+							if (u == 0) 
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 1)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 2)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 3)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 4)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 5)
+								g.drawImage(BDS, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							u++;
+						}
+						else if (stud instanceof Student_IUT) {
+							if (u == 0)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 1)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 2)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 3)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 4)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 5)
+								g.drawImage(IUT, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							u++;
+						}
+						else if (stud instanceof Student_foreigners) {
+							if (u == 0)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 1)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 2)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 75, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 3)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 100, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 40, this);
+							else if (u == 4)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 5, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							else if (u == 5)
+								g.drawImage(FOREIGN, 160 * stud.getCurrent_case().getX() + 40, 800 - 160 * (stud.getCurrent_case().getY() + 1) + 80, this);
+							u++;
+						}
+					}
 				}
 			}
 		}

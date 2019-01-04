@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class Board {
 	Case board[][] = new Case[7][5];
 	Professor listProf[] = new Professor[4]; 
-	Student listStudent[] = new Student[200];
+	ArrayList<Student> listStudent = new ArrayList<Student>();
 	Item listAllItems[] = new Item[11];
 	private BufferedImage STYLO, CLE, GUITARE, CRAIE, CRAIE_AM, FIL, LISTE, DICTIO_ANG, DICTIO_FRA, DICTIONNAIRE, LOUPE;
 	
@@ -21,12 +21,7 @@ public class Board {
 	// Constructors
 
 	public Board() 
-	{
-		for (int i = 0; i < 200; i++)
-		{
-			listStudent[i] = null;
-		}
-		
+	{		
 		for (int i = 0; i < 4; i++)
 		{
 			listProf[i] = null;
@@ -78,7 +73,7 @@ public class Board {
 		return listAllItems;
 	}
 
-	public Student[] getListStudent() {
+	public ArrayList<Student> getListStudent() {
 		return listStudent;
 	}
 	
@@ -90,8 +85,8 @@ public class Board {
 		this.listProf[i] = prof;
 	}
 	
-	public void setListStudent(Student student, int i) {
-		this.listStudent[i] = student;
+	public void setListStudent(ArrayList<Student> student) {
+		this.listStudent = student;
 	}
 
 
@@ -100,28 +95,51 @@ public class Board {
 	
 	// non finis
 	// Create a new random type Student in listStudent[i]
-	public void addHumanoide(int i)
+	public void addHumanoide(int nombre, int spawn)
 	{
-		int roll = (int) (Math.random() * 20) + 1;
-	    switch(roll)
-	    {
-	    // Student TC
-	    case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: 
-	    	
-	    	break;
-	    // Student BDS
-	    case 9: case 10: case 11: case 12: case 13 : 
-	    	
-	    	break;
-	    // Student IUT
-	    case 14: case 15: case 16: case 17: case 18: case 19 :
-	    	
-	    	break;
-	    // Foreigner Student
-	    case 20 : 
-	    	
-	    	break;
-	    }
+		int x = 0, y = 0;
+		if (spawn == 1) {
+			x = 0;
+			y = 2;
+		}
+		else if (spawn == 2) {
+			x = 3;
+			y = 0;
+		}
+		else if (spawn == 3) {
+			x = 4;
+			y = 2;
+		}
+		else if (spawn == 4) {
+			x = 6;
+			y = 4;
+		}
+		for (int i = 0; i < nombre; i++) {
+			int roll = (int) (Math.random() * 20) + 1;
+		    switch(roll)
+		    {
+		    // Student TC
+		    case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: 
+		    	listStudent.add(new Student_TC(this.board[x][y]));
+		    	this.board[x][y].setNbStudent(this.board[x][y].getNbStudent() + 1);;
+		    	break;
+		    // Student BDS
+		    case 9: case 10: case 11: case 12: case 13 : 
+		    	listStudent.add(new Student_BDS(this.board[x][y]));
+		    	this.board[x][y].setNbStudent(this.board[x][y].getNbStudent() + 1);;
+		    	break;
+		    // Student IUT
+		    case 14: case 15: case 16: case 17: case 18: case 19 :
+		    	listStudent.add(new Student_IUT(this.board[x][y]));
+		    	this.board[x][y].setNbStudent(this.board[x][y].getNbStudent() + 1);;
+		    	break;
+		    // Foreigner Student
+		    case 20 : 
+		    	listStudent.add(new Student_foreigners(this.board[x][y]));
+		    	this.board[x][y].setNbStudent(this.board[x][y].getNbStudent() + 1);;
+		    	break;
+		    }
+		}
 	}
 
 

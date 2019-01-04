@@ -126,10 +126,13 @@ public class ButtonPane extends JPanel implements ActionListener {
 			gc.getGamePane().getCurrentProf().getCurrent_case().setNoise(gc.getGamePane().getCurrentProf().getCurrent_case().getNoise() + 1);
 		}
 		else if (source == this.ouvrirCoffre) {
-			
+			gc.getGamePane().getBoard().addHumanoide(2, 1);
+			gc.getGamePane().getBoard().addHumanoide(2, 2);
+			gc.getGamePane().getBoard().addHumanoide(2, 3);
+			gc.getGamePane().getBoard().addHumanoide(2, 4);
 		}
 		else if (source == this.fouillerPiece) {
-			
+						
 		}
 		else if (source == this.jeterItem) {
 			String it1 = "Vide";
