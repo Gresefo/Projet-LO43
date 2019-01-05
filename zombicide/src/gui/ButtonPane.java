@@ -389,7 +389,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun étudiant de ce type ici.", "Les lunettes de soleil n'étaient pas une si bonne idée...", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun étudiant de ce type ici.                                           ", "Les lunettes de soleil n'étaient pas une si bonne idée...", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	
