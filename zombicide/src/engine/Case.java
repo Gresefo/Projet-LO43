@@ -92,9 +92,10 @@ public class Case {
 	public boolean isStudentSpawn() {
 		return isStudentSpawn;
 	}
-	public void setPosition(int a, int b) {
+	public void setPosition(int a, int b/*,Board board*/) {
 		this.x = a;
 		this.y = b;
+		//this=board.getBoard()[x][y];
 	}
 	public int getX() {
 		return x;
