@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import engine.Professor;
 import engine.Student;
@@ -27,6 +28,8 @@ import engine.Zullo;
 public class GamePane extends JPanel {
 	private static final long serialVersionUID = -5201433530107117026L;
 	
+	private JFrame topLevelFrame;
+	
 	private BufferedImage GRILLE, GRILLE_FERME, S1, S2, S3, S4, S5, S6, S7, S8, COFFRE_OP;
 	private BufferedImage GECHTER, FLESCH, LACAILLE, ZULLO;
 	private BufferedImage BRUIT1, BRUIT2, BRUIT3, BRUIT4;
@@ -38,8 +41,9 @@ public class GamePane extends JPanel {
 	
 	/*******************  Constructor  ********************/
 	
-	public GamePane() {
+	public GamePane(JFrame topLevelFrame) {
 		super();
+		this.topLevelFrame = topLevelFrame;
 		this.setPreferredSize(new Dimension(1120, 800));
 		try {
 			//GECHTER_IMG = ImageIO.read(new File("img/gechter.png"));
@@ -496,5 +500,8 @@ public class GamePane extends JPanel {
 
 	public void setCoffre4(boolean coffre4) {
 		this.coffre4 = coffre4;
+	}
+	public JFrame getTopLevelFrame() {
+		return this.topLevelFrame;
 	}
 }

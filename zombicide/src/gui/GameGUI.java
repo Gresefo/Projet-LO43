@@ -14,7 +14,7 @@ public class GameGUI extends JFrame {
 	private InfoPane infoPane;
 
 	public GameGUI() {
-		gamePane = new GamePane();
+		gamePane = new GamePane(this);
 		infoPane = new InfoPane();
 		buttonPane = new ButtonPane(gamePane, infoPane);
 		infoPane.setButtonPane(buttonPane);

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import control.GameController;
 
 import engine.Case;
+import main.Main;
 
 
 public class ButtonPane extends JPanel implements ActionListener {
@@ -388,7 +389,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else
 		{
-			// AFFicher le message "Il n'y a aucun étudiant de ce type dans cette case"
+			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun étudiant de ce tpe ici.", "Les llunettes de soleil n'étaient pas une si bonne idée...", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	
@@ -411,18 +412,27 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Function that end the game in case of loose
 	public void gameover()
 	{
-		//afficher un message
-		//retourner au menu
-		//liberer la memoire ???
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Malheureusement, nos valeureux professeurs n'ont pas été capable "
+				+ "de surmonter le défi. Les élèves ont triomphés, ne sont toujours pas inscrit et ce sont plaint. Nos "
+				+ "héros ont eu droit à une petite visite du directeur\nqui leur annonça qu'ils devront retourner s'exercer "
+				+ "dans une école primaire. Peut être que dans quelques années l'expérience qu'ils y auront acquis "
+				+ "leur permettra de faire face à des situations aussi extremes\nune seconde fois ? Personne ne sait"
+				+ " de quoi l'avenir sera fait.", "Perdu...", JOptionPane.WARNING_MESSAGE);
+		gc.getGamePane().getTopLevelFrame().dispose();
+		Main.startGame();
 	}
 	
 	// Function that end the game in case of win
 	public void gameWon()
 	{
 		System.out.println("yes");
-		//afficher un message
-		//retourner au menu
-		//liberer la memoire ???
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors là... ils ont vaincu la mort. Pire qu'une armée de zombie ? Une "
+				+ "armée d'étudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos héros ! "
+				+ "Ils sont parvenu à rentrer chez eux, mais en plus,\nIls ont reçu un appel pour une petite augmentation ! "
+				+ "Bon, ce n'est certes qu'un bon de 10€ pour la boutique UTBM, mais, c'est déjà un bon début. ", 
+				"Félicitation !", JOptionPane.PLAIN_MESSAGE);
+		gc.getGamePane().getTopLevelFrame().dispose();
+		Main.startGame();
 	}
 	
 	/*******************  Getters and Setters  ********************/
