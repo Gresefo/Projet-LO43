@@ -8,6 +8,7 @@ public class Student_BDS extends Student{
 		action = 2;
 		health = 1;
 		this.setCurrent_case(c);
+		studentType = 1;
 	}
 
 	/*******************  Operations  ********************/

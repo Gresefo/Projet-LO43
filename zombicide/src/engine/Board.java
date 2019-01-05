@@ -112,7 +112,7 @@ public class Board {
 		// Put null for every professor dead
 		for (int i = 0; i < 4; i++)
 		{
-			if (listProf[i].health <= 0)
+			if (listProf[i] != null && listProf[i].health <= 0)
 				listProf[i] = null;
 		}
 		

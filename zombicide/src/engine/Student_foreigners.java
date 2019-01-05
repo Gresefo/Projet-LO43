@@ -7,6 +7,7 @@ public class Student_foreigners extends Student{
 		super();
 		health = 3;
 		this.setCurrent_case(c);
+		studentType = 3;
 	}
 	
 	/*******************  Operations  ********************/

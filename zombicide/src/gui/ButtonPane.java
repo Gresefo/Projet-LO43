@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import control.GameController;
 
+import engine.Case;
+
 
 public class ButtonPane extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -5352856784205692008L;
@@ -119,7 +121,33 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else if (source == this.attaquer) 
 		{
-			
+			if (gc.getGamePane().getCurrentProf().getListItem()[0] != null)
+			{
+				if (gc.getGamePane().getCurrentProf().getListItem()[0].getIsWeapon())
+				{
+					// If he has two weapons
+					if (gc.getGamePane().getCurrentProf().getListItem()[1] != null && gc.getGamePane().getCurrentProf().getListItem()[1].getIsWeapon())
+					{
+						String it1 = gc.getGamePane().getCurrentProf().getListItem()[0].getName();
+						String it2 = gc.getGamePane().getCurrentProf().getListItem()[1].getName();
+						String[] reponse = {it1, it2}; 
+						int rang = JOptionPane.showOptionDialog(null,"Choisir avec quelle arme attaquer","Utiliser quelle arme ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+						// Use the Item rang
+						chooseCase(rang);
+					}
+					else
+					{
+						// Use the Item 0
+						chooseCase(0);
+						
+					}
+				}
+				else if (gc.getGamePane().getCurrentProf().getListItem()[1] != null && gc.getGamePane().getCurrentProf().getListItem()[1].getIsWeapon())
+				{
+					// Use the Item 1
+					chooseCase(1);
+				}
+			}
 		}
 		else if (source == this.persoSuivant) 
 		{
@@ -241,6 +269,127 @@ public class ButtonPane extends JPanel implements ActionListener {
 				gameover();
 		}
 		infoPane.repaint();
+	}
+	
+	// Choose a case to attack
+	public void chooseCase (int nbWeapon)
+	{
+		switch(gc.getGamePane().getCurrentProf().getListItem()[nbWeapon].getRange())
+		{
+		case 0:
+			chooseTarget(nbWeapon, gc.getGamePane().getCurrentProf().getCurrent_case());
+			break;
+		case 1:
+			String[] reponse = {"Annuler", "Annuler", "Annuler", "Annuler"};
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(0))
+				reponse[0] = "Une case au dessus";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(1))
+				reponse[1] = "Une case en dessous";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(2))
+				reponse[2] = "Une case a droite";	
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(3))
+				reponse[3] = "Une case a gauche";
+	    	int rang = JOptionPane.showOptionDialog(null,"Choisir quelle case attaquer","Quelle case attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(rang))
+			{
+				switch(rang)
+				{
+				case 0:
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1]);
+					break;
+				case 1:
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1]);
+					break;
+				case 2:
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					break;
+				case 3:
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					break;
+				}
+			}
+	    	break;
+		case 2:
+			String[] reponse2 = {"Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler"};
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(0))
+				reponse2[0] = "Une case au dessus";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(1))
+				reponse2[1] = "Une case en dessous";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(2))
+				reponse2[2] = "Une case a droite";	
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(3))
+				reponse2[3] = "Une case a gauche";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(0) &&
+					gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1].getIsLinkedTo(0))
+				reponse2[4] = "Deux cases au dessus";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(1) &&
+					gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1].getIsLinkedTo(1))
+				reponse2[5] = "Deux cases en dessous";
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(2) &&
+					gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()].getIsLinkedTo(2))
+				reponse2[6] = "Deux cases a droite";	
+			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(3) &&
+					gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()].getIsLinkedTo(3))
+				reponse2[7] = "Deux cases a gauche";
+	    	int rang2 = JOptionPane.showOptionDialog(null,"Choisir quelle case attaquer","Quelle case attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse2,reponse2);
+			switch(rang2)
+			{
+			case 0:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1]);
+				break;
+			case 1:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1]);
+				break;
+			case 2:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+				break;
+			case 3:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+				break;
+			case 4:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 2]);
+				break;
+			case 5:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 2]);
+				break;
+			case 6:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 2][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+				break;
+			case 7:
+				if(reponse2[rang2] != "Annuler")
+					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 2][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+				break;	
+			}
+			break;
+		}
+	}
+	
+	// Choose a target to attack
+	public void chooseTarget (int nbWeapon, Case caseTarget)
+	{
+		String reponse[] = {"TC", "BDS", "IUT", "Foreigner"};
+		int rang = JOptionPane.showOptionDialog(null,"Choisir quel type d'élève a attaquer sur cette case","Quel type d'élève attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+		int size = gc.getGamePane().getBoard().getListStudent().size();
+		int i = 0;
+		while ( i < size && gc.getGamePane().getBoard().getListStudent().get(i).getStudentType() != rang)
+		{
+			i++;
+		}
+		if (i < size)
+		{
+			//attaquer l'eleve i 
+		}
+		else
+		{
+			// AFFicher le message "Il n'y a aucun étudiant de ce type dans cette case"
+		}
 	}
 	
 	// Function that test if the game is won

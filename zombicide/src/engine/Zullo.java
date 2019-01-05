@@ -9,7 +9,7 @@ public class Zullo extends Professor{
 		{
 			int i = 0;
 			int size = board.getListStudent().size();
-			while(i < size || (board.getListStudent().get(i).getHealth() != 1 && board.getListStudent().get(i).getCurrent_case() != this.current_case)) 
+			while(i < size && (board.getListStudent().get(i).getHealth() != 1 && board.getListStudent().get(i).getCurrent_case() != this.current_case)) 
 			{
 				i++;
 			}

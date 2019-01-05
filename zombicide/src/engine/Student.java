@@ -1,6 +1,7 @@
 package engine;
 
 public abstract class Student extends Humanoides{
+	int studentType; //0 TC, 1 BDS, 2 IUT, 3 Foreigners
 
 	/*******************  Constructor  ********************/
 	
@@ -9,11 +10,21 @@ public abstract class Student extends Humanoides{
 		action = 1; 
 	}
 	
+	/*******************  Getters and Setters  ********************/
+
+	public int getStudentType() {
+		return studentType;
+	}
+
+	public void setStudentType(int studentType) {
+		this.studentType = studentType;
+	}
+	
 	/*******************  Operations  ********************/
 	
 	// Puts back the action point of every student
 	public abstract void setBackActionPoint();
-	
+
 	// Deal damage to a professor in the same case
 	public void attack(Humanoides prof) {
 		prof.health--;
@@ -32,7 +43,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.getBoard()[tmp.getX()][tmp.getY() + 1];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listProf[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();
 				}
@@ -46,7 +57,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX()][tmp.getY() - 1];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listProf[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();		
 				}
@@ -60,7 +71,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX() + 1][tmp.getY()];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listProf[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();
 				}
@@ -74,7 +85,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX() - 1][tmp.getY()];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listProf[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();		
 				}

@@ -184,7 +184,7 @@ public abstract class Professor extends Humanoides {
 		
 	}
 	
-	protected boolean reachTarget(Humanoides cible, Board board) 
+	protected boolean reachTarget(Humanoides cible, Board board)
 	{
 		int ecartX=current_case.getX()-cible.getCase().getX(),ecartY=current_case.getX()-cible.getCase().getX();
 		if(walkPathX(cible,board) && walkPathY(cible,board) && ecartX==0 || ecartY==0)

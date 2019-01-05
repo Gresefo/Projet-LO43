@@ -7,6 +7,7 @@ public class Student_IUT extends Student {
 		super();
 		health = 2;
 		this.setCurrent_case(c);
+		studentType = 2;
 	}
 	
 	/*******************  Operations  ********************/

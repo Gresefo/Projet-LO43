@@ -7,6 +7,7 @@ public class Student_TC extends Student{
 		super();
 		health = 1;
 		this.setCurrent_case(c);
+		studentType = 0;
 	}
 
 	/*******************  Operations  ********************/
