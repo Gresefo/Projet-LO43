@@ -29,7 +29,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 	private JButton attaquer = new JButton("Attaquer");
 	private JButton utiliserEffet = new JButton("Utiliser l'effet");
 	private JButton ouvrirCoffre = new JButton("Ouvrir le coffre");
-	private JButton fouillerPiece = new JButton("Fouiller la pièce");
+	private JButton fouillerPiece = new JButton("Fouiller la piÃ¨ce");
 	private JButton jeterItem = new JButton("Jeter un item");
 	private JButton echangerPlaceItem = new JButton("Echanger place item");
 	
@@ -222,10 +222,10 @@ public class ButtonPane extends JPanel implements ActionListener {
 			}
 			
 			String[] reponse = {it1, it2, it3, it4, it5};
-        	int rang = JOptionPane.showOptionDialog(null,"Choisir le premier item à changer de place","Changer la place de quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        	int rang = JOptionPane.showOptionDialog(null,"Choisir le premier item Ã  changer de place","Changer la place de quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
         	if (gc.getGamePane().getCurrentProf().getListItem()[rang] != null)
         	{
-        		int rang2 = JOptionPane.showOptionDialog(null,"Choisir le deuxième item à changer de place","Changer avec quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        		int rang2 = JOptionPane.showOptionDialog(null,"Choisir le deuxiÃ¨me item Ã  changer de place","Changer avec quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
         		if (gc.getGamePane().getCurrentProf().getListItem()[rang2] != null && rang != rang2)
         		{
         			gc.getGamePane().getCurrentProf().switchingItem(rang, rang2);
@@ -376,7 +376,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 	public void chooseTarget (int nbWeapon, Case caseTarget)
 	{
 		String reponse[] = {"TC", "BDS", "IUT", "Foreigner"};
-		int rang = JOptionPane.showOptionDialog(null,"Choisir quel type d'élève a attaquer sur cette case","Quel type d'élève attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+		int rang = JOptionPane.showOptionDialog(null,"Choisir quel type d'Ã©lÃ¨ve a attaquer sur cette case","Quel type d'Ã©lÃ¨ve attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
 		int size = gc.getGamePane().getBoard().getListStudent().size();
 		int i = 0;
 		while ( i < size && gc.getGamePane().getBoard().getListStudent().get(i).getStudentType() != rang)
@@ -389,7 +389,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun étudiant de ce tpe ici.", "Les llunettes de soleil n'étaient pas une si bonne idée...", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun Ã©tudiant de ce type ici.", "Les llunettes de soleil n'Ã©taient pas une si bonne idÃ©e...", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	
@@ -412,11 +412,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Function that end the game in case of loose
 	public void gameover()
 	{
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Malheureusement, nos valeureux professeurs n'ont pas été capable "
-				+ "de surmonter le défi. Les élèves ont triomphés, ne sont toujours pas inscrit et ce sont plaint. Nos "
-				+ "héros ont eu droit à une petite visite du directeur\nqui leur annonça qu'ils devront retourner s'exercer "
-				+ "dans une école primaire. Peut être que dans quelques années l'expérience qu'ils y auront acquis "
-				+ "leur permettra de faire face à des situations aussi extremes\nune seconde fois ? Personne ne sait"
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Malheureusement, nos valeureux professeurs n'ont pas Ã©tÃ© capable "
+				+ "de surmonter le dÃ©fi. Les Ã©lÃ¨ves ont triomphÃ©s, ne sont toujours pas inscrit et ce sont plaint. Nos "
+				+ "hÃ©ros ont eu droit Ã  une petite visite du directeur\nqui leur annonÃ§a qu'ils devront retourner s'exercer "
+				+ "dans une Ã©cole primaire. Peut Ãªtre que dans quelques annÃ©es l'expÃ©rience qu'ils y auront acquis "
+				+ "leur permettra de faire face Ã  des situations aussi extremes\nune seconde fois ? Personne ne sait"
 				+ " de quoi l'avenir sera fait.", "Perdu...", JOptionPane.WARNING_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
 		Main.startGame();
@@ -426,11 +426,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	public void gameWon()
 	{
 		System.out.println("yes");
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors là... ils ont vaincu la mort. Pire qu'une armée de zombie ? Une "
-				+ "armée d'étudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos héros ! "
-				+ "Ils sont parvenu à rentrer chez eux, mais en plus,\nIls ont reçu un appel pour une petite augmentation ! "
-				+ "Bon, ce n'est certes qu'un bon de 10€ pour la boutique UTBM, mais, c'est déjà un bon début. ", 
-				"Félicitation !", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors lÃ ... ils ont vaincu la mort. Pire qu'une armÃ©e de zombie ? Une "
+				+ "armÃ©e d'Ã©tudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos hÃ©ros ! "
+				+ "Ils sont parvenu Ã  rentrer chez eux, mais en plus,\nIls ont reÃ§u un appel pour une petite augmentation ! "
+				+ "Bon, ce n'est certes qu'un bon de 10Â€ pour la boutique UTBM, mais, c'est dÃ©jÃ  un bon dÃ©but. ", 
+				"FÃ©licitation !", JOptionPane.PLAIN_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
 		Main.startGame();
 	}
