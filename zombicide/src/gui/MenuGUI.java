@@ -42,7 +42,11 @@ public class MenuGUI extends JFrame implements KeyListener, MouseListener, Mouse
 		GameGUI fen = new GameGUI();
 		fen.createWindows();
 	}
-	private void actionInfo() {System.out.println("INFO !");}
+	private void actionInfo() {
+		this.dispose();
+		InfoGUI fen = new InfoGUI();
+		fen.createWindow();
+	}
 	private void actionQuit() {
 		this.dispose();
 	}

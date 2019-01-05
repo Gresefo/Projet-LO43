@@ -1,7 +1,12 @@
 package engine;
 
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import java.util.InputMismatchException;
+
+import gui.ButtonPane;;
 
 public abstract class Professor extends Humanoides {
 	protected int level;
@@ -21,251 +26,61 @@ public abstract class Professor extends Humanoides {
 	
 	/*******************  Operations  ********************/
 	
-	public boolean attack(Humanoides huma, Board board) throws AttackException
+	// Makes a professor attack a student
+	public void attackStudent(Board board, int idStudent, int nWeapon, ButtonPane bp)
 	{
-		if(action>0)
+		// Check if the weapon is ambidextrous and the professor get two of them
+		if(listItem[nWeapon].getIsAmbidextrous())
 		{
-			boolean saisie=false;
-			int id;
-			double distance=Math.sqrt(Math.pow(current_case.getX()-huma.getCase().getX(),2)+Math.pow(current_case.getY()-huma.getCase().getY(),2));//pythagore et calcul distance
-			int dist=(int)distance;
-			if(listItem[0]==null && listItem[1]==null)
-				throw new AttackException("Aucune Arme en main");
-			if(listItem[0].getIsWeapon()==false && listItem[1].getIsWeapon()==false)
-				throw new AttackException("Aucune Arme en main");
-			if(listItem[0]!=null && listItem[0].getIsWeapon())
+			if (nWeapon == 0 && listItem[1] != null && listItem[1] == listItem[0]) 
 			{
-				id=0;
+				attackStudent2(board, idStudent, nWeapon, 2, bp);
 			}
+			else if (nWeapon == 1 && listItem[1] == listItem[0])
+			{
+				attackStudent2(board, idStudent, nWeapon, 2, bp);
+			}
+			// Don't have two same weapons
 			else
 			{
-				id=1;
-			}
-			if(listItem[0]!=listItem[1] && listItem[1]!=null && listItem[1].getIsWeapon() && listItem[0]!=null && listItem[0].getIsWeapon() )
-			{
-				while(!saisie)
-				{
-				try {
-					String newLine = System.getProperty("line.separator");
-					Scanner sc = new Scanner(System.in);
-					System.out.println("Quelle arme utiliser? "+newLine+"1: "+listItem[0].getName()+ "|dégats :"+listItem[0].getDamage()+newLine+"2: "+listItem[1].getName()+"|dégats :"+listItem[1].getDamage());
-					id = sc.nextInt()-1;
-					System.out.println("Vous avez saisi  : " + id);
-					sc.close();
-					if(id!=1 && id!=0)
-						throw new AttackException("mauvaise saisie");
-					saisie=true;
-				}catch(InputMismatchException IME)
-				{System.out.println("mauvaise saisie");
-				saisie=false;}
-				catch(AttackException e)
-						{System.out.println("mauvaise saisie");
-						saisie=false;}
-				}
-			}
-			/*else 
-			{
-				if(listItem[0]!=null && listItem[0].getIsWeapon())
-				{
-					id=0;
-				}
-				else
-				{
-					id=1;
-				}
-			}*/
-			if(dist==0)
-			{
-				return attaqueCac(id,board, huma);
-			}
-			else
-			{
-				return attaqueDistance(id,board,huma,dist);
+				attackStudent2(board, idStudent, nWeapon, 1, bp);
 			}
 		}
-		return false;
+		else // Non ambidextrous attack
+		{
+			attackStudent2(board, idStudent, nWeapon, 1, bp);
+		}
 	}
 	
-	public boolean attaqueCac(int id,Board board,Humanoides huma)
+	//Makes a professor attack a student
+	public void attackStudent2(Board board, int idStudent, int nWeapon, int amb, ButtonPane bp)
 	{
-		int id2;
-		if(id==0) {id2=1;}else {id2=0;}
-		if(reachTarget(huma,board))
+		if (board.getListStudent().get(idStudent).getHealth() <= listItem[nWeapon].getDamage())
 		{
-		int res = 0;
-		boolean boucle=true;
-		if(listItem[id].getIsAmbidextrous()==false && listItem[0]==listItem[1] && listItem[id2]!=null)
-		{
-			System.out.println("Bonus ambidextre");
-			for(int i = 0; boucle && i < listItem[id].getNb_Dice()*2; i++)
+			int i = 0, nbThrow = listItem[nWeapon].getNb_Dice() * amb, res = 0;
+			boolean success = false;
+			while (i < nbThrow && success == false)
 			{
 				res = dice.rollDice();
-				if(res >= listItem[id].getResult_Dice())
+				i++;
+				if(res >= listItem[nWeapon].getResult_Dice())
 				{
-					if(huma.health <= listItem[id].getDamage())
-					{
-						huma.finalize();// tuer le student, le faire disparaitre de la list dans board
-						huma=null;
-						boucle=false;
-					}
-				}
-			}
-		}
-		else
-		{
-			for(int i = 0; boucle && i < listItem[id].getNb_Dice(); i++)
-			{
-				res = dice.rollDice();
-				if(res >= listItem[id].getResult_Dice())
-				{
-					if(huma.health <= listItem[id].getDamage())
-					{
-						huma.finalize();// tuer le student, le faire disparaitre de la list dans board
-						huma=null;
-						boucle=false;
-					}
-				}
-				
-			}
-		}
-		action--;
-		}
-		else {return false;}
-		return true;
-	}
-	
-	public boolean attaqueDistance(int id,Board board,Humanoides huma,int dist)
-	{
-		int id2;
-		if(id==0) {id2=1;}else {id2=0;}
-		int range=listItem[0].getRange();
-		if(reachTarget(huma,board) && dist<=range)
-		{
-			int res = 0;
-			boolean boucle=true;
-			if(listItem[id].getIsAmbidextrous()==false && listItem[0]==listItem[1] && listItem[id2]!=null)
-			{
-				System.out.println("Bonus ambidextre");
-				for(int i = 0; boucle && i < listItem[id].getNb_Dice()*2; i++)
-				{
-					res = dice.rollDice();
-					if(res >= listItem[id].getResult_Dice())
-					{
-						if(huma.health <= listItem[id].getDamage())
-						{
-							huma.finalize();// tuer le student, le faire disparaitre de la list dans board
-							huma=null;
-							boucle=false;
-						}
-					}
-				}
-			}
-			else
-			{
-				for(int i = 0; boucle && i < listItem[id].getNb_Dice(); i++)
-				{
-					res = dice.rollDice();
-					if(res >= listItem[id].getResult_Dice())
-					{
-						if(huma.health <= listItem[id].getDamage())
-						{
-							huma.finalize();// tuer le student, le faire disparaitre de la list dans board
-							huma=null;
-							boucle=false;
-						}
-					}
-					
+					board.getListStudent().remove(idStudent);
+					success = true;
+					current_case.setNbStudent(current_case.getNbStudent() - 1);
+					level++;
 				}
 			}
 			action--;
-		}
-		else {return false;}
-		return true;
-		
-	}
-	
-	protected boolean reachTarget(Humanoides cible, Board board)
-	{
-		int ecartX=current_case.getX()-cible.getCase().getX(),ecartY=current_case.getX()-cible.getCase().getX();
-		if(walkPathX(cible,board) && walkPathY(cible,board) && ecartX==0 || ecartY==0)
-		{
-			return true;
-		}
-		else if(ecartX==0 && ecartY==0)
-		{
-			System.out.println("erreur, attaque en diagonale impossible");
-		}
-		return false;
-	}
-
-	protected boolean walkPathX(Humanoides cible,Board board)
-	{
-		int ecart=current_case.getX()-cible.getCase().getX();
-		Case pointer=current_case;
-		if(ecart==0)
-		{
-			return true;
-		}
-		if(ecart<0)
-		{
-			while(pointer != cible.getCase())
+			if(id != 2 && listItem[nWeapon].getIsSilentAttack() == false) // M. Flesch doesn't make noise when attacking
+				current_case.setNoise(current_case.getNoise() + 1);
+			if (success == false)
 			{
-				if(pointer.getIsLinkedTo(3)==false)
-				{
-					return false;
-				}
-				pointer=board.board[pointer.getX()-1][pointer.getY()];
+				bp.printFailedAttack();
 			}
-			return true;
-					
 		}
 		else
-		{
-			while(pointer != cible.getCase())
-			{
-				if(pointer.getIsLinkedTo(2)==false)
-				{
-					return false;
-				}
-				pointer=board.board[pointer.getX()+1][pointer.getY()];
-			}
-			return true;
-		}
-		
-	}
-	
-	protected boolean walkPathY(Humanoides cible,Board board)
-	{
-		int ecart=current_case.getX()-cible.getCase().getX();
-		Case pointer=current_case;
-		if(ecart==0)
-		{
-			return true;
-		}
-		if(ecart<0)
-		{
-			while(pointer != cible.getCase())
-			{
-				if(pointer.getIsLinkedTo(1)==false)
-				{
-					return false;
-				}
-				pointer=board.board[pointer.getX()][pointer.getY()-1];
-			}
-			return true;
-		}
-		else
-		{
-			while(pointer != cible.getCase())
-			{
-				if(pointer.getIsLinkedTo(0)==false)
-				{
-					return false;
-				}
-				pointer=board.board[pointer.getX()][pointer.getY()+1];
-			}
-			return true;
-		}
+			bp.printWeaponTooWeak();
 	}
 	
 	//The super power of each professor
@@ -384,13 +199,13 @@ public abstract class Professor extends Humanoides {
 	}
 	
 	// Function call by a professor to open a door and when opening the out
-	public void openDoor (Board board)
+	public void openDoor (Board board, ButtonPane bp)
 	{
-		openDoor2 (board, current_case.getX(), current_case.getY());
+		openDoor2 (board, current_case.getX(), current_case.getY(), bp);
 	}
 	
 	// Open the door of the case[x][y] if there is a door to open
-	public void openDoor2 (Board board, int x, int y)
+	public void openDoor2 (Board board, int x, int y, ButtonPane bp)
 	{
 		if (board.board[x][y].getHasDoor() != 0 && ((listItem[0]!= null && listItem[0].getIsOpeningDoor()) || (listItem[1] != null && listItem[1].getIsOpeningDoor())))
 		{
@@ -427,6 +242,8 @@ public abstract class Professor extends Humanoides {
 					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
 			}
 		}
+		else
+			bp.printCantOpenDoor();
 	}
 	
 	/*******************  Getters and Setters  ********************/
