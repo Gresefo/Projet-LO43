@@ -2,26 +2,26 @@ package engine;
 
 import java.util.Scanner; 
 import java.util.InputMismatchException;
-public class Professor extends Humanoides {
+
+public abstract class Professor extends Humanoides {
 	protected int level;
 	protected Item listItem[] = new Item[5];
-
-	//protected Weapon listWeapon[] = new Weapon[2] ;
 	protected Dice dice = new Dice();
+	protected boolean stillHasEffect;
 
+	/*******************  Constructor  ********************/
 
-	// Constructor
 	public Professor() {
 		super();
 		this.health = 2;
 		this.action = 4;
 		this.level = 1;
+		stillHasEffect = true;
 	}
 	
-
+	/*******************  Operations  ********************/
 	
-	// Operations
-	public boolean attack(Humanoides huma, Board board) throws AttaqueException
+	public boolean attack(Humanoides huma, Board board) throws AttackException
 	{
 		if(action>0)
 		{
@@ -30,9 +30,9 @@ public class Professor extends Humanoides {
 			double distance=Math.sqrt(Math.pow(current_case.getX()-huma.getCase().getX(),2)+Math.pow(current_case.getY()-huma.getCase().getY(),2));//pythagore et calcul distance
 			int dist=(int)distance;
 			if(listItem[0]==null && listItem[1]==null)
-				throw new AttaqueException("Aucune Arme en main");
+				throw new AttackException("Aucune Arme en main");
 			if(listItem[0].getIsWeapon()==false && listItem[1].getIsWeapon()==false)
-				throw new AttaqueException("Aucune Arme en main");
+				throw new AttackException("Aucune Arme en main");
 			if(listItem[0]!=null && listItem[0].getIsWeapon())
 			{
 				id=0;
@@ -53,12 +53,12 @@ public class Professor extends Humanoides {
 					System.out.println("Vous avez saisi  : " + id);
 					sc.close();
 					if(id!=1 && id!=0)
-						throw new AttaqueException("mauvaise saisie");
+						throw new AttackException("mauvaise saisie");
 					saisie=true;
 				}catch(InputMismatchException IME)
 				{System.out.println("mauvaise saisie");
 				saisie=false;}
-				catch(AttaqueException e)
+				catch(AttackException e)
 						{System.out.println("mauvaise saisie");
 						saisie=false;}
 				}
@@ -104,8 +104,8 @@ public class Professor extends Humanoides {
 				{
 					if(huma.health <= listItem[id].getDamage())
 					{
-						huma=null;
 						huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+						huma=null;
 						boucle=false;
 					}
 				}
@@ -120,8 +120,8 @@ public class Professor extends Humanoides {
 				{
 					if(huma.health <= listItem[id].getDamage())
 					{
-						huma=null;
 						huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+						huma=null;
 						boucle=false;
 					}
 				}
@@ -153,8 +153,8 @@ public class Professor extends Humanoides {
 					{
 						if(huma.health <= listItem[id].getDamage())
 						{
-							huma=null;
 							huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+							huma=null;
 							boucle=false;
 						}
 					}
@@ -169,8 +169,8 @@ public class Professor extends Humanoides {
 					{
 						if(huma.health <= listItem[id].getDamage())
 						{
-							huma=null;
 							huma.finalize();// tuer le student, le faire disparaitre de la list dans board
+							huma=null;
 							boucle=false;
 						}
 					}
@@ -184,7 +184,7 @@ public class Professor extends Humanoides {
 		
 	}
 	
-	protected boolean reachTarget(Humanoides cible, Board board) 
+	protected boolean reachTarget(Humanoides cible, Board board)
 	{
 		int ecartX=current_case.getX()-cible.getCase().getX(),ecartY=current_case.getX()-cible.getCase().getX();
 		if(walkPathX(cible,board) && walkPathY(cible,board) && ecartX==0 || ecartY==0)
@@ -268,6 +268,32 @@ public class Professor extends Humanoides {
 		}
 	}
 	
+	//The super power of each professor
+	public abstract void effect(Board board);
+	
+	// Search the room to find an Item
+	public void searchRoom(Board board)
+	{
+		if(current_case.isSearchable() && listItem[4] == null)
+		{
+			action--;
+			int rand = (int)(Math.random() * 11);
+			while (rand == 4 || rand == 7)
+			{
+				rand = (int)(Math.random() * 11);
+			}
+			int i = 0;
+			while(listItem[i] != null)
+			{
+				i++;
+			}
+			listItem[i] = board.getListAllItems()[rand];
+			this.improveItem(board);
+			current_case.setSearchable(false);
+		}
+	}
+	
+	// Switch 2 items' places
 	public void switchingItem(int i, int j) {
 		if(i != j && i >= 0 && i <= 4 && j >= 0 && j <= 4)
 		{
@@ -278,73 +304,86 @@ public class Professor extends Humanoides {
 		}
 	}
 	
+	// Remove an Item from the inventory without creating a void between two items in the inventory
 	public void throwItem (int i)
 	{
-		if (i >= 0 && i <= 4)
+		if(listItem[i] != null)
 		{
-			listItem[i] = null;
+			for (int j = i; j < 4; j++)
+			{
+				listItem[j] = listItem[j+1];
+			}
+			listItem[4] = null;
 		}
 	}
 	
-	public void improveItem (int i,Board board)
+	// Transform an Item into a better one after a successful search
+	public void improveItem (Board board)
 	{
-		if (i >= 0 && i <= 4)
+		int i = 0;
+		while(i < 5 && listItem[i] != null)
 		{
 			int j = 0;
-			if (listItem[i].ID == 4) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
+			if (listItem[i].ID == 3) // if he owns a magnifying glass, then we delete it and change the chalks into an upgraded one
 			{
-				while (listItem[j].ID != 9 && j < 5) 
-				{
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 8) 
+				{ 
 					j++;
 				}
-				if (listItem[j].ID == 9) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 8) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[5]; //giveItem(5);
-					
+					throwItem(j);
+					listItem[i] = board.listAllItems[4]; //giveItem(4);
 				}
+				j = 0;
 			}
-			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 9) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
 			{
-				while (listItem[j].ID != 11 && j < 5) 
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 10) 
 				{
 					j++;
 				}
-				if (listItem[j].ID == 11) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 10) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[8]; //giveItem(8);
+					throwItem(j);
+					listItem[i] = board.listAllItems[7]; //giveItem(7);
 				}
+				j = 0;
 			}	
-			if (listItem[i].ID == 11) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 2
+			if (listItem[i].ID == 10) // if he owns a dictionary part 1 and a part 2, we change it into a dictionary and delete the part 1
 			{
-				while (listItem[j].ID != 10 && j < 5) 
+				while (j < 5 && listItem[j] != null && listItem[j].ID != 9) 
 				{
 					j++;
 				}
-				if (listItem[j].ID == 10) 
+				if (j < 5 && listItem[j] != null && listItem[j].ID == 9) 
 				{
-					listItem[j] = null;
-					listItem[i] = board.listAllItems[8]; //giveItem(8);
+					throwItem(j);
+					listItem[i] = board.listAllItems[7]; //giveItem(7);
 				}
 			}
+			i++;
 		}
 	}
 	
+	// Check if the objective is the true one that will open the door to win
 	public void checkObjective (Board board)
 	{
 		if (current_case.getIsPossibleObjective())
 		{
 			if (current_case.getIsTrueObjective())
 			{
-				openDoor2(board, 1, 6); // Open the door to the exit
+				board.board[6][1].setIsLinkedTo(true, 1);
+				board.board[6][0].setIsLinkedTo(true, 0);
+				current_case.setTrueObjective(false);
 			}
 			level = level + 5;
 			action--;
+			current_case.setPossibleObjective(false);
 		}
 	}
 	
-	// Function call by a professor to open a door
+	// Function call by a professor to open a door and when opening the out
 	public void openDoor (Board board)
 	{
 		openDoor2 (board, current_case.getX(), current_case.getY());
@@ -353,35 +392,57 @@ public class Professor extends Humanoides {
 	// Open the door of the case[x][y] if there is a door to open
 	public void openDoor2 (Board board, int x, int y)
 	{
-		if (board.board[x][y].getHasDoor() != 0)
+		if (board.board[x][y].getHasDoor() != 0 && ((listItem[0]!= null && listItem[0].getIsOpeningDoor()) || (listItem[1] != null && listItem[1].getIsOpeningDoor())))
 		{
 			switch(board.board[x][y].getHasDoor())
 			{
 			case 1 : // Top
 				board.board[x][y].setIsLinkedTo(true, 0);
-				board.board[x+1][y].setIsLinkedTo(true, 1);
+				board.board[x][y+1].setIsLinkedTo(true, 1);
 				break;
 			case 2 : // Bottom
 				board.board[x][y].setIsLinkedTo(true, 1);
-				board.board[x-1][y].setIsLinkedTo(true, 0);
+				board.board[x][y-1].setIsLinkedTo(true, 0);
 				break;
 			case 3 : // Right
 				board.board[x][y].setIsLinkedTo(true, 2);
-				board.board[x][y+1].setIsLinkedTo(true, 3);
+				board.board[x+1][y].setIsLinkedTo(true, 3);
 				break;
 			case 4 : // Left
 				board.board[x][y].setIsLinkedTo(true, 3);
-				board.board[x][y-1].setIsLinkedTo(true, 2);
+				board.board[x-1][y].setIsLinkedTo(true, 2);
 				break;
+			}
+			board.board[x][y].setHasDoor(0);
+			action--;
+			// If it makes noise
+			if (listItem[1] != null)
+			{
+				if (listItem[0].getIsSilentDoor() == false && listItem[1].getIsSilentDoor() == false)
+					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
+			}
+			else
+			{
+				if (listItem[0].getIsSilentDoor() == false)
+					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
 			}
 		}
 	}
 	
-	// Getters and Setters
+	/*******************  Getters and Setters  ********************/
+	
 	public int getLevel() {
 		return level;
 	}
 	
+	public boolean isStillHasEffect() {
+		return stillHasEffect;
+	}
+
+	public void setStillHasEffect(boolean stillHasEffect) {
+		this.stillHasEffect = stillHasEffect;
+	}
+
 	public void setLevel(int level) {
 		this.level = level;
 	}
@@ -402,12 +463,12 @@ public class Professor extends Humanoides {
 		this.action = action;
 	}
 
+	public Item[] getListItem() {
+		return listItem;
+	}
 
-
-	@Override
-	public void setBackActionPoint() {
-		// TODO Auto-generated method stub
-		
+	public void setListItem(Item item, int i) {
+		this.listItem[i] = item;
 	}
 
 }

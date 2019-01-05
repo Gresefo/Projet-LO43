@@ -2,5 +2,5 @@ package engine;
 
 public class Lacaille extends Professor{
 
-	public void effect(Humanoides student) {};
+	public void effect(Board board) {};
 }

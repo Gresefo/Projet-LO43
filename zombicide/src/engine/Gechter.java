@@ -2,8 +2,12 @@ package engine;
 
 public class Gechter extends Professor{
 	
-	public void effect (Humanoides student)
+	public void effect (Board board)
 	{
-		current_case.setNoise(100);
+		if (stillHasEffect)
+		{
+			current_case.setNoise(100);
+			stillHasEffect = false;
+		}
 	}
 }

@@ -1,7 +1,11 @@
 package engine;
 
+import java.awt.image.BufferedImage;
+
 public class Weapon extends Item{
+	@SuppressWarnings("unused")
 	private String name;
+	@SuppressWarnings("unused")
 	private int id;
 	private boolean isOpeningDoor;
 	private boolean isSilentDoor;
@@ -13,11 +17,10 @@ public class Weapon extends Item{
 	private boolean isAmbidextrous;
 	
 	// Constructor
-	public Weapon(int id, String _name, boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
+	public Weapon(int id, String _name, BufferedImage img, boolean isOD,boolean isSD,boolean isSA,boolean isA,int r,int nbD,int rD,int dmg)
 	{
-		
-		super(id, _name);
-		isWeapon=true;
+		super(id, _name, img);
+		isWeapon = true;
 		isOpeningDoor=isOD;
 		isSilentDoor=isSD;
 		isSilentAttack=isSA;

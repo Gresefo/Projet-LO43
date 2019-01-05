@@ -1,28 +1,35 @@
 package engine;
 
 public abstract class Student extends Humanoides{
+	int studentType; //0 TC, 1 BDS, 2 IUT, 3 Foreigners
 
-	// Constructor
+	/*******************  Constructor  ********************/
+	
 	public Student() {
 		super();
 		action = 1; 
 	}
 	
+	/*******************  Getters and Setters  ********************/
+
+	public int getStudentType() {
+		return studentType;
+	}
+
+	public void setStudentType(int studentType) {
+		this.studentType = studentType;
+	}
 	
 	/*******************  Operations  ********************/
 	
+	// Puts back the action point of every student
+	public abstract void setBackActionPoint();
+
 	// Deal damage to a professor in the same case
 	public void attack(Humanoides prof) {
 		prof.health--;
-		action = action - 2;	
+		action = action - 2;
 	}
-	
-	
-	
-	// Set back the number of action points at each beginning of round
-	public abstract void setBackActionPoint();
-	
-	
 	
 	// Look around the student and return the distance with each professor in vision site, 10 if not visible
 	public int[] checkVision (Board board)
@@ -33,10 +40,10 @@ public abstract class Student extends Humanoides{
 		Case tmp = current_case;
 		while (tmp.getIsLinkedTo(0))
 		{
-			tmp = board.board[tmp.getX()][tmp.getY() + 1];
+			tmp = board.getBoard()[tmp.getX()][tmp.getY() + 1];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listHumanoides[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();
 				}
@@ -50,7 +57,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX()][tmp.getY() - 1];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listHumanoides[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();		
 				}
@@ -64,7 +71,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX() + 1][tmp.getY()];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listHumanoides[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();
 				}
@@ -78,7 +85,7 @@ public abstract class Student extends Humanoides{
 			tmp = board.board[tmp.getX() - 1][tmp.getY()];
 			for (int i = 0; i < 4; i++)
 			{
-				if (board.listHumanoides[i].current_case == tmp)
+				if (board.listProf[i] != null && board.listProf[i].current_case == tmp)
 				{
 					isProfVisible[i] = tmp.getNoise();		
 				}
@@ -122,8 +129,7 @@ public abstract class Student extends Humanoides{
 					nbMaxNoise++;
 				}
 			}
-		}
-		
+		}		
 		// If there is no noise on the board, return null
 		if (maxNoise.getNoise() == 0)
 		{
@@ -148,13 +154,16 @@ public abstract class Student extends Humanoides{
 					}
 				}
 			}
+			return new Case(); //A enlever une fois la fonction terminer je peux pas avancer si je emts pas ça
 		}
 		
 		// Now we check the shortest path between all those cases
 		for (int i = 0; i < nbMaxNoise; i++)
 		{
-			caseNoise[i];
+			//caseNoise[i];
 		}
+		return maxNoise;
+	
 	}
 
 	
@@ -176,7 +185,7 @@ public abstract class Student extends Humanoides{
 	// - then check noise
 	// - then check distance
 	// - if there are no  prof visible, no noise at all on the board, then wait
-	public void beginningRound (Board board)
+	public void begingRound (Board board)
 	{
 		// Give back the action points
 		this.setBackActionPoint();
@@ -186,7 +195,7 @@ public abstract class Student extends Humanoides{
 		int nbProfSharingCase = 0;
 		for (int i = 0; i < 4; i++)
 		{
-			if (board.listHumanoides[i] != null && current_case == board.listHumanoides[i].current_case)
+			if (board.listProf[i] != null && current_case == board.listProf[i].current_case)
 			{
 				isSharingCaseWithProf[i] = true;
 				nbProfSharingCase++;
@@ -205,7 +214,7 @@ public abstract class Student extends Humanoides{
 				}
 				if (tmp == rand)
 				{
-					this.attack(board.listHumanoides[i]);
+					this.attack(board.listProf[i]);
 				}
 			}
 		}
@@ -234,13 +243,14 @@ public abstract class Student extends Humanoides{
 				}
 			}
 			// if there is at least one prof visible
+			@SuppressWarnings("unused")
 			int distance[] = new int[4];
 			for (int i = 0; i < 4; i++)
 			{
-				if (isProfVisible[i] == maxNoise)
-					distance[i] = computeDistance(board, board.listHumanoides[i])
+				/*if (isProfVisible[i] == maxNoise)
+					distance[i] = computeDistance(board, board.listProf[i])
 				else
-					distance[i] = 50;
+					distance[i] = 50;*/
 			}
 			if (nbMaxNoise >= 1) 
 			{
@@ -254,7 +264,7 @@ public abstract class Student extends Humanoides{
 					}
 					if (tmp == rand)
 					{
-						this.goTo(board.listHumanoides[i].getCase());
+						//this.goTo(board.listProf[i].getCase());
 					}
 				}
 			}
@@ -265,6 +275,7 @@ public abstract class Student extends Humanoides{
 			// there is no prof visible, search for noise
 			else
 			{		
+				@SuppressWarnings("unused")
 				Case noisiestCase = this.getBoardNoisiestCase(board);
 			}
 			
