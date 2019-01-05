@@ -43,7 +43,7 @@ public class Board {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Initialize a list of all Items
 		listAllItems[0] = new Weapon(0, "Stylo", STYLO, true, true, false, true, 2, 1, 4, 2);
 		listAllItems[1] = new Weapon(1, "Clé", CLE, true, true, false, true, 0, 3, 5, 2);

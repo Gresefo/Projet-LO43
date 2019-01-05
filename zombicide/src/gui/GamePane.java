@@ -228,7 +228,7 @@ public class GamePane extends JPanel {
 		
 		// First weapon for every professor
 		board.getListProf()[0].setListItem(board.getListAllItems()[2], 0);
-		board.getListProf()[1].setListItem(board.getListAllItems()[3], 0);
+		board.getListProf()[1].setListItem(board.getListAllItems()[0], 0);
 		board.getListProf()[2].setListItem(board.getListAllItems()[5], 0);
 		board.getListProf()[3].setListItem(board.getListAllItems()[1], 0);
 		

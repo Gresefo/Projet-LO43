@@ -29,7 +29,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 	private JButton attaquer = new JButton("Attaquer");
 	private JButton utiliserEffet = new JButton("Utiliser l'effet");
 	private JButton ouvrirCoffre = new JButton("Ouvrir le coffre");
-	private JButton fouillerPiece = new JButton("Fouiller la pièce");
+	private JButton fouillerPiece = new JButton("Fouiller la piece");
 	private JButton jeterItem = new JButton("Jeter un item");
 	private JButton echangerPlaceItem = new JButton("Echanger place item");
 	
@@ -77,7 +77,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		Object source = e.getSource();
 		if (source == this.ouvrirSalle) 
 		{
-			gc.getGamePane().getCurrentProf().openDoor(gc.getGamePane().getBoard());
+			gc.getGamePane().getCurrentProf().openDoor(gc.getGamePane().getBoard(), this);
 			// Repaint the right room
 			if(gc.getGamePane().getBoard().getBoard()[2][3].getHasDoor() == 0) {gc.ouvrirSalle1();}
 			if(gc.getGamePane().getBoard().getBoard()[1][3].getHasDoor() == 0) {gc.ouvrirSalle2();}
@@ -109,7 +109,6 @@ public class ButtonPane extends JPanel implements ActionListener {
 			{
 				gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
 				gc.getGamePane().getCurrentProf().walkLeft(gc.getGamePane().getBoard());
-		
 			}
 		}
 		else if (source == this.avancerDroite) 
@@ -124,6 +123,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		{
 			if (gc.getGamePane().getCurrentProf().getListItem()[0] != null)
 			{
+				// Check if the first item in hand is a weapon
 				if (gc.getGamePane().getCurrentProf().getListItem()[0].getIsWeapon())
 				{
 					// If he has two weapons
@@ -222,10 +222,10 @@ public class ButtonPane extends JPanel implements ActionListener {
 			}
 			
 			String[] reponse = {it1, it2, it3, it4, it5};
-        	int rang = JOptionPane.showOptionDialog(null,"Choisir le premier item à changer de place","Changer la place de quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        	int rang = JOptionPane.showOptionDialog(null,"Choisir le premier item a changer de place","Changer la place de quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
         	if (gc.getGamePane().getCurrentProf().getListItem()[rang] != null)
         	{
-        		int rang2 = JOptionPane.showOptionDialog(null,"Choisir le deuxième item à changer de place","Changer avec quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+        		int rang2 = JOptionPane.showOptionDialog(null,"Choisir le deuxieme item a changer de place","Changer avec quel objet ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
         		if (gc.getGamePane().getCurrentProf().getListItem()[rang2] != null && rang != rang2)
         		{
         			gc.getGamePane().getCurrentProf().switchingItem(rang, rang2);
@@ -251,6 +251,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		{
 			i++;
 		}
+		// If one of the professors haven't play, start his turn 
 		if (gc.getGamePane().getCurrentProf().getId() + i < 4)
 		{
 			gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[gc.getGamePane().getCurrentProf().getId() + i]);
@@ -258,13 +259,15 @@ public class ButtonPane extends JPanel implements ActionListener {
 		else
 		{
 			testWin();
+			// Students' round
 			gc.getGamePane().getBoard().startRoundStudent();
+			// Test loose
 			int j = 0;
 			while (j < 4 && gc.getGamePane().getBoard().getListProf()[j] == null) 
 			{
 				j++;
 			}
-			if(j < 4)
+			if(j < 4) // If not loose, start with the first professor alive
 				gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[j]);
 			else
 				gameover();
@@ -273,15 +276,15 @@ public class ButtonPane extends JPanel implements ActionListener {
 	}
 	
 	// Choose a case to attack
-	public void chooseCase (int nbWeapon)
+	public void chooseCase (int nWeapon)
 	{
-		switch(gc.getGamePane().getCurrentProf().getListItem()[nbWeapon].getRange())
+		switch(gc.getGamePane().getCurrentProf().getListItem()[nWeapon].getRange())
 		{
 		case 0:
-			chooseTarget(nbWeapon, gc.getGamePane().getCurrentProf().getCurrent_case());
+			chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 			break;
 		case 1:
-			String[] reponse = {"Annuler", "Annuler", "Annuler", "Annuler"};
+			String[] reponse = {"Annuler", "Annuler", "Annuler", "Annuler", "Votre case"};
 			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(0))
 				reponse[0] = "Une case au dessus";
 			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(1))
@@ -296,22 +299,29 @@ public class ButtonPane extends JPanel implements ActionListener {
 				switch(rang)
 				{
 				case 0:
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1]);
+					if (reponse[rang] != "Annuler")
+						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1);
 					break;
 				case 1:
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1]);
+					if (reponse[rang] != "Annuler")
+						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1);
 					break;
 				case 2:
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					if (reponse[rang] != "Annuler")
+						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 					break;
 				case 3:
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					if (reponse[rang] != "Annuler")
+						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
+					break;
+				case 4:
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 					break;
 				}
 			}
 	    	break;
 		case 2:
-			String[] reponse2 = {"Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler"};
+			String[] reponse2 = {"Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Annuler", "Votre case"};
 			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(0))
 				reponse2[0] = "Une case au dessus";
 			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(1))
@@ -337,60 +347,83 @@ public class ButtonPane extends JPanel implements ActionListener {
 			{
 			case 0:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1);
 				break;
 			case 1:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1);
 				break;
 			case 2:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 				break;
 			case 3:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					chooseTarget(nWeapon,gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 				break;
 			case 4:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 2]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 2);
 				break;
 			case 5:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX()][gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 2]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 2);
 				break;
 			case 6:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 2][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 2, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 				break;
 			case 7:
 				if(reponse2[rang2] != "Annuler")
-					chooseTarget(nbWeapon, gc.getGamePane().getBoard().getBoard()[gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 2][gc.getGamePane().getCurrentProf().getCurrent_case().getY()]);
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 2, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
 				break;	
+			case 8:
+				chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY());
+				break;
 			}
 			break;
 		}
 	}
 	
 	// Choose a target to attack
-	public void chooseTarget (int nbWeapon, Case caseTarget)
+	public void chooseTarget (int nWeapon, int x, int y)
 	{
-		String reponse[] = {"TC", "BDS", "IUT", "Foreigner"};
-		int rang = JOptionPane.showOptionDialog(null,"Choisir quel type d'élève a attaquer sur cette case","Quel type d'élève attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
+		String reponse[] = {"TC", "BDS", "IUT", "Etranger"};
+		int rang = JOptionPane.showOptionDialog(null,"Choisir quel type d'eleve a attaquer sur cette case","Quel type d'eleve attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
 		int size = gc.getGamePane().getBoard().getListStudent().size();
 		int i = 0;
-		while ( i < size && gc.getGamePane().getBoard().getListStudent().get(i).getStudentType() != rang)
+		while (i < size && (gc.getGamePane().getBoard().getListStudent().get(i).getStudentType() != rang ||
+				gc.getGamePane().getBoard().getListStudent().get(i).getCurrent_case().getX() != x ||
+				gc.getGamePane().getBoard().getListStudent().get(i).getCurrent_case().getY() != y))
 		{
 			i++;
 		}
 		if (i < size)
 		{
-			//attaquer l'eleve i 
+			gc.getGamePane().getCurrentProf().attackStudent(gc.getGamePane().getBoard(), i, nWeapon, this); 
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Il n'y a aucun étudiant de ce type ici.                                           ", "Les lunettes de soleil n'étaient pas une si bonne idée...", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "                             Il n'y a aucun etudiant de ce type ici.                                 ", "Les lunettes de soleil n'etaient pas une si bonne idee...", JOptionPane.PLAIN_MESSAGE);
 		}
+	}
+	
+	// Print a message if the attack failed
+	public void printFailedAttack()
+	{
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "L'attaque a echoue", "Echec de l'attaque", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	// Print a message if the weapon cannot kill this type of student
+	public void printWeaponTooWeak()
+	{
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "L'arme utilisee ne peut vous d�barasser de cet eleve", "Choisissez une autre arme", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	// Print a message if the weapon cannot open a door
+	public void printCantOpenDoor()
+	{
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "L'arme utilisee ne peut ouvrir de porte", "Choisissez une autre arme", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	// Function that test if the game is won
@@ -412,11 +445,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Function that end the game in case of loose
 	public void gameover()
 	{
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Malheureusement, nos valeureux professeurs n'ont pas été capable "
-				+ "de surmonter le défi. Les élèves ont triomphés, ne sont toujours pas inscrit et ce sont plaint. Nos "
-				+ "héros ont eu droit à une petite visite du directeur\nqui leur annonça qu'ils devront retourner s'exercer "
-				+ "dans une école primaire. Peut être que dans quelques années l'expérience qu'ils y auront acquis "
-				+ "leur permettra de faire face à des situations aussi extremes\nune seconde fois ? Personne ne sait"
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Malheureusement, nos valeureux professeurs n'ont pas ete capable "
+				+ "de surmonter le defi. Les eleves ont triomphes, ne sont toujours pas inscrit et ce sont plaint. Nos "
+				+ "heros ont eu droit a une petite visite du directeur\nqui leur annonca qu'ils devront retourner s'exercer "
+				+ "dans une ecole primaire. Peut etre que dans quelques annees l'experience qu'ils y auront acquis "
+				+ "leur permettra de faire face a des situations aussi extremes\nune seconde fois ? Personne ne sait"
 				+ " de quoi l'avenir sera fait.", "Perdu...", JOptionPane.WARNING_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
 		Main.startGame();
@@ -425,12 +458,11 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Function that end the game in case of win
 	public void gameWon()
 	{
-		System.out.println("yes");
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors là... ils ont vaincu la mort. Pire qu'une armée de zombie ? Une "
-				+ "armée d'étudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos héros ! "
-				+ "Ils sont parvenu à rentrer chez eux, mais en plus,\nIls ont reçu un appel pour une petite augmentation ! "
-				+ "Bon, ce n'est certes qu'un bon de 10 pour la boutique UTBM, mais, c'est déjà un bon début. ", 
-				"Félicitation !", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors la�... ils ont vaincu la mort. Pire qu'une armee de zombie ? Une "
+				+ "armee d'etudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos heros ! "
+				+ "Ils sont parvenu a rentrer chez eux, mais en plus,\nIls ont recu un appel pour une petite augmentation ! "
+				+ "Bon, ce n'est certes qu'un bon de 10 euros pour la boutique UTBM, mais, c'est deja� un bon debut. ", 
+				"Felicitation !", JOptionPane.PLAIN_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
 		Main.startGame();
 	}
