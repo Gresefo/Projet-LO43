@@ -32,7 +32,7 @@ public abstract class Student extends Humanoides{
 		int profvisible[]=this.checkVision(board),comp;
 		boolean vision=false;
 		comp=profvisible[0];
-		for(int i : profvisible)
+		for(int i =0;i<4;i++)
 		{
 			
 			if(profvisible[i] != 10 && i<2 && Math.abs(profvisible[i])<comp)
@@ -93,10 +93,10 @@ public abstract class Student extends Humanoides{
 			
 		}
 		
-		if(action>0)
+		/*if(action>0)
 		{
 			attack(board);
-		}
+		}*/
 		
 		//prof.health--;
 		//action = action - 1;
@@ -151,7 +151,7 @@ public abstract class Student extends Humanoides{
 		boolean found=false;
 		// See in the Top direction
 		Case tmp = current_case;
-		while (tmp.getIsLinkedTo(0) || found==false)
+		while (tmp.getIsLinkedTo(0) && found==false)
 		{
 			
 			for (int i = 0; i < 4; i++)
@@ -168,7 +168,7 @@ public abstract class Student extends Humanoides{
 		found=false;
 		// See in the Bottom direction
 		tmp = current_case;
-		while (tmp.getIsLinkedTo(1) || found==false)
+		while (tmp.getIsLinkedTo(1) && found==false)
 		{
 			
 			for (int i = 0; i < 4; i++)
@@ -185,7 +185,7 @@ public abstract class Student extends Humanoides{
 		found=false;
 		// See in the Right direction
 		tmp = current_case;
-		while (tmp.getIsLinkedTo(2) || found==false)
+		while (tmp.getIsLinkedTo(2) && found==false)
 		{
 			
 			for (int i = 0; i < 4; i++)
@@ -196,13 +196,14 @@ public abstract class Student extends Humanoides{
 					isProfVisible[i] = tmp.getX()-current_case.getX();
 					found = true;
 				}
-				tmp = board.board[tmp.getX() + 1][tmp.getY()];
+				//System.out.println("temp vision coord : " + tmp.getX() + " / " + tmp.getY());
 			}
+			tmp = board.board[tmp.getX() + 1][tmp.getY()];;
 		}
 		found=false;
 		// See in the Left direction
 		tmp = current_case;
-		while (tmp.getIsLinkedTo(3) || found==false)
+		while (tmp.getIsLinkedTo(3) && found==false)
 		{
 			
 			for (int i = 0; i < 4; i++)
@@ -322,8 +323,28 @@ public abstract class Student extends Humanoides{
 	public void begingRound (Board board)
 	{
 		// Give back the action points
+		Case s=board.board[0][4],t=board.board[2][0];
+		//int dist=getDistance();
+		System.out.println("case 6 2 islinkedtoo[2]: " + board.board[6][2].getIsLinkedTo(2));
+		ArrayList<Case> path=board.pathFinder(s, t) , al=new ArrayList<Case>();
+		System.out.println("al taille :" + al.size());
+		System.out.println(t.getPred().getX()+" / " +t.getPred().getY());
+		System.out.println("path taille" + path.size());
+		if(path.size()==0)
+		{
+			System.out.println("path=vide");
+		}
+		else
+		{
+			for(int k=0;k<path.size();k++)
+			{
+				System.out.println( "Case : " + path.get(k).getX() + " / " + path.get(k).getY()); 
+			}
+			
+		}
 		this.setBackActionPoint();
 		attack(board);
+		
 		
 		// Check if the student is on the same case as a professor
 		/*boolean isSharingCaseWithProf[] = {false, false, false, false};
