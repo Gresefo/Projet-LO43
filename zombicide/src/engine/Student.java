@@ -156,7 +156,7 @@ public abstract class Student extends Humanoides{
 		if(prof_sharing.isEmpty()==false)
 		{
 			Professor prof=prof_sharing.get(rand);
-			while(action<0 && prof.getHealth()>0)//prof_sharing.get(rand).getHealth()>0)
+			while(action>0 && prof.getHealth()>0)//prof_sharing.get(rand).getHealth()>0)
 			{
 				prof_sharing.get(rand).health--;
 				
