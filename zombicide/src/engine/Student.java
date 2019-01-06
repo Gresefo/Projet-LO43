@@ -28,6 +28,7 @@ public abstract class Student extends Humanoides{
 
 	// Deal damage to a professor in the same case
 	public void attack(Board board) {
+		System.out.println( "début atq,current case " + current_case.getX() + " / " + current_case.getY());
 		Case target =current_case;
 		int profvisible[]=this.checkVision(board),comp;
 		boolean vision=false;
@@ -49,6 +50,7 @@ public abstract class Student extends Humanoides{
 				vision=true;
 			}
 		}
+		System.out.println( " atq,current case " + current_case.getX() + " / " + current_case.getY());
 		for(int i=0;i<4;i++)
 		{
 			System.out.println("la visibilité" + profvisible[i]);
@@ -98,6 +100,7 @@ public abstract class Student extends Humanoides{
 			
 			
 		}
+		System.out.println( "début atq 2,current case " + current_case.getX() + " / " + current_case.getY());
 		System.out.println( "current case " + current_case.getX() + " / " + current_case.getY());
 		System.out.println("target les coord:" + target.getX() + " / " + target.getY());
 		ArrayList<Case> path=board.pathFinder(current_case, target);
@@ -106,13 +109,16 @@ public abstract class Student extends Humanoides{
 		{
 			System.out.println( "Case until target: " + path.get(k).getX() + " / " + path.get(k).getY()); 
 		}
-		while(current_case != target || path.isEmpty()==false || action>0)
+		while((current_case != target || path.isEmpty()==false) && action>0  )
 		{
+			if(action>0)
+			{
 			current_case.setNbStudent(current_case.getNbStudent()-1);
 			current_case = board.board[path.get(0).getX()][path.get(0).getY()];
 			current_case.setNbStudent(current_case.getNbStudent()+1);
 			path.remove(0);
 			action--;
+			}
 		}
 		if(current_case==target)
 		{
