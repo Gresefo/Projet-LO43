@@ -49,11 +49,27 @@ public abstract class Student extends Humanoides{
 				vision=true;
 			}
 		}
-		if(vision=false)
+		for(int i=0;i<4;i++)
+		{
+			System.out.println("la visibilité" + profvisible[i]);
+		}
+		System.out.println(vision);
+		if(vision==false)
 		{
 			ArrayList<Case> noisy_case= new ArrayList<Case>();
 			noisy_case=getBoardNoisiestCase( board);
-			if(noisy_case.size()==0)
+			if (noisy_case.size()!=0)
+			{
+				for(int k=0;k<noisy_case.size();k++)
+				{
+					System.out.println( "case bruit coord: "+ noisy_case.get(k).getX() + " / " + noisy_case.get(k).getY()); 
+				}
+			}
+			else
+			{
+				System.out.println("noisy case vide");
+			}
+			if(noisy_case.size()==0 || noisy_case.get(0).getX()==-1)
 			{
 				System.out.println("Aucun bruit/Aucun visu.");
 				return ;
@@ -61,9 +77,11 @@ public abstract class Student extends Humanoides{
 			else if(noisy_case.size()==1)
 			{
 				target=noisy_case.get(0);
+				System.out.println("target coord:" + target.getX() + " / " + target.getY());
 			}
 			else
 			{
+				
 				int min=getDistance(noisy_case.get(0),board);
 				target=noisy_case.get(0);
 				for(int k=1;k<noisy_case.size();k++)
@@ -77,21 +95,30 @@ public abstract class Student extends Humanoides{
 				}
 				
 			}
-			ArrayList<Case> path=board.pathFinder(current_case, target);
-			while(current_case != target || path.isEmpty()==false || action>0)
-			{
-				current_case.setNbStudent(current_case.getNbStudent()-1);
-				current_case = path.get(0);
-				path.remove(0);
-				action--;
-			}
-			if(current_case==target)
-			{
-				target_reached(current_case,board);
-			}
 			
 			
 		}
+		System.out.println( "current case " + current_case.getX() + " / " + current_case.getY());
+		System.out.println("target les coord:" + target.getX() + " / " + target.getY());
+		ArrayList<Case> path=board.pathFinder(current_case, target);
+		System.out.println( "current case " + current_case.getX() + " / " + current_case.getY());
+		for(int k=0;k<path.size();k++)
+		{
+			System.out.println( "Case until target: " + path.get(k).getX() + " / " + path.get(k).getY()); 
+		}
+		while(current_case != target || path.isEmpty()==false || action>0)
+		{
+			current_case.setNbStudent(current_case.getNbStudent()-1);
+			current_case = board.board[path.get(0).getX()][path.get(0).getY()];
+			current_case.setNbStudent(current_case.getNbStudent()+1);
+			path.remove(0);
+			action--;
+		}
+		if(current_case==target)
+		{
+			target_reached(current_case,board);
+		}
+		
 		
 		/*if(action>0)
 		{
@@ -101,7 +128,7 @@ public abstract class Student extends Humanoides{
 		//prof.health--;
 		//action = action - 1;
 	}
-	
+
 	public void target_reached(Case c,Board board)
 	{
 		boolean isSharingCaseWithProf[] = {false, false, false, false};
@@ -117,26 +144,32 @@ public abstract class Student extends Humanoides{
 				
 			}
 		}
+		boolean removed=false;
 		int rand = (int)(Math.random() * prof_sharing.size() );
-		while(action<0 && prof_sharing.get(rand).getHealth()>0)
+		System.out.println(rand);
+		if(prof_sharing.isEmpty()==false)
 		{
-			prof_sharing.get(rand).health--;
-			
-			if(prof_sharing.get(rand).health<=0)
+			Professor prof=prof_sharing.get(rand);
+			while(action<0 && prof.getHealth()>0)//prof_sharing.get(rand).getHealth()>0)
 			{
-				for(int k=0;k<4;k++)
+				prof_sharing.get(rand).health--;
+				
+				if(prof_sharing.get(rand).health<=0)
 				{
-					if(board.listProf[k].health <= 0 )
+					for(int k=0;k<4;k++)
 					{
-						board.listProf[k]=null;
+						if(board.listProf[k].health <= 0 )
+						{
+							board.listProf[k]=null;
+						}
 					}
+					prof_sharing.remove(rand);
+					//Professor prof=prof_sharing.get(rand);
+					//prof_sharing.get(rand).finalize();
+					//prof_sharing.remove(rand);
 				}
-				prof_sharing.remove(rand);
-				//Professor prof=prof_sharing.get(rand);
-				//prof_sharing.get(rand).finalize();
-				prof_sharing.remove(rand);
+				action=action--;
 			}
-			action=action--;
 		}
 		if(action >0 && prof_sharing.size()>0)
 		{
@@ -177,6 +210,7 @@ public abstract class Student extends Humanoides{
 				{
 					//isProfVisible[i] = tmp.getNoise();
 					isProfVisible[i] = tmp.getY()-current_case.getY();
+					System.out.println("la distance visible est"+isProfVisible[i]);
 					found = true;
 				}
 			}
@@ -194,6 +228,7 @@ public abstract class Student extends Humanoides{
 				{
 					//isProfVisible[i] = tmp.getNoise();
 					isProfVisible[i] = tmp.getX()-current_case.getX();
+					System.out.println("la distance visible est"+isProfVisible[i]);
 					found = true;
 				}
 				//System.out.println("temp vision coord : " + tmp.getX() + " / " + tmp.getY());
@@ -217,6 +252,11 @@ public abstract class Student extends Humanoides{
 			}
 			tmp = board.board[tmp.getX() - 1][tmp.getY()];
 		}
+		for(int k=0;k<4;k++)
+		{
+			System.out.println("le tableau est" + isProfVisible[k]);	
+		}
+		
 		return isProfVisible;
 	}
 	
@@ -226,11 +266,16 @@ public abstract class Student extends Humanoides{
 	public ArrayList<Case> getBoardNoisiestCase(Board board)
 	{
 		ArrayList<Case>  maxNoise = new ArrayList<Case>();
-		maxNoise.add(board.board[0][0]);
+		Case valeur_si_nulle = new Case();
+		valeur_si_nulle.setX(-1);
+		valeur_si_nulle.setY(-1);
+		valeur_si_nulle.setNoise(0);
+		maxNoise.add(valeur_si_nulle);
+		//maxNoise.add(board.board[0][0]);
 		int nbMaxNoise = 1;
 		
 		// We search the noisiest cases in the board
-		for (int j = 1; j < 7; j++)
+		for (int j = 0; j < 5; j++)
 		{
 			if (board.board[0][j].getNoise() > maxNoise.get(0).getNoise())
 			{
@@ -239,15 +284,15 @@ public abstract class Student extends Humanoides{
 				maxNoise.add(board.board[0][j]);
 				nbMaxNoise = 1;
 			}
-			if (board.board[0][j].getNoise() == maxNoise.get(0).getNoise())
+			if (board.board[0][j].getNoise() == maxNoise.get(0).getNoise() )
 			{
 				maxNoise.add(board.board[0][j]);
 				nbMaxNoise++;
 			}
 		}
-		for (int i = 1; i < 5; i++)
+		for (int i = 0; i < 7; i++)
 		{
-			for (int j = 0; j < 7; j++)
+			for (int j = 0; j < 5; j++)
 			{
 				if (board.board[i][j].getNoise() > maxNoise.get(0).getNoise())
 				{
@@ -256,7 +301,7 @@ public abstract class Student extends Humanoides{
 					maxNoise.add(board.board[i][j]);
 					nbMaxNoise = 1;
 				}
-				if (board.board[i][j].getNoise() == maxNoise.get(0).getNoise())
+				if (board.board[i][j].getNoise() == maxNoise.get(0).getNoise() )
 				{
 					maxNoise.add(board.board[i][j]);
 					nbMaxNoise++;

@@ -1,5 +1,5 @@
 package engine;
-
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -224,7 +224,7 @@ public class Board {
 			 if(current==ct) {break;}
 			 closedList.add(current);
 			 openList.remove(0);
-			 System.out.println("case :" + num + " current coord:" + current.getX() +" / " + current.getY());
+			 //System.out.println("case :" + num + " current coord:" + current.getX() +" / " + current.getY());
 			 for(int x=-1;x<2;x++)
 			 {
 				 for(int y=-1;y<2;y++)
@@ -233,10 +233,10 @@ public class Board {
 					 {
 						 if(x != 0 || y != 0)
 						 {
-							 System.out.println(x + " / " + y);
+							 //System.out.println(x + " / " + y);
 							 int xp = x + current.getX();
 							 int yp = y + current.getY();
-							 System.out.println(reachable(current, xp, yp));
+							 //System.out.println(reachable(current, xp, yp));
 							 if(reachable(current, xp, yp))
 							 {
 								 int Nextstepcost=current.getCost()+1;
@@ -254,7 +254,7 @@ public class Board {
 									 neighbour.setPred(current);
 									 openList.add(neighbour);
 									 openList=sort(openList);
-									 if(openList.size()==0)
+									 /*if(openList.size()==0)
 									 {
 										 System.out.println("openList est vide");
 									 }
@@ -264,7 +264,7 @@ public class Board {
 										 {
 										 System.out.println("openlist " + k + " " + openList.get(k).getX() + " / " +openList.get(k).getY() );
 										 }
-									}
+									}*/
 									 
 								 }
 							 }
@@ -276,6 +276,11 @@ public class Board {
 		 System.out.println("test 1");
 		 
 		 if (ct.getPred() == null) {
+			 	Case valeur_si_nulle = new Case();
+				valeur_si_nulle.setX(-1);
+				valeur_si_nulle.setY(-1);
+				valeur_si_nulle.setNoise(0);
+				path.add(valeur_si_nulle);
 				return path;
 			}
 		 Case walker=ct;
@@ -286,17 +291,31 @@ public class Board {
 			 path.add(walker.getPred());
 			 walker=walker.getPred();
 		 }
-		 System.out.println("path :");
+		/* System.out.println("path :");
 		 for(int k=0;k<path.size();k++)
 		 {
 			 System.out.println("step" + k + ":" + path.get(k).getX() + "/" + path.get(k).getY());
-		 }
+		 }*/
+		 path=invert(path);
+		 path.remove(0);
 		 return path;
 	 }
 	 
+	
+	public ArrayList<Case> invert(ArrayList<Case> path)
+	{
+		ArrayList<Case> p=new ArrayList<Case>();
+		for(int k=0;k<path.size();k++) 
+		{
+			p.add(path.get(path.size()-k-1));
+		}
+		//System.out.println("path p 1: coord" + p.get(0).getX() + " / " + p.get(0).getY() );
+		return p;
+	}
+	 
 	 public ArrayList<Case> sort(ArrayList<Case> al)//tri a bulle avec pour clé la valeur heuristic
 	 {
-		 System.out.println("debut sort");
+		 //System.out.println("debut sort");
 		 Case temp;
 		 int taille=al.size();
 		 boolean sorted=true;
@@ -317,11 +336,11 @@ public class Board {
 			 }
 			 taille--;
 		 }
-		 for(int k=0;k<al.size();k++)
+		 /*for(int k=0;k<al.size();k++)
 		 {
 			 System.out.println(al.get(k).getHeuristic());
-		 }
-		 System.out.println("fin sort");
+		 }*/
+		 //System.out.println("fin sort");
 		 return al;
 	 }
 	 
