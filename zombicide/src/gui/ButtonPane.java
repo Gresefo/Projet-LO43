@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import control.GameController;
 
-import engine.Case;
 import main.Main;
 
 
@@ -89,34 +88,94 @@ public class ButtonPane extends JPanel implements ActionListener {
 		}
 		else if (source == this.avancerHaut) 
 		{
-			if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+			// Lacaille's effect
+			if (gc.getGamePane().getCurrentProf().getId() == 1)
 			{
-				gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
-				gc.getGamePane().getCurrentProf().walkTop(gc.getGamePane().getBoard());
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction() + 2)
+				{
+					if (gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() > 2)
+					{
+						gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() + 2);
+					}
+					gc.getGamePane().getCurrentProf().walkTop(gc.getGamePane().getBoard());
+				}
+			}
+			else
+			{
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+				{
+					gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
+					gc.getGamePane().getCurrentProf().walkTop(gc.getGamePane().getBoard());
+				}
 			}
 		}
 		else if (source == this.avancerBas) 
 		{
-			if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+			// Lacaille's effect
+			if (gc.getGamePane().getCurrentProf().getId() == 1)
 			{
-				gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
-				gc.getGamePane().getCurrentProf().walkBottom(gc.getGamePane().getBoard());
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction() + 2)
+				{
+					if (gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() > 2)
+					{
+						gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() + 2);
+					}
+					gc.getGamePane().getCurrentProf().walkBottom(gc.getGamePane().getBoard());
+				}
+			}
+			else
+			{
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+				{
+					gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
+					gc.getGamePane().getCurrentProf().walkBottom(gc.getGamePane().getBoard());
+				}
 			}
 		}
 		else if (source == this.avancerGauche) 
 		{
-			if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+			// Lacaille's effect
+			if (gc.getGamePane().getCurrentProf().getId() == 1)
 			{
-				gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
-				gc.getGamePane().getCurrentProf().walkLeft(gc.getGamePane().getBoard());
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction() + 2)
+				{
+					if (gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() > 2)
+					{
+						gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() + 2);
+					}
+					gc.getGamePane().getCurrentProf().walkLeft(gc.getGamePane().getBoard());
+				}
+			}
+			else
+			{
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+				{
+					gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
+					gc.getGamePane().getCurrentProf().walkLeft(gc.getGamePane().getBoard());
+				}
 			}
 		}
 		else if (source == this.avancerDroite) 
 		{
-			if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+			// Lacaille's effect
+			if (gc.getGamePane().getCurrentProf().getId() == 1)
 			{
-				gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
-				gc.getGamePane().getCurrentProf().walkRight(gc.getGamePane().getBoard());
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction() + 2)
+				{
+					if (gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() > 2)
+					{
+						gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() + 2);
+					}
+					gc.getGamePane().getCurrentProf().walkRight(gc.getGamePane().getBoard());
+				}
+			}
+			else
+			{
+				if(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent() < gc.getGamePane().getCurrentProf().getAction())
+				{
+					gc.getGamePane().getCurrentProf().setAction(gc.getGamePane().getCurrentProf().getAction() - gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
+					gc.getGamePane().getCurrentProf().walkRight(gc.getGamePane().getBoard());
+				}
 			}
 		}
 		else if (source == this.attaquer) 
@@ -260,19 +319,29 @@ public class ButtonPane extends JPanel implements ActionListener {
 		{
 			testWin();
 			// Students' round
-			gc.getGamePane().getBoard().startRoundStudent();
-			// Test loose
+			gc.getGamePane().getBoard().startRoundStudent(this);
+			// Turn of the first professor alive
 			int j = 0;
 			while (j < 4 && gc.getGamePane().getBoard().getListProf()[j] == null) 
 			{
 				j++;
 			}
-			if(j < 4) // If not loose, start with the first professor alive
+			if(j < 4)
 				gc.getGamePane().setCurrentProf(gc.getGamePane().getBoard().getListProf()[j]);
-			else
-				gameover();
 		}
 		infoPane.repaint();
+	}
+	
+	// Function that test if the game is lost
+	public void testLoose()
+	{
+		int j = 0;
+		while (j < 4 && gc.getGamePane().getBoard().getListProf()[j] == null) 
+		{
+			j++;
+		}
+		if(j == 4)
+			gameover();
 	}
 	
 	// Choose a case to attack
@@ -294,30 +363,27 @@ public class ButtonPane extends JPanel implements ActionListener {
 			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(3))
 				reponse[3] = "Une case a gauche";
 	    	int rang = JOptionPane.showOptionDialog(null,"Choisir quelle case attaquer","Quelle case attaquer ?",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,reponse,reponse);
-			if (gc.getGamePane().getCurrentProf().getCurrent_case().getIsLinkedTo(rang))
+			switch(rang)
 			{
-				switch(rang)
-				{
-				case 0:
-					if (reponse[rang] != "Annuler")
-						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1);
-					break;
-				case 1:
-					if (reponse[rang] != "Annuler")
-						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1);
-					break;
-				case 2:
-					if (reponse[rang] != "Annuler")
-						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
-					break;
-				case 3:
-					if (reponse[rang] != "Annuler")
-						chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
-					break;
-				case 4:
-					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY());
-					break;
-				}
+			case 0:
+				if (reponse[rang] != "Annuler")
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() + 1);
+				break;
+			case 1:
+				if (reponse[rang] != "Annuler")
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY() - 1);
+				break;
+			case 2:
+				if (reponse[rang] != "Annuler")
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() + 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
+				break;
+			case 3:
+				if (reponse[rang] != "Annuler")
+					chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX() - 1, gc.getGamePane().getCurrentProf().getCurrent_case().getY());
+				break;
+			case 4:
+				chooseTarget(nWeapon, gc.getGamePane().getCurrentProf().getCurrent_case().getX(), gc.getGamePane().getCurrentProf().getCurrent_case().getY());
+				break;
 			}
 	    	break;
 		case 2:
@@ -452,7 +518,8 @@ public class ButtonPane extends JPanel implements ActionListener {
 				+ "leur permettra de faire face a des situations aussi extremes\nune seconde fois ? Personne ne sait"
 				+ " de quoi l'avenir sera fait.", "Perdu...", JOptionPane.WARNING_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
-		Main.startGame();
+		// We shutdown the game because if we come back to the main page, it will launch as much pages as their are student alive ...
+		System.exit(0);
 	}
 	
 	// Function that end the game in case of win

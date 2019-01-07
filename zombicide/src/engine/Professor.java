@@ -1,12 +1,6 @@
 package engine;
 
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
-
-import java.util.InputMismatchException;
-
-import gui.ButtonPane;;
+import gui.ButtonPane;
 
 public abstract class Professor extends Humanoides {
 	protected int level;
@@ -242,7 +236,7 @@ public abstract class Professor extends Humanoides {
 					board.board[x][y].setNoise(board.board[x][y].getNoise() + 1);
 			}
 		}
-		else
+		else if (board.board[x][y].getHasDoor() != 0)
 			bp.printCantOpenDoor();
 	}
 	

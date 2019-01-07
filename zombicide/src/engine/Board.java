@@ -3,12 +3,10 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
+import gui.ButtonPane;
 
 import javax.imageio.ImageIO;
-
-//import java.util.*;
-//import java.io.*;
 
 public class Board {
 	Case board[][] = new Case[7][5];
@@ -18,7 +16,7 @@ public class Board {
 	private BufferedImage STYLO, CLE, GUITARE, CRAIE, CRAIE_AM, FIL, LISTE, DICTIO_ANG, DICTIO_FRA, DICTIONNAIRE, LOUPE;
 	
 	
-	// Constructors
+	/*******************  Constructor  ********************/
 
 	public Board() 
 	{		
@@ -93,7 +91,7 @@ public class Board {
 	/*******************  Operations  ********************/
 	
 	// Launch the round of every student
-	public void startRoundStudent()
+	public void startRoundStudent(ButtonPane bp)
 	{
 		// Spawn new student
 		int nbNewStudent = nbNewStudent();
@@ -102,18 +100,12 @@ public class Board {
 			addHumanoide(nbNewStudent, i);
 		}
 		
-		// Do the round of every student
+		// Do the round of every student and check at the beginning of each one if the game is lost
 		int size = getListStudent().size();
 		for(int i = 0; i < size; i++)
 		{
+			bp.testLoose();
 			getListStudent().get(i).begingRound(this);
-		}
-		
-		// Put null for every professor dead
-		for (int i = 0; i < 4; i++)
-		{
-			if (listProf[i] != null && listProf[i].health <= 0)
-				listProf[i] = null;
 		}
 		
 		// Reset the noise
@@ -203,103 +195,78 @@ public class Board {
 	}
 	
 	
-	//pathfinder
-	 //ArrayList al = new ArrayList();
+	 // Path finder
 	 public ArrayList<Case> pathFinder(Case cs,Case ct)
 	 {
-		 System.out.println("debut pathfinder");
-		 Case current;
-		 cs.setCost(0);
-		 cs.setHeuristic(0);
-		 ct.setPred(null);
-		 ArrayList<Case> path=new ArrayList<Case>();
-		 ArrayList<Case> closedList = new ArrayList<Case>();
-		 ArrayList<Case> openList = new ArrayList<Case>();
-		 openList.add(cs);
-		 int num=0;
-		 while(openList.size()!=0)
+	 Case current;
+	 cs.setCost(0);
+	 cs.setHeuristic(0);
+	 ct.setPred(null);
+	 ArrayList<Case> path=new ArrayList<Case>();
+	 ArrayList<Case> closedList = new ArrayList<Case>();
+	 ArrayList<Case> openList = new ArrayList<Case>();
+	 openList.add(cs);
+	 while(openList.size()!=0)
+	 {
+		 current=openList.get(0);
+		 if(current==ct) {break;}
+		 closedList.add(current);
+		 openList.remove(0);
+		 for(int x=-1;x<2;x++)
 		 {
-			 num++;
-			 current=openList.get(0);
-			 if(current==ct) {break;}
-			 closedList.add(current);
-			 openList.remove(0);
-			 //System.out.println("case :" + num + " current coord:" + current.getX() +" / " + current.getY());
-			 for(int x=-1;x<2;x++)
+			 for(int y=-1;y<2;y++)
 			 {
-				 for(int y=-1;y<2;y++)
+				 if (x == 0 || y == 0) 
 				 {
-					 if (x == 0 || y == 0 /*&& !(x==0 && y==0)*/) 
-					 {
-						 if(x != 0 || y != 0)
+					 if(x != 0 || y != 0)
 						 {
-							 //System.out.println(x + " / " + y);
-							 int xp = x + current.getX();
-							 int yp = y + current.getY();
-							 //System.out.println(reachable(current, xp, yp));
-							 if(reachable(current, xp, yp))
+						 int xp = x + current.getX();
+						 int yp = y + current.getY();
+						 if(reachable(current, xp, yp))
+						 {
+							 int Nextstepcost=current.getCost()+1;
+							 Case neighbour=board[xp][yp];
+							 if(Nextstepcost < neighbour.getCost())
 							 {
-								 int Nextstepcost=current.getCost()+1;
-								 Case neighbour=board[xp][yp];
-								 if(Nextstepcost < neighbour.getCost())
-								 {
-									 if(openList.contains(neighbour)) {openList.remove(neighbour);}
-									 if(closedList.contains(neighbour)){closedList.remove(neighbour);}
-								 }
-								 if(!openList.contains(neighbour) && !closedList.contains(neighbour))
-								 {
-									 neighbour.setCost(Nextstepcost);
-									 int kx=ct.getX()-xp,ky=ct.getY()-yp;
-									 neighbour.setHeuristic(neighbour.getCost()+Math.sqrt((kx*kx)+(ky*ky)));
-									 neighbour.setPred(current);
-									 openList.add(neighbour);
-									 openList=sort(openList);
-									 /*if(openList.size()==0)
-									 {
-										 System.out.println("openList est vide");
-									 }
-									 else
-									 {
-										 for(int k=0;k<openList.size();k++)
-										 {
-										 System.out.println("openlist " + k + " " + openList.get(k).getX() + " / " +openList.get(k).getY() );
-										 }
-									}*/
-									 
-								 }
+								 if(openList.contains(neighbour)) {openList.remove(neighbour);}
+								 if(closedList.contains(neighbour)){closedList.remove(neighbour);}
 							 }
-						 } 
-					 }
+							 if(!openList.contains(neighbour) && !closedList.contains(neighbour))
+							 {
+								 neighbour.setCost(Nextstepcost);
+								 int kx=ct.getX()-xp,ky=ct.getY()-yp;
+								 neighbour.setHeuristic(neighbour.getCost()+Math.sqrt((kx*kx)+(ky*ky)));
+								 neighbour.setPred(current);
+								 openList.add(neighbour);
+								 openList=sort(openList);
+							 }
+						 }
+					 } 
 				 }
 			 }
 		 }
-		 System.out.println("test 1");
-		 
-		 if (ct.getPred() == null) {
-			 	Case valeur_si_nulle = new Case();
-				valeur_si_nulle.setX(-1);
-				valeur_si_nulle.setY(-1);
-				valeur_si_nulle.setNoise(0);
-				path.add(valeur_si_nulle);
-				return path;
-			}
-		 Case walker=ct;
-		 System.out.println("test 2");
-		 path.add(walker);
-		 while(walker != cs)
-		 {
-			 path.add(walker.getPred());
-			 walker=walker.getPred();
-		 }
-		/* System.out.println("path :");
-		 for(int k=0;k<path.size();k++)
-		 {
-			 System.out.println("step" + k + ":" + path.get(k).getX() + "/" + path.get(k).getY());
-		 }*/
-		 path=invert(path);
-		 path.remove(0);
-		 return path;
 	 }
+	 
+	if (ct.getPred() == null) 
+	{
+	 	Case valeur_si_nulle = new Case();
+		valeur_si_nulle.setX(-1);
+		valeur_si_nulle.setY(-1);
+		valeur_si_nulle.setNoise(0);
+		path.add(valeur_si_nulle);
+		return path;
+	}
+	Case walker=ct;
+	path.add(walker);
+	while(walker != cs)
+	{
+		path.add(walker.getPred());
+		walker=walker.getPred();
+	}
+	path=invert(path);
+	path.remove(0);
+	return path;
+}
 	 
 	
 	public ArrayList<Case> invert(ArrayList<Case> path)
@@ -309,20 +276,16 @@ public class Board {
 		{
 			p.add(path.get(path.size()-k-1));
 		}
-		//System.out.println("path p 1: coord" + p.get(0).getX() + " / " + p.get(0).getY() );
 		return p;
 	}
 	 
 	 public ArrayList<Case> sort(ArrayList<Case> al)//tri a bulle avec pour clé la valeur heuristic
 	 {
-		 //System.out.println("debut sort");
 		 Case temp;
 		 int taille=al.size();
 		 boolean sorted=true;
 		 while(!sorted)
 		 {
-		 /*for(int i=al.size()-1;i>1 && sorted;i--)
-		 {*/
 			 sorted=true;
 			 for(int j=0;j<taille-1;j++)
 			 {
@@ -336,65 +299,60 @@ public class Board {
 			 }
 			 taille--;
 		 }
-		 /*for(int k=0;k<al.size();k++)
-		 {
-			 System.out.println(al.get(k).getHeuristic());
-		 }*/
-		 //System.out.println("fin sort");
 		 return al;
 	 }
-	 
-	 public boolean reachable(Case s, int xp, int yp)
-	 {
-		 int ecartX=xp-s.getX(),ecartY=yp-s.getY();
-		 if(ecartX==0)
-		 {
-			 if(ecartY>0)//top
-			 {
-				 if(s.getIsLinkedTo(0))
-				 { return true;}
-			 }
-			 else//bottom
-			 {
-				 if(s.getIsLinkedTo(1))
-				 {
+ 
+	public boolean reachable(Case s, int xp, int yp)
+	{
+	int ecartX=xp-s.getX(),ecartY=yp-s.getY();
+	if(ecartX==0)
+	{
+		if(ecartY>0)//top
+		{
+			if(s.getIsLinkedTo(0))
+			{ return true;}
+		}
+		else//bottom
+		{
+			if(s.getIsLinkedTo(1))
+			{
+				return true;
+			}
+		}
+	}
+	else
+	{
+		if(ecartX<0)//left
+		{
+			if(s.getIsLinkedTo(3))
+			{return true;}
+		}
+		else//right
+			{
+				if(s.getIsLinkedTo(2))
+				{
 					 return true;
-				 }
-			 }
-		 }
-		 else
-		 {
-			 if(ecartX<0)//left
-			 {
-				 if(s.getIsLinkedTo(3))
-				 {return true;}
-			 }
-			 else//right
-			 {
-				 if(s.getIsLinkedTo(2))
-				 {
-					 return true;
-				 }
-			 }
-		 }
-		 return false;
-	 }
-	 
-	 
-	 public int compareCase(Case c1,Case c2)
-	 {
-		 if(c1.getHeuristic()<c2.getHeuristic())
-		 {
-			 return 1;
-		 }
-		 else if(c1.getHeuristic()==c2.getHeuristic())
-		 {
-			 return 0 ;
-		 }
-		 else
-		 {
-			 return -1;
-		 }
-	 }
+				}
+			}
+		}
+		return false;
+	}
+ 
+ 
+	public int compareCase(Case c1,Case c2)
+	{
+		if(c1.getHeuristic()<c2.getHeuristic())
+		{
+		 return 1;
+		}
+		else if(c1.getHeuristic()==c2.getHeuristic())
+		{
+			return 0 ;
+		}
+		else
+		{
+			return -1;
+		}
+	}
 	
 }
