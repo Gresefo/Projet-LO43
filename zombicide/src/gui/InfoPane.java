@@ -54,8 +54,8 @@ public class InfoPane extends JPanel {
 			g.drawImage(CARTE_ZULLO, 0, 0, this);
 		}
 		g.drawString("Action(s) disponible(s) : " + gamePane.getCurrentProf().getAction(), 10, 720);
-		g.drawString("Plainte(s) auprès du directeur avant mutation : " + gamePane.getCurrentProf().getHealth(), 10, 735);
-		g.drawString("Année(s) passée(s) dans l'enseignement : " + gamePane.getCurrentProf().getLevel(), 10, 750);
+		g.drawString("Plainte(s) aupres du directeur avant mutation : " + gamePane.getCurrentProf().getHealth(), 10, 735);
+		g.drawString("Annee(s) passee(s) dans l'enseignement : " + gamePane.getCurrentProf().getLevel(), 10, 750);
 		if (gamePane.getCurrentProf().getListItem()[0] != null) {
 			g.drawImage(gamePane.getCurrentProf().getListItem()[0].getImg(), 100, 520, this);
 		}
