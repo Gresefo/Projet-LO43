@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -49,5 +51,10 @@ public class MenuPane extends JPanel {
 			g.drawImage(BTN_UNSELECTED, 510, 500, this);
 			g.drawImage(BTN_QUIT, 510, 600, this);
 		}
+		
+		g.setColor(Color.RED);
+		g.setFont(new Font("Lucida Console", Font.BOLD, 80));
+		
+		g.drawString("La course aux UVs", 140, 240);
 	}
 }

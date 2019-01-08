@@ -304,6 +304,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 		// Reset action points and stillHasEffect
 		gc.getGamePane().getCurrentProf().setAction(4);
 		gc.getGamePane().getCurrentProf().setStillHasEffect(true);
+		//System.out.println(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
 		
 		int i = 1;
 		while(gc.getGamePane().getCurrentProf().getId() + i < 4 && gc.getGamePane().getBoard().getListProf()[gc.getGamePane().getCurrentProf().getId() + i] == null)
@@ -483,7 +484,7 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Print a message if the weapon cannot kill this type of student
 	public void printWeaponTooWeak()
 	{
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "L'arme utilisee ne peut vous débarasser de cet eleve", "Choisissez une autre arme", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "L'arme utilisee ne peut vous dï¿½barasser de cet eleve", "Choisissez une autre arme", JOptionPane.WARNING_MESSAGE);
 	}
 	
 	// Print a message if the weapon cannot open a door
@@ -525,10 +526,10 @@ public class ButtonPane extends JPanel implements ActionListener {
 	// Function that end the game in case of win
 	public void gameWon()
 	{
-		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors la ... ils ont vaincu la mort. Pire qu'une armee de zombie ? Une "
+		JOptionPane.showMessageDialog(gc.getGamePane().getTopLevelFrame(), "Alors la... ils ont vaincu la mort. Pire qu'une armee de zombie ? Une "
 				+ "armee d'etudiants aux consoles ! Mais il en faudra plus pour faire grincer des dents nos heros ! "
 				+ "Ils sont parvenu a rentrer chez eux, mais en plus,\nIls ont recu un appel pour une petite augmentation ! "
-				+ "Bon, ce n'est certes qu'un bon de 10 euros pour la boutique UTBM, mais, c'est deja  un bon debut. ", 
+				+ "Bon, ce n'est certes qu'un bon de 10 euros pour la boutique UTBM, mais, c'est deja un bon debut. ", 
 				"Felicitation !", JOptionPane.PLAIN_MESSAGE);
 		gc.getGamePane().getTopLevelFrame().dispose();
 		Main.startGame();
