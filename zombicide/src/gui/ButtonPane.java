@@ -304,7 +304,6 @@ public class ButtonPane extends JPanel implements ActionListener {
 		// Reset action points and stillHasEffect
 		gc.getGamePane().getCurrentProf().setAction(4);
 		gc.getGamePane().getCurrentProf().setStillHasEffect(true);
-		//System.out.println(gc.getGamePane().getCurrentProf().getCurrent_case().getNbStudent());
 		
 		int i = 1;
 		while(gc.getGamePane().getCurrentProf().getId() + i < 4 && gc.getGamePane().getBoard().getListProf()[gc.getGamePane().getCurrentProf().getId() + i] == null)
